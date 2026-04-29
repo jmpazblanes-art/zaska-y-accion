@@ -4,11 +4,10 @@
 *.avi
 *.gif
 
-# Fotos
+# Fotos personales (NO imágenes del blog)
 *.jpg
 *.JPG
 *.jpeg
-*.PNG
 IMG_*
 
 # Archivos comprimidos y temporales
