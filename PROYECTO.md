@@ -46,9 +46,14 @@ Claude hace TODO:
 
 ## FLUJO COMPLETO (ambos modos)
 
-### Paso 1 — Carpeta de imágenes
-Crear: `C:\Users\wiswo\Desktop\TRABAJO\proyectos-paralelos\blog cine\storybook-[slug]\`
-Copiar 11 imágenes desde `storybook-the-wire\` mapeadas por emoción/situación:
+### Paso 1 — Carpeta del título
+
+Estructura según tipo:
+- Serie → `series\[slug]\`
+- Película → `peliculas\[slug]\`
+- Documental → `documentales\[slug]\`
+
+Crear la carpeta y copiar las 11 imágenes desde `series\the-wire\` mapeadas por emoción/situación:
 
 | Imagen Wire | Situación emocional |
 |---|---|
@@ -67,10 +72,12 @@ Copiar 11 imágenes desde `storybook-the-wire\` mapeadas por emoción/situación
 El mapeo exacto varía según la historia de cada título. Claude decide qué imagen encaja mejor en cada panel.
 
 ### Paso 2 — HTML del storybook
-Archivo: `storybook-[slug].html`
-Guardar en: `C:\Users\wiswo\Desktop\TRABAJO\proyectos-paralelos\blog cine\`
+Archivo: `index.html` dentro de la carpeta del título.
+Rutas internas:
+- Imágenes: `src="image1.png"` (están en la misma carpeta)
+- Volver al blog: `href="../../index.html"`
 
-**Número de storybook:** seguir la secuencia. Consultar qué archivos `storybook-*.html` existen para saber el siguiente número.
+**Número de storybook:** seguir la secuencia. Consultar CLAUDE.md tabla STORYBOOKS PUBLICADOS para saber el siguiente número.
 
 **Estructura fija de 11 paneles:**
 - Panel 1: El pitch (Rulo presenta la peli/serie a Toni)
@@ -135,17 +142,17 @@ Propiedades (nombres exactos — respetar mayúsculas y tildes):
 
 ## STORYBOOKS PUBLICADOS
 
-| Nº | Slug | Título | Nota |
-|---|---|---|---|
-| 001 | the-wire | The Wire | 10 |
-| 002 | los-soprano | Los Soprano | 9.5 |
-| 003 | perdidos | Perdidos (Lost) | 8.0 |
-| 004 | chernobyl | Chernobyl | 9.5 |
-| 005 | el-sargento-de-hierro | El Sargento de Hierro | 7.5 |
-| 006 | godless | Godless | 8.5 |
-| 007 | the-americans | The Americans | 9.5 |
-| 008 | ozark | Ozark | 8.0 |
-| 009 | westworld | Westworld | 8.5 |
+| Nº | Categoría | Slug | Título | Nota |
+|---|---|---|---|---|
+| 001 | series | the-wire | The Wire | 9.5 |
+| 002 | series | los-soprano | Los Soprano | 9.5 |
+| 003 | series | perdidos | Perdidos (Lost) | 8.0 |
+| 004 | series | chernobyl | Chernobyl | 9.5 |
+| 005 | peliculas | el-sargento-de-hierro | El Sargento de Hierro | 7.5 |
+| 006 | series | godless | Godless | 8.5 |
+| 007 | series | the-americans | The Americans | 9.5 |
+| 008 | series | ozark | Ozark | 8.0 |
+| 009 | series | westworld | Westworld | 8.5 |
 
 El siguiente es el **Nº010**.
 
@@ -156,17 +163,21 @@ El siguiente es el **Nº010**.
 ```
 C:\Users\wiswo\Desktop\TRABAJO\proyectos-paralelos\blog cine\
 ├── index.html
-├── critica.html
-├── PROYECTO.md                          ← este fichero
-├── storybook-the-wire.html              ← Nº001
-├── storybook-los-soprano.html           ← Nº002
-├── storybook-perdidos.html              ← Nº003
-├── storybook-chernobyl.html             ← Nº004
-├── storybook-el-sargento-de-hierro.html ← Nº005
-├── storybook-godless.html               ← Nº006
-├── storybook-the-americans.html         ← Nº007
-├── storybook-ozark.html                 ← Nº008
-├── storybook-westworld.html             ← Nº009
+├── styles.css
+├── PROYECTO.md
+├── CLAUDE.md
+├── series\
+│   ├── the-wire\        index.html + image1-11.png  ← Nº001
+│   ├── los-soprano\     index.html + image1-11.png  ← Nº002
+│   ├── perdidos\        index.html + image1-11.png  ← Nº003
+│   ├── chernobyl\       index.html + image1-11.png  ← Nº004
+│   ├── godless\         index.html + image1-11.png  ← Nº006
+│   ├── the-americans\   index.html + image1-11.png  ← Nº007
+│   ├── ozark\           index.html + image1-11.png  ← Nº008
+│   └── westworld\       index.html + image1-11.png  ← Nº009
+├── peliculas\
+│   └── el-sargento-de-hierro\  index.html + image1-11.png  ← Nº005
+└── documentales\        (vacío por ahora)
 └── storybook-the-wire/                  ← imágenes fuente (image1-11.png)
 ```
 
