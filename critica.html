@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Plomo Caliente '88 — Crítica · Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ============= ARTICLE-SPECIFIC ============= */
+
+/* Hero header full-bleed */
+.article-hero {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: end;
+  padding: 60px 0 70px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.article-hero .bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 60% at 30% 40%, rgba(255,26,26,.5), transparent 70%),
+    radial-gradient(60% 60% at 80% 70%, rgba(255,45,155,.45), transparent 65%),
+    radial-gradient(70% 60% at 50% 50%, rgba(0,196,255,.25), transparent 70%),
+    var(--bg);
+}
+.article-hero .bg::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.0) 0 2px,
+      rgba(0,0,0,.18) 2px 3px);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.article-hero .bg .ph {
+  position: absolute; inset: 0;
+  border: 0; opacity: .5;
+  mix-blend-mode: screen;
+}
+
+.article-hero .crumbs {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 24px;
+}
+.article-hero .crumbs a:hover { color: var(--blue); }
+.article-hero .crumbs span.sep { padding: 0 10px; color: var(--ink-faint); }
+
+.article-hero h1 {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: clamp(64px, 12vw, 200px);
+  line-height: .82;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: .015em;
+  color: var(--ink);
+  text-shadow:
+    -2px 2px 0 #000,
+    -4px 4px 0 var(--magenta),
+    0 0 30px rgba(255,45,155,.3);
+}
+.article-hero h1 .red {
+  color: var(--red);
+  text-shadow:
+    -2px 2px 0 #000,
+    -4px 4px 0 var(--magenta),
+    0 0 36px rgba(255,26,26,.6);
+  -webkit-text-stroke: 2px rgba(255,255,255,.35);
+}
+
+.article-hero .deck {
+  font-family: var(--f-display);
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-style: italic;
+  letter-spacing: .04em;
+  color: var(--blue);
+  text-shadow: var(--glow-blue);
+  margin: 0 0 28px;
+  text-transform: uppercase;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.article-meta .author-pic {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--magenta), var(--blue));
+}
+
+/* Score sticker */
+.score-sticker {
+  position: absolute;
+  top: 80px; right: 60px;
+  width: 140px; height: 140px;
+  background: var(--yellow);
+  border: 4px solid #000;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-family: var(--f-display);
+  font-style: italic;
+  color: #000;
+  transform: rotate(-12deg);
+  box-shadow: 0 0 30px rgba(255,210,63,.5), -6px 6px 0 0 #000;
+  z-index: 2;
+}
+.score-sticker .v { font-size: 56px; line-height: .9; display: block; }
+.score-sticker .l { font-size: 12px; letter-spacing: .15em; }
+@media (max-width: 700px) { .score-sticker { width: 100px; height: 100px; top: 30px; right: 24px; } .score-sticker .v { font-size: 40px; } }
+
+/* Article body grid */
+.article-body {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 60px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 70px var(--gutter);
+}
+@media (max-width: 1000px) { .article-body { grid-template-columns: 1fr; gap: 40px; } }
+
+/* Sidebar — ficha técnica */
+.ficha {
+  background: var(--bg-2);
+  border: 1px solid color-mix(in srgb, var(--blue) 28%, transparent);
+  position: sticky;
+  top: 100px;
+  align-self: start;
+}
+.ficha-head {
+  background: var(--blue);
+  color: #000;
+  padding: 12px 18px;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: .04em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+}
+.ficha-head .vhs-tag {
+  font-family: var(--f-mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: .14em;
+  background: #000;
+  color: var(--blue);
+  padding: 4px 8px;
+}
+.ficha-list { padding: 4px 18px 18px; margin: 0; list-style: none; }
+.ficha-list li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--ink) 12%, transparent);
+  font-size: 14px;
+}
+.ficha-list li:last-child { border-bottom: 0; }
+.ficha-list .k {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  align-self: center;
+}
+.ficha-list .v { color: var(--ink); line-height: 1.4; font-weight: 500; }
+
+.ficha-actions {
+  padding: 0 18px 18px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.ficha-actions .btn { padding: 10px 14px; font-size: 11px; flex: 1; justify-content: center; }
+
+/* Main column */
+.main-col { min-width: 0; }
+
+.section-block { margin-bottom: 60px; }
+.section-block h2 {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 44px;
+  text-transform: uppercase;
+  margin: 0 0 24px;
+  letter-spacing: .03em;
+  line-height: .9;
+  display: flex; align-items: baseline; gap: 14px;
+}
+.section-block h2::before {
+  content: "";
+  width: 14px; height: 14px;
+  background: currentColor;
+  display: inline-block;
+}
+.section-block h2.r { color: var(--red); text-shadow: var(--glow-red); }
+.section-block h2.b { color: var(--blue); text-shadow: var(--glow-blue); }
+.section-block h2.m { color: var(--magenta); text-shadow: var(--glow-magenta); }
+
+/* Sinopsis */
+.sinopsis {
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--ink);
+  border-left: 4px solid var(--blue);
+  padding: 4px 0 4px 24px;
+  font-style: italic;
+}
+
+/* Personajes */
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+@media (max-width: 700px) { .cast-grid { grid-template-columns: 1fr 1fr; } }
+.cast-card {
+  background: var(--bg-2);
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  text-align: left;
+  transition: transform .15s, border-color .15s;
+}
+.cast-card:hover { transform: translateY(-3px); border-color: var(--magenta); }
+.cast-card .ph { aspect-ratio: 3/4; }
+.cast-card .info { padding: 12px 14px 14px; }
+.cast-card .role { font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta); }
+.cast-card .name { font-family: var(--f-display); font-style: italic; font-size: 22px; line-height: 1; margin-top: 4px; text-transform: uppercase; letter-spacing: .02em; }
+.cast-card .actor { font-size: 12px; color: var(--ink-dim); margin-top: 6px; }
+
+/* Reviews quotes (profesional) */
+.quotes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 700px) { .quotes { grid-template-columns: 1fr; } }
+.quote {
+  background: var(--bg-2);
+  padding: 22px 24px;
+  border-left: 3px solid var(--blue);
+  position: relative;
+}
+.quote::before {
+  content: "\201C";
+  position: absolute;
+  top: -10px; left: 12px;
+  font-family: "Playfair Display", serif;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--blue);
+  opacity: .5;
+}
+.quote p {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+.quote .src {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  padding-top: 10px;
+}
+.quote .src .pub { color: var(--blue); font-weight: 600; }
+.quote .src .rate { color: var(--yellow); }
+
+/* Público block */
+.publico {
+  background: var(--bg-2);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  align-items: center;
+}
+@media (max-width: 700px) { .publico { grid-template-columns: 1fr; gap: 18px; } }
+.publico-score { text-align: center; }
+.publico-score .num {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 96px;
+  line-height: .9;
+  color: var(--magenta);
+  text-shadow: var(--glow-magenta);
+}
+.publico-score .out { color: var(--ink-dim); font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; }
+.publico-score .votes { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; color: var(--ink-dim); margin-top: 8px; }
+
+.comments { display: flex; flex-direction: column; gap: 14px; }
+.comment {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  font-size: 14px;
+}
+.comment .av {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--magenta), var(--blue));
+  display: grid; place-items: center;
+  font-family: var(--f-display);
+  font-style: italic;
+  color: #fff;
+  font-size: 16px;
+}
+.comment .body p { margin: 0 0 4px; line-height: 1.5; }
+.comment .body .who { font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
+.comment .body .who .stars-mini { color: var(--yellow); margin-left: 8px; }
+
+/* CRÍTICA SERIA */
+.critica-seria {
+  background: linear-gradient(180deg, var(--bg-2), var(--bg));
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  border-top: 3px solid var(--blue);
+  padding: 50px clamp(24px, 5vw, 60px);
+}
+.critica-seria .label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.critica-seria .label::before { content: ""; width: 30px; height: 1px; background: var(--blue); }
+.critica-seria h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 1.05;
+  font-style: italic;
+  margin: 0 0 28px;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.critica-seria .text {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ink);
+  max-width: 70ch;
+}
+.critica-seria .text p { margin: 0 0 1.2em; }
+.critica-seria .text p:first-child::first-letter {
+  float: left;
+  font-size: 76px;
+  line-height: .85;
+  padding: 6px 12px 0 0;
+  font-weight: 600;
+  color: var(--blue);
+}
+.critica-seria .text strong { color: var(--blue); font-weight: 600; }
+
+/* CRÍTICA SARCÁSTICA */
+.critica-sarcastica {
+  position: relative;
+  background:
+    repeating-linear-gradient(45deg,
+      #1a0a14 0 22px,
+      #100610 22px 23px),
+    var(--bg);
+  border: 3px solid var(--red);
+  padding: 50px clamp(24px, 5vw, 60px);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--red), 0 0 50px rgba(255,26,26,.3);
+}
+.critica-sarcastica::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 60% at 20% 30%, rgba(255,26,26,.18), transparent 70%);
+  pointer-events: none;
+}
+.critica-sarcastica .label {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 18px;
+  letter-spacing: .12em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  background: #000;
+  padding: 4px 12px;
+  display: inline-block;
+  transform: rotate(-1.5deg);
+  margin-bottom: 20px;
+  border: 2px solid var(--red);
+}
+.critica-sarcastica h2 {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 28px;
+  text-shadow: -2px 2px 0 #000, -4px 4px 0 var(--magenta);
+  letter-spacing: .02em;
+}
+.critica-sarcastica h2 .strike { color: var(--red); text-decoration: line-through; text-decoration-thickness: 3px; }
+.critica-sarcastica h2 .yel { color: var(--yellow); -webkit-text-stroke: 1.5px #000; }
+
+.critica-sarcastica .text {
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 70ch;
+}
+.critica-sarcastica .text p { margin: 0 0 1em; position: relative; z-index: 2; }
+.critica-sarcastica .text strong {
+  color: var(--yellow);
+  font-style: italic;
+  font-weight: 700;
+  text-shadow: 0 0 4px rgba(255,210,63,.4);
+}
+.critica-sarcastica .text em {
+  color: var(--magenta);
+  font-style: italic;
+  font-weight: 600;
+}
+.critica-sarcastica .text mark {
+  background: var(--red);
+  color: #fff;
+  padding: 1px 6px;
+  text-decoration: none;
+  font-weight: 700;
+  transform: skewX(-6deg);
+  display: inline-block;
+}
+
+.critica-sarcastica .pow {
+  position: absolute;
+  font-family: var(--f-display);
+  font-style: italic;
+  pointer-events: none;
+  -webkit-text-stroke: 3px #000;
+}
+.critica-sarcastica .pow.p1 {
+  top: 20px; right: 28px;
+  font-size: 64px;
+  color: var(--yellow);
+  transform: rotate(8deg);
+  text-shadow: 4px 4px 0 var(--red);
+}
+.critica-sarcastica .pow.p2 {
+  bottom: 30px; right: 80px;
+  font-size: 44px;
+  color: var(--blue);
+  transform: rotate(-6deg);
+  text-shadow: 3px 3px 0 #000;
+}
+
+/* Toggle between voices */
+.voices-toggle {
+  display: flex;
+  background: var(--bg-2);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  padding: 4px;
+  width: fit-content;
+  margin: 0 0 24px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.voices-toggle button {
+  padding: 10px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-dim);
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+.voices-toggle button.active {
+  background: var(--ink);
+  color: var(--bg);
+}
+.voices-toggle button.active.is-sarc { background: var(--red); color: #fff; }
+
+.voice-panel { display: none; }
+.voice-panel.active { display: block; animation: fadeUp .25s ease-out; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } }
+
+/* VEREDICTO */
+.veredicto {
+  position: relative;
+  margin: 60px 0 40px;
+  padding: 60px 40px;
+  text-align: center;
+  background:
+    radial-gradient(50% 60% at 50% 40%, rgba(255,210,63,.18), transparent 70%),
+    var(--bg-2);
+  border: 1px solid var(--yellow);
+  box-shadow: 0 0 40px rgba(255,210,63,.2);
+  overflow: hidden;
+}
+.veredicto::before, .veredicto::after {
+  content: ""; position: absolute;
+  width: 80px; height: 80px;
+  background: var(--yellow);
+  transform: rotate(45deg);
+}
+.veredicto::before { top: -50px; left: -50px; }
+.veredicto::after { bottom: -50px; right: -50px; }
+
+.veredicto .lab {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: .3em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.veredicto .big {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: clamp(80px, 18vw, 220px);
+  line-height: .82;
+  color: var(--red);
+  text-shadow:
+    -2px 2px 0 #000,
+    -6px 6px 0 var(--yellow),
+    0 0 50px rgba(255,26,26,.6);
+  -webkit-text-stroke: 2px rgba(255,255,255,.4);
+  text-transform: uppercase;
+  letter-spacing: .015em;
+  margin: 0;
+}
+.veredicto .num-line {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 72px;
+  line-height: 1;
+  color: var(--ink);
+  margin-top: 8px;
+}
+.veredicto .num-line .num { color: var(--yellow); text-shadow: 0 0 16px rgba(255,210,63,.5); }
+.veredicto .pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 36px;
+  text-align: left;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 600px) { .veredicto .pros-cons { grid-template-columns: 1fr; } }
+.veredicto .pc {
+  background: var(--bg);
+  padding: 18px 20px;
+  border-top: 2px solid currentColor;
+}
+.veredicto .pc.pros { color: var(--green); }
+.veredicto .pc.cons { color: var(--red); }
+.veredicto .pc h4 {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 22px;
+  margin: 0 0 10px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.veredicto .pc ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; color: var(--ink); font-size: 14px; }
+.veredicto .pc ul li { display: flex; gap: 10px; }
+.veredicto .pc ul li::before { content: "▸"; color: currentColor; }
+
+/* Related */
+.related { margin-top: 80px; }
+.related h2 {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 44px;
+  text-transform: uppercase;
+  margin: 0 0 24px;
+  letter-spacing: .03em;
+  line-height: .9;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 800px) { .related-grid { grid-template-columns: 1fr; } }
+.rel-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 14px;
+  background: var(--bg-2);
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  padding: 12px;
+  transition: all .15s;
+}
+.rel-card:hover { border-color: var(--magenta); transform: translateX(2px); }
+.rel-card .ph { aspect-ratio: 3/4; height: 100%; }
+.rel-card .info { display: flex; flex-direction: column; gap: 6px; padding: 4px 0; }
+.rel-card .cat { font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta); }
+.rel-card .ti { font-family: var(--f-display); font-style: italic; font-size: 22px; line-height: 1; text-transform: uppercase; letter-spacing: .02em; }
+.rel-card .me { font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; color: var(--ink-faint); margin-top: auto; }
+
+/* Tweaks Panel */
+.tweaks-card {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  width: 280px;
+  background: var(--bg-2);
+  border: 1px solid var(--magenta);
+  box-shadow: 0 0 0 1px var(--magenta), 0 12px 40px rgba(255,45,155,.35);
+  z-index: 200;
+  display: none;
+  font-family: var(--f-body);
+}
+.tweaks-card.open { display: block; }
+.tweaks-card .head {
+  background: var(--magenta);
+  color: #000;
+  padding: 10px 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 18px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.tweaks-card .head button {
+  background: transparent; border: 0;
+  color: #000;
+  font-family: var(--f-mono);
+  font-size: 14px;
+  cursor: pointer;
+}
+.tweaks-card .body { padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+.tweaks-card .row { display: flex; flex-direction: column; gap: 6px; }
+.tweaks-card label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.tweaks-card .opts { display: flex; gap: 6px; }
+.tweaks-card .opts button {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  color: var(--ink-dim);
+  padding: 8px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.tweaks-card .opts button.on {
+  background: var(--magenta); color: #000; border-color: var(--magenta);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><img src="assets/logo.png" alt="Zaska y Acción"></span>
+      <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html#" class="active">Películas</a>
+      <a href="index.html#">Series</a>
+      <a href="index.html#">Especiales</a>
+      <a href="index.html#">Top Listas</a>
+    </nav>
+    <div class="header-right">
+      <button class="search-btn" aria-label="Buscar">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== ARTICLE HERO ===== -->
+<section class="article-hero" data-screen-label="Article hero">
+  <div class="bg">
+    <div class="ph" data-tone="red" data-label="STILL DE PELÍCULA · 1920×1080
+sustituir por foto de prensa"></div>
+  </div>
+  <div class="wrap" style="position:relative; width:100%;">
+    <div class="crumbs">
+      <a href="index.html">Inicio</a><span class="sep">/</span>
+      <a href="#">Películas</a><span class="sep">/</span>
+      <a href="#">Acción</a><span class="sep">/</span>
+      <span style="color:var(--ink)">Plomo Caliente '88</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap">
+      <span class="chip chip-pelicula">PELÍCULA</span>
+      <span class="mono" style="color:var(--ink-dim)">REMAKE · ACCIÓN · 2026</span>
+    </div>
+    <h1>Plomo<br><span class="red">Caliente</span> '88</h1>
+    <p class="deck">El regreso más absurdamente noble del año</p>
+    <div class="article-meta">
+      <span class="author-pic"></span>
+      <span style="color:var(--ink)">Por Ramón Martín</span>
+      <span>·</span>
+      <span>29 abril 2026</span>
+      <span>·</span>
+      <span>Lectura 9 min</span>
+      <span>·</span>
+      <span>3.214 lectores</span>
+    </div>
+  </div>
+  <div class="score-sticker">
+    <div>
+      <span class="v">4.5</span>
+      <span class="l">SOBRE 5</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTICLE BODY ===== -->
+<div class="article-body">
+
+  <!-- SIDEBAR · FICHA -->
+  <aside class="ficha" data-screen-label="Ficha técnica">
+    <div class="ficha-head">
+      <span>Ficha</span>
+      <span class="vhs-tag">VHS · TÉCNICA</span>
+    </div>
+    <ul class="ficha-list">
+      <li><span class="k">Año</span><span class="v">2026 (rev. 1988)</span></li>
+      <li><span class="k">Duración</span><span class="v">118 minutos</span></li>
+      <li><span class="k">Director</span><span class="v">Hermanas Vega</span></li>
+      <li><span class="k">Guion</span><span class="v">A. Lozano · P. Vega</span></li>
+      <li><span class="k">Reparto</span><span class="v">Sara M., Daniel Cruz, Ana Beltrán, Toni Vives</span></li>
+      <li><span class="k">Género</span><span class="v">Acción · Thriller · Buddy</span></li>
+      <li><span class="k">País</span><span class="v">España / Italia</span></li>
+      <li><span class="k">Plataforma</span><span class="v">CineRoyal · Pase X</span></li>
+      <li><span class="k">Calificación</span><span class="v">+16</span></li>
+      <li><span class="k">Presupuesto</span><span class="v">€18 M</span></li>
+    </ul>
+    <div class="ficha-actions">
+      <button class="btn btn-ghost">★ Guardar</button>
+      <button class="btn btn-ghost">↗ Compartir</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-col">
+
+    <!-- SINOPSIS -->
+    <div class="section-block">
+      <h2 class="b">Sinopsis</h2>
+      <p class="sinopsis">Cuatro mercenarios — y un perro con cresta — descubren que el contrato más limpio que han firmado en su vida es, en realidad, una trampa orquestada por la viuda de su antiguo jefe. Tienen 72 horas para llegar a la frontera con vida, una furgoneta sin frenos y la peor banda sonora sintetizada que haya bendecido un VHS.</p>
+    </div>
+
+    <!-- PERSONAJES -->
+    <div class="section-block">
+      <h2 class="m">Personajes</h2>
+      <div class="cast-grid">
+        <div class="cast-card">
+          <div class="ph" data-tone="red" data-label="RETRATO 3:4"></div>
+          <div class="info">
+            <div class="role">Protagonista</div>
+            <div class="name">Vera "Sierra"</div>
+            <div class="actor">Sara M.</div>
+          </div>
+        </div>
+        <div class="cast-card">
+          <div class="ph" data-tone="blue" data-label="RETRATO 3:4"></div>
+          <div class="info">
+            <div class="role">Cerebro</div>
+            <div class="name">El Capitán</div>
+            <div class="actor">Daniel Cruz</div>
+          </div>
+        </div>
+        <div class="cast-card">
+          <div class="ph" data-tone="magenta" data-label="RETRATO 3:4"></div>
+          <div class="info">
+            <div class="role">Antagonista</div>
+            <div class="name">La Viuda</div>
+            <div class="actor">Ana Beltrán</div>
+          </div>
+        </div>
+        <div class="cast-card">
+          <div class="ph" data-tone="purple" data-label="RETRATO 3:4"></div>
+          <div class="info">
+            <div class="role">Alivio cómico</div>
+            <div class="name">Tito</div>
+            <div class="actor">Toni Vives</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRÍTICA PROFESIONAL -->
+    <div class="section-block">
+      <h2 class="b">Qué dice la crítica profesional</h2>
+      <div class="quotes">
+        <div class="quote">
+          <p>Las Hermanas Vega firman una carta de amor al cine de acción de la guerra fría sin caer en la nostalgia barata. Hay alma debajo de tanta pólvora.</p>
+          <div class="src"><span class="pub">FotoFilm Magazine</span><span class="rate">★★★★★</span></div>
+        </div>
+        <div class="quote">
+          <p>Una furgoneta sin frenos, un guion con frenos justos, y un Daniel Cruz en el papel que esperábamos desde hace una década.</p>
+          <div class="src"><span class="pub">El Cine Diario</span><span class="rate">★★★★☆</span></div>
+        </div>
+        <div class="quote">
+          <p>Acción coreografiada con pulso, personajes sin trampa y una banda sonora que justifica por sí sola el precio de la entrada. La sorpresa del año.</p>
+          <div class="src"><span class="pub">Pantalla Grande</span><span class="rate">★★★★☆</span></div>
+        </div>
+        <div class="quote">
+          <p>Tropieza en su tercer acto, pero cuando el cine español se permite divertirse así, hay que aplaudir. Aunque sea con los ojos.</p>
+          <div class="src"><span class="pub">Crítica Express</span><span class="rate">★★★☆☆</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PÚBLICO -->
+    <div class="section-block">
+      <h2 class="m">Qué dice el público</h2>
+      <div class="publico">
+        <div class="publico-score">
+          <div class="num">8.4</div>
+          <div class="out">SOBRE 10</div>
+          <div class="votes">12.840 votos</div>
+        </div>
+        <div class="comments">
+          <div class="comment">
+            <div class="av">M</div>
+            <div class="body">
+              <p>"Vi la peli y luego me la volví a ver. Que rule la furgoneta sin frenos."</p>
+              <div class="who">Marina_84 · 2 días <span class="stars-mini">★★★★★</span></div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="av">J</div>
+            <div class="body">
+              <p>"El tercer acto pierde fuelle pero la escena del puente es uno de los mejores momentos del año."</p>
+              <div class="who">Javi_Patiño · 4 días <span class="stars-mini">★★★★☆</span></div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="av">P</div>
+            <div class="body">
+              <p>"Esperaba un remake reciclado y me encontré una película de verdad. Sara M. está ENORME."</p>
+              <div class="who">Pelopincho · 1 sem <span class="stars-mini">★★★★★</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOICES TOGGLE -->
+    <div class="voices-toggle" role="tablist" aria-label="Tipo de crítica" data-screen-label="Voices toggle">
+      <button class="active" data-voice="seria">Crítica seria</button>
+      <button class="is-sarc" data-voice="sarc">Crítica sarcástica</button>
+    </div>
+
+    <!-- CRÍTICA SERIA -->
+    <article class="voice-panel active critica-seria" data-voice="seria" data-screen-label="Crítica seria">
+      <div class="label">Voz editorial</div>
+      <h2>Una furgoneta sin frenos, un cine con dirección.</h2>
+      <div class="text">
+        <p>Hay una secuencia, en el segundo acto de <em>Plomo Caliente '88</em>, en la que la cámara se queda quieta durante doce segundos sobre el rostro de Sara M. mientras escucha, en una radio de furgoneta, una emisora de onda corta. No hay diálogo. No hay música. Y, sin embargo, ahí está el corazón de la película.</p>
+        <p>Las <strong>Hermanas Vega</strong> han hecho lo más difícil que un remake puede hacer: no traicionar al original sin convertirse en un museo. Se cargan al espectador a la espalda, le piden confianza durante quince minutos lentos y, después, le devuelven el favor con la mejor escena de acción rodada en España en los últimos cinco años.</p>
+        <p>El guion, firmado por Lozano y la propia Paula Vega, evita los giros baratos. No hay traidores ocultos, no hay revelaciones sobre la infancia del protagonista. Hay personas con motivos viejos y armas nuevas, que es lo que esta clase de cine necesita.</p>
+        <p>Mención aparte para la <strong>banda sonora</strong> de Lola Reyes, que recupera el sintetizador de los años ochenta sin una sola pizca de ironía. Es música hecha en serio. Y se nota.</p>
+        <p>No es perfecta. El tercer acto resuelve demasiado rápido, y la subtrama de la viuda merece una segunda película — que ojalá llegue. Pero como ejercicio de cine de género hecho con cariño, oficio y sin complejos, <em>Plomo Caliente '88</em> es lo mejor que ha pasado en una sala este año.</p>
+      </div>
+    </article>
+
+    <!-- CRÍTICA SARCÁSTICA -->
+    <article class="voice-panel critica-sarcastica" data-voice="sarc" data-screen-label="Crítica sarcástica">
+      <div class="pow p1">¡BANG!</div>
+      <div class="pow p2">¡ZASKA!</div>
+      <div class="label">Voz Zaska</div>
+      <h2>Sí, otro remake.<br><span class="strike">Vuelve a casa.</span> <span class="yel">Pero quédate.</span></h2>
+      <div class="text">
+        <p>Mira, vamos a ser sinceros: cuando vi en el cartel "remake de Plomo Caliente" pensé que iba a salir del cine con la <em>misma cara</em> que pongo cuando alguien me dice que el café estaba "rico". Otra furgoneta. Otros mercenarios. Otra <mark>banda sonora con sintetizador</mark> porque por lo visto ya no se puede hacer una película de acción sin que suene como si la estuviera componiendo un Casio en 1987.</p>
+        <p>Y, sin embargo. <strong>Y SIN EMBARGO.</strong></p>
+        <p>Las Hermanas Vega han cogido el material original — que era, vamos a decirlo, un <em>truño con cariño</em> — y lo han convertido en algo que no tiene derecho a ser tan bueno. Es como si alguien remasterizara tu camiseta favorita de adolescente y, en lugar de quedar ridícula, te quedara de premio.</p>
+        <p>Sara M. en el papel de Sierra está <mark>ENORME</mark>. Daniel Cruz no actúa: <strong>EXISTE</strong>. La viuda interpretada por Ana Beltrán da más miedo con una taza de café en la mano que la mayoría de villanos del año con armas automáticas.</p>
+        <p>¿Lo malo? El tercer acto. Que parece escrito por alguien que necesitaba <em>llegar a la cena</em>. Y el perro con cresta, que es una idea de productor a las tres de la mañana, no me la vais a vender.</p>
+        <p>Pero da igual. <strong>Esta peli da gusto.</strong> Da gusto verla, da gusto contártela, da gusto saber que sigue habiendo gente haciendo cine de género con cariño en lugar de con un PowerPoint. <mark>Cómprala. Cómprala YA.</mark></p>
+      </div>
+    </article>
+
+    <!-- VEREDICTO -->
+    <div class="veredicto" data-screen-label="Veredicto">
+      <div class="lab">— Veredicto final</div>
+      <h3 class="big">¡ZASKA!</h3>
+      <div class="num-line">Puntuación · <span class="num">4.5</span> / 5</div>
+      <div class="pros-cons">
+        <div class="pc pros">
+          <h4>Lo bueno</h4>
+          <ul>
+            <li>Sara M. en estado de gracia</li>
+            <li>BSO de Lola Reyes que justifica entrada</li>
+            <li>Escena del puente, de manual</li>
+            <li>Dirección con criterio y mala leche</li>
+          </ul>
+        </div>
+        <div class="pc cons">
+          <h4>Lo malo</h4>
+          <ul>
+            <li>Tercer acto con prisas</li>
+            <li>Subtrama de la viuda desaprovechada</li>
+            <li>El perro con cresta. NO.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATED -->
+    <div class="related">
+      <div class="section-head">
+        <div>
+          <div class="lead">— Si te ha gustado</div>
+          <h2>También te puede interesar</h2>
+        </div>
+      </div>
+      <div class="related-grid">
+        <a class="rel-card" href="#">
+          <div class="ph" data-tone="red" data-label="POSTER 3:4"></div>
+          <div class="info">
+            <div class="cat">PELÍCULA</div>
+            <div class="ti">Acero y Neón</div>
+            <span class="stars" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="empty"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></span>
+            <div class="me">6 min · R. Martín</div>
+          </div>
+        </a>
+        <a class="rel-card" href="#">
+          <div class="ph" data-tone="blue" data-label="POSTER 3:4"></div>
+          <div class="info">
+            <div class="cat">SERIE</div>
+            <div class="ti">Hierro Caliente T3</div>
+            <span class="stars" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></span>
+            <div class="me">9 min · L. Cabrera</div>
+          </div>
+        </a>
+        <a class="rel-card" href="#">
+          <div class="ph" data-tone="magenta" data-label="POSTER 3:4"></div>
+          <div class="info">
+            <div class="cat">ESPECIAL</div>
+            <div class="ti">El año del tiro limpio</div>
+            <span class="stars" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="filled" style="opacity:.5"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" class="empty"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></span>
+            <div class="me">12 min · Mª Iglesias</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== TWEAKS PANEL ===== -->
+<div class="tweaks-card" id="tweaksCard">
+  <div class="head">
+    <span>Tweaks</span>
+    <button id="tweaksClose">✕</button>
+  </div>
+  <div class="body">
+    <div class="row">
+      <label>Tema</label>
+      <div class="opts" data-tweak="theme">
+        <button data-val="dark" class="on">Oscuro</button>
+        <button data-val="light">Claro</button>
+      </div>
+    </div>
+    <div class="row">
+      <label>Crítica activa</label>
+      <div class="opts" data-tweak="voice">
+        <button data-val="seria" class="on">Seria</button>
+        <button data-val="sarc">Sarcástica</button>
+      </div>
+    </div>
+    <div class="row">
+      <label>Acento principal</label>
+      <div class="opts" data-tweak="accent">
+        <button data-val="red" class="on">Rojo</button>
+        <button data-val="blue">Azul</button>
+        <button data-val="magenta">Fucsia</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <span class="brand-mark"><img src="assets/logo.png" alt=""></span>
+          <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
+        </a>
+        <p class="tagline">Crítica de cine y series con cara, mala leche y mucho cariño. Hecho en pijama desde 2024.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="#">Películas</a></li>
+          <li><a href="#">Series</a></li>
+          <li><a href="#">Especiales</a></li>
+          <li><a href="#">Top Listas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>La casa</h4>
+        <ul>
+          <li><a href="#">Quiénes somos</a></li>
+          <li><a href="#">Manifiesto</a></li>
+          <li><a href="#">Colaborar</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Síguenos</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Letterboxd</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zaska y Acción</span>
+      <span>Hecho con pólvora y amor</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============= Theme toggle =============
+  const html = document.documentElement;
+  const stored = localStorage.getItem('zaska-theme');
+  if (stored) html.setAttribute('data-theme', stored);
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('zaska-theme', next);
+    syncTweakButtons();
+  });
+
+  // ============= Voices toggle =============
+  const voiceBtns = document.querySelectorAll('.voices-toggle button');
+  const voicePanels = document.querySelectorAll('.voice-panel');
+  function setVoice(v) {
+    voiceBtns.forEach(b => b.classList.toggle('active', b.dataset.voice === v));
+    voicePanels.forEach(p => p.classList.toggle('active', p.dataset.voice === v));
+    syncTweakButtons();
+  }
+  voiceBtns.forEach(b => b.addEventListener('click', () => setVoice(b.dataset.voice)));
+
+  // ============= Tweaks (panel + edit-mode protocol) =============
+  const tweaksCard = document.getElementById('tweaksCard');
+  const tweaksClose = document.getElementById('tweaksClose');
+
+  window.addEventListener('message', (e) => {
+    if (!e.data) return;
+    if (e.data.type === '__activate_edit_mode') tweaksCard.classList.add('open');
+    if (e.data.type === '__deactivate_edit_mode') tweaksCard.classList.remove('open');
+  });
+  window.parent.postMessage({type: '__edit_mode_available'}, '*');
+
+  tweaksClose.addEventListener('click', () => {
+    tweaksCard.classList.remove('open');
+    window.parent.postMessage({type: '__edit_mode_dismissed'}, '*');
+  });
+
+  function syncTweakButtons() {
+    document.querySelectorAll('.tweaks-card .opts').forEach(group => {
+      const tweak = group.dataset.tweak;
+      let current;
+      if (tweak === 'theme') current = html.getAttribute('data-theme');
+      if (tweak === 'voice') current = document.querySelector('.voices-toggle button.active')?.dataset.voice;
+      if (tweak === 'accent') current = html.getAttribute('data-accent') || 'red';
+      group.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.val === current));
+    });
+  }
+
+  document.querySelectorAll('.tweaks-card .opts').forEach(group => {
+    group.addEventListener('click', e => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      const tweak = group.dataset.tweak;
+      const val = b.dataset.val;
+      if (tweak === 'theme') {
+        html.setAttribute('data-theme', val);
+        localStorage.setItem('zaska-theme', val);
+      }
+      if (tweak === 'voice') setVoice(val);
+      if (tweak === 'accent') {
+        html.setAttribute('data-accent', val);
+        // remap key surface colors
+        const colors = {red:'#FF1A1A', blue:'#00C4FF', magenta:'#FF2D9B'};
+        html.style.setProperty('--accent-active', colors[val]);
+      }
+      syncTweakButtons();
+    });
+  });
+
+  syncTweakButtons();
+</script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Evangelio según Baltimore — Zaska y Acción</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #08090f;
+  --red:    #FF1A1A;
+  --blue:   #00C4FF;
+  --pink:   #FF2D9B;
+  --yellow: #FFD600;
+  --gap:    6px;
+}
+
+body {
+  background: var(--bg);
+  color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.hdr {
+  background: #04050a;
+  border-bottom: 3px solid var(--red);
+  padding: 12px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 200;
+}
+.hdr-logo { font-family:'Bangers',cursive; font-size:1.8rem; letter-spacing:2px; color:var(--red); text-shadow:0 0 14px rgba(255,26,26,.6); text-decoration:none; }
+.hdr-logo span { color:var(--blue); }
+.hdr-bc { font-size:.68rem; color:#555; letter-spacing:1px; text-transform:uppercase; }
+.hdr-bc a { color:var(--blue); text-decoration:none; }
+
+/* PORTADA */
+.cover {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:80px 24px;
+  background:radial-gradient(ellipse at 50% 35%,#230015 0%,#08090f 65%);
+  position:relative; overflow:hidden;
+}
+.cover::before {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,26,26,.03) 40px);
+  pointer-events:none;
+}
+.c-badge {
+  font-family:'Bangers',cursive; font-size:.8rem; letter-spacing:5px; color:var(--pink);
+  border:2px solid var(--pink); padding:5px 22px; margin-bottom:36px;
+  text-shadow:0 0 10px rgba(255,45,155,.7); box-shadow:0 0 24px rgba(255,45,155,.15);
+}
+.c-eyebrow { font-family:'Bangers',cursive; font-size:.95rem; letter-spacing:8px; color:var(--blue); margin-bottom:18px; text-shadow:0 0 16px rgba(0,196,255,.4); }
+.c-title {
+  font-family:'Bangers',cursive;
+  font-size:clamp(4rem,12vw,9.5rem); line-height:.87; letter-spacing:2px; color:#fff;
+  text-shadow:5px 5px 0 var(--red),10px 10px 0 rgba(255,26,26,.22),0 0 60px rgba(255,26,26,.3);
+  margin-bottom:14px;
+}
+.c-title em { font-style:normal; color:var(--yellow); text-shadow:5px 5px 0 #7a5800,0 0 40px rgba(255,214,0,.4); }
+.c-series { font-family:'Bangers',cursive; font-size:clamp(1.2rem,3vw,2rem); letter-spacing:4px; color:var(--blue); text-shadow:0 0 20px rgba(0,196,255,.5); margin-bottom:52px; }
+.c-by { font-size:.72rem; letter-spacing:2px; color:#555; text-transform:uppercase; margin-bottom:72px; }
+.c-by span { color:var(--red); }
+.c-scroll { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:3px; color:var(--yellow); text-transform:uppercase; animation:bob 1.6s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+
+/* ════════════════════════════════
+   LIBRO — grid de tiras de cómic
+════════════════════════════════ */
+.book {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 8px 8px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* Tira horizontal — una fila */
+.row {
+  display: grid;
+  gap: var(--gap);
+}
+.r1   { grid-template-columns: 1fr; }
+.r2   { grid-template-columns: 1fr 1fr; }
+.r3   { grid-template-columns: 1fr 1fr 1fr; }
+.r64  { grid-template-columns: 6fr 4fr; }
+.r46  { grid-template-columns: 4fr 6fr; }
+.r53  { grid-template-columns: 5fr 3fr; }
+.r35  { grid-template-columns: 3fr 5fr; }
+
+/* ── PANEL con imagen + bocadillos encima ── */
+.panel {
+  position: relative;
+  background: #0a0b14;
+  border: 3px solid #1c1f33;
+  overflow: visible; /* bocadillos pueden sobresalir */
+  line-height: 0;   /* sin espacio extra bajo la imagen */
+}
+.panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+/* Colores de borde */
+.panel.b-red    { border-color:var(--red);    box-shadow:0 0 20px rgba(255,26,26,.3); }
+.panel.b-blue   { border-color:var(--blue);   box-shadow:0 0 20px rgba(0,196,255,.25); }
+.panel.b-pink   { border-color:var(--pink);   box-shadow:0 0 20px rgba(255,45,155,.25); }
+.panel.b-yellow { border-color:var(--yellow); box-shadow:0 0 20px rgba(255,214,0,.2); }
+
+/* Caption estilo cómic — franja en la parte inferior de la imagen */
+.cap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 5;
+  background: rgba(6,6,14,0.88);
+  border-top: 2px solid rgba(255,255,255,0.06);
+  padding: 7px 14px;
+  font-size: .62rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* ════════════════════════
+   BOCADILLOS DE CÓMIC
+════════════════════════ */
+
+/* Base del bocadillo — siempre encima de la imagen */
+.sb {
+  position: absolute;
+  z-index: 20;
+  background: #fff;
+  border: 3px solid #111;
+  border-radius: 18px;
+  padding: 12px 16px;
+  font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+  font-weight: 700;
+  color: #111;
+  font-size: clamp(.95rem, 2vw, 1.15rem);
+  line-height: 1.5;
+  max-width: 46%;
+  filter: drop-shadow(2px 2px 5px rgba(0,0,0,.7));
+}
+
+/* Etiqueta del personaje dentro del bocadillo */
+.sb .tag {
+  display: block;
+  font-family: 'Bangers', cursive;
+  font-size: .85rem;
+  letter-spacing: 3px;
+  margin-bottom: 5px;
+  line-height: 1;
+}
+.sb.rulo .tag { color: #0077aa; }
+.sb.toni .tag { color: #cc0000; }
+.sb.narr .tag { display:none; }
+
+/* Bocadillo de NARRADOR — rectángulo amarillo estilo caption box */
+.sb.narr {
+  background: #fffde7;
+  border-color: #b8970a;
+  border-radius: 4px;
+  max-width: 70%;
+  font-style: italic;
+  font-size: .92rem;
+}
+
+/* ── Posiciones de bocadillos ── */
+/* Esquina superior izquierda (Toni normalmente a la izq) */
+.sb.tl { top: 10px; left: 10px; }
+/* Esquina superior derecha (Rulo normalmente a la der) */
+.sb.tr { top: 10px; right: 10px; }
+/* Esquina inferior izquierda */
+.sb.bl { bottom: 36px; left: 10px; }
+/* Esquina inferior derecha */
+.sb.br { bottom: 36px; right: 10px; }
+/* Centro superior */
+.sb.tc { top: 10px; left: 50%; transform: translateX(-50%); max-width: 65%; }
+/* Centro inferior */
+.sb.bc { bottom: 36px; left: 50%; transform: translateX(-50%); max-width: 65%; }
+/* Mitad izquierda */
+.sb.ml { top: 50%; left: 10px; transform: translateY(-50%); }
+/* Mitad derecha */
+.sb.mr { top: 50%; right: 10px; transform: translateY(-50%); }
+
+/* ── COLAS de bocadillo ── */
+/* Apunta ABAJO-IZQUIERDA (para bocadillo arriba, personaje abajo-izq) */
+.sb.tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+.sb.tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; border-top-color:#fff; }
+/* Apunta ABAJO-DERECHA */
+.sb.tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+.sb.tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; border-top-color:#fff; }
+/* Apunta ARRIBA-IZQUIERDA (bocadillo abajo, personaje arriba-izq) */
+.sb.tail-ul::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+.sb.tail-ul::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; border-bottom-color:#fff; }
+/* Apunta ARRIBA-DERECHA */
+.sb.tail-ur::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+.sb.tail-ur::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; border-bottom-color:#fff; }
+/* Apunta IZQUIERDA */
+.sb.tail-l::before { content:''; position:absolute; top:50%; left:-16px; transform:translateY(-50%); border:9px solid transparent; border-right-color:#111; }
+.sb.tail-l::after  { content:''; position:absolute; top:50%; left:-12px; transform:translateY(-50%); border:7px solid transparent; border-right-color:#fff; }
+/* Apunta DERECHA */
+.sb.tail-r::before { content:''; position:absolute; top:50%; right:-16px; transform:translateY(-50%); border:9px solid transparent; border-left-color:#111; }
+.sb.tail-r::after  { content:''; position:absolute; top:50%; right:-12px; transform:translateY(-50%); border:7px solid transparent; border-left-color:#fff; }
+
+/* Narrador: sin cola, borde amarillo */
+.sb.narr::before, .sb.narr::after { display:none; }
+
+/* ── FX texto ── */
+.fx-row { display:flex; align-items:center; justify-content:center; padding:12px 0 4px; gap:12px; }
+.fx { font-family:'Bangers',cursive; font-size:clamp(1.8rem,4vw,3rem); letter-spacing:2px; display:inline-block; line-height:1; }
+.fx.crack { color:var(--red);    text-shadow:3px 3px 0 #6a0000; transform:rotate(2deg); }
+.fx.woah  { color:var(--blue);   text-shadow:3px 3px 0 #004d6a; transform:rotate(-1deg); }
+.fx.boom  { color:var(--yellow); text-shadow:3px 3px 0 #6a4e00; transform:rotate(-2deg); }
+.fx.pow   { color:var(--pink);   text-shadow:3px 3px 0 #6a0040; transform:rotate(3deg); }
+
+/* ── CITA GRANDE ── */
+.bigq {
+  margin: 8px 0;
+  padding: 36px 44px;
+  border-left: 6px solid var(--pink);
+  background: linear-gradient(90deg,rgba(255,45,155,.07),transparent);
+  position: relative;
+}
+.bigq::before {
+  content:'"'; font-family:'Bangers',cursive; font-size:8rem;
+  color:rgba(255,45,155,.1); position:absolute; top:-18px; left:16px; line-height:1; pointer-events:none;
+}
+.bigq p { font-family:'Bangers',cursive; font-size:clamp(1.5rem,3vw,2.2rem); line-height:1.2; color:#fff; position:relative; z-index:1; }
+.bigq cite { display:block; margin-top:10px; font-size:.68rem; letter-spacing:4px; color:var(--pink); text-transform:uppercase; font-style:normal; }
+
+/* ── FINALE ── */
+.finale {
+  margin-top: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  border: 3px solid var(--red);
+  background: radial-gradient(ellipse at center,rgba(255,26,26,.13) 0%,transparent 70%);
+  box-shadow: 0 0 60px rgba(255,26,26,.12);
+}
+.fin-tag  { font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:6px; color:var(--red); margin-bottom:24px; display:block; }
+.fin-v    { font-family:'Bangers',cursive; font-size:clamp(2.5rem,7vw,5rem); line-height:1; letter-spacing:2px; color:#fff; text-shadow:4px 4px 0 var(--red),0 0 40px rgba(255,26,26,.3); margin-bottom:30px; }
+.fin-s    { font-family:'Bangers',cursive; font-size:6rem; color:var(--yellow); line-height:1; text-shadow:4px 4px 0 #7a5800,0 0 40px rgba(255,214,0,.5); display:block; margin-bottom:10px; }
+.fin-sub  { font-size:.68rem; letter-spacing:5px; color:#555; text-transform:uppercase; }
+
+.back {
+  display:inline-flex; align-items:center; gap:8px; margin-top:60px;
+  font-family:'Bangers',cursive; font-size:1.1rem; letter-spacing:4px;
+  color:var(--blue); text-decoration:none; text-transform:uppercase;
+  border:2px solid var(--blue); padding:10px 32px; transition:all .2s;
+}
+.back:hover { background:var(--blue); color:#000; box-shadow:0 0 30px rgba(0,196,255,.4); }
+
+@media(max-width:640px){
+  .r2,.r3,.r64,.r46,.r53,.r35{ grid-template-columns:1fr; }
+  .sb { max-width:55%; font-size:.72rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a href="index.html" class="hdr-logo">ZASKA <span>&</span> ACCIÓN</a>
+  <div class="hdr-bc"><a href="#">Series</a> / The Wire / Storybook</div>
+</header>
+
+<!-- PORTADA -->
+<section class="cover">
+  <div class="c-badge">Storybook · Rulo &amp; Toni · Nº 001</div>
+  <div class="c-eyebrow">HBO · 2002 — 2008</div>
+  <h1 class="c-title">EL <em>EVANGELIO</em><br>SEGÚN<br>BALTIMORE</h1>
+  <p class="c-series">The Wire al descubierto</p>
+  <p class="c-by">Con <span>Rulo</span> y <span>Toni</span> — Zaska y Acción</p>
+  <div class="c-scroll">▼ pasa la página ▼</div>
+</section>
+
+<!-- ══ LIBRO ══ -->
+<div class="book">
+
+  <!-- ── PANEL 1: Los dos en el sofá, intro ── -->
+  <div class="row r1">
+    <div class="panel b-blue">
+      <img src="storybook-the-wire/image1.png" alt="Rulo y Toni en el sofá">
+      <!-- Toni a la izquierda -->
+      <div class="sb toni tl tail-br">
+        <span class="tag">TONI</span>
+        "¿Otra de tus inmersiones en la condición humana? Ponla, pero como sea un coñazo, limpias tú el arma un mes."
+      </div>
+      <!-- Rulo a la derecha -->
+      <div class="sb rulo tr tail-bl">
+        <span class="tag">RULO</span>
+        "Toni, me han hablado de una serie. Baltimore. Polis y camellos. Dicen que es la puta verdad, el evangelio."
+      </div>
+      <div class="cap">Baltimore. Una tarde cualquiera. El sofá de siempre.</div>
+    </div>
+  </div>
+
+  <!-- ── PANEL 2: Toni con manos arriba + Rulo fumando ── -->
+  <div class="row r2">
+    <div class="panel b-red">
+      <img src="storybook-the-wire/image3.png" alt="Toni con manos arriba">
+      <div class="sb toni tc tail-br">
+        <span class="tag">TONI</span>
+        "¡Joder, esto es más lento que una misa de domingo! ¿Dónde están las persecuciones?"
+      </div>
+    </div>
+    <div class="panel b-blue">
+      <img src="storybook-the-wire/image2.png" alt="Rulo fumando">
+      <div class="sb rulo tc tail-bl">
+        <span class="tag">RULO</span>
+        "No estás mirando, tío. No va de eso. Va del juego. Del puto juego."
+      </div>
+    </div>
+  </div>
+
+  <div class="fx-row">
+    <span class="fx crack">¡¡MÁS LENTO QUE UNA MISA!!</span>
+  </div>
+
+  <!-- ── PANEL 3: Toni con cerveza, Omar ── -->
+  <div class="row r1">
+    <div class="panel b-yellow">
+      <img src="storybook-the-wire/image5.png" alt="Toni con cerveza viendo la serie">
+      <div class="sb toni tl tail-br" style="max-width:55%">
+        <span class="tag">TONI</span>
+        "Vale, vale... El tal Omar... silbando 'El granjero en el valle' antes de atracar un piso franco. Eso tiene estilo. El tío tiene un código."
+      </div>
+      <div class="cap">Y entonces las calles de Baltimore empezaron a hacer su magia.</div>
+    </div>
+  </div>
+
+  <div class="fx-row">
+    <span class="fx woah">OMAR COMIN'... ☠</span>
+  </div>
+
+  <!-- ── PANEL 4: Rulo explica el ajedrez ── -->
+  <div class="row r46">
+    <div class="panel b-blue">
+      <img src="storybook-the-wire/image9.png" alt="Rulo explicando el sistema">
+      <div class="sb rulo tl tail-br" style="max-width:70%">
+        <span class="tag">RULO</span>
+        "Es una partida de ajedrez, Toni. Los peones, los reyes... Los polis están tan atrapados como los camellos."
+      </div>
+      <div class="sb narr bc">
+        Rulo sentía como si estuviera revelando un texto sagrado.
+      </div>
+    </div>
+    <div class="panel b-red">
+      <img src="storybook-the-wire/image7.png" alt="Toni de pie señalando">
+      <div class="sb toni tc tail-bl" style="max-width:70%">
+        <span class="tag">TONI</span>
+        "¡Los muelles! ¿Ahora me meten polacos y griegos? ¡Necesito un puto organigrama!"
+      </div>
+    </div>
+  </div>
+
+  <div class="fx-row">
+    <span class="fx boom">¡¡JODER CON LOS MUELLES!!</span>
+  </div>
+
+  <!-- CITA -->
+  <div class="bigq">
+    <p>"El juego está amañado. Todo el sistema está roto."</p>
+    <cite>— Rulo, Evangelio según Baltimore</cite>
+  </div>
+
+  <!-- ── PANEL 5: Rulo explica la conexión ── -->
+  <div class="row r64">
+    <div class="panel b-blue">
+      <img src="storybook-the-wire/image8.png" alt="Los dos juntos, serios">
+      <div class="sb rulo tl tail-br" style="max-width:50%">
+        <span class="tag">RULO</span>
+        "Todo está conectado, tío. La droga, los sindicatos, los políticos... es todo el puto sistema."
+      </div>
+      <div class="sb toni tr tail-bl" style="max-width:46%">
+        <span class="tag">TONI</span>
+        "¡Sistema mis cojones! ¡Es deprimente!"
+      </div>
+    </div>
+    <div class="panel b-red">
+      <img src="storybook-the-wire/image4.png" alt="Rulo hundido">
+      <div class="sb narr tc" style="max-width:80%;top:10px">
+        Temporada 4. Los niños. Ya nada vuelve a ser lo mismo.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PANEL 6: Los niños ── -->
+  <div class="row r1">
+    <div class="panel b-red">
+      <img src="storybook-the-wire/image6.png" alt="Los dos cansados al final">
+      <div class="sb toni tl tail-br" style="max-width:50%">
+        <span class="tag">TONI</span>
+        "Ves a esos críos... Dukie, Randy... y sabes que están jodidos desde el principio. ¿Qué sentido tiene mirar si no hay esperanza?"
+      </div>
+      <div class="sb narr tr" style="max-width:40%;top:10px">
+        Un pesado silencio cayó entre ellos.
+      </div>
+      <div class="cap">Temporada 4. El golpe más duro.</div>
+    </div>
+  </div>
+
+  <!-- ── PANEL 7: El juego está amañado ── -->
+  <div class="row r35">
+    <div class="panel b-pink">
+      <img src="storybook-the-wire/image11.png" alt="Rulo y Toni en la oscuridad">
+      <div class="sb toni bc tail-ul" style="max-width:75%">
+        <span class="tag">TONI</span>
+        "¿Ver qué? ¿Que todo es un montón de mierda? Eso ya lo pillo cada mañana cuando me miro al espejo."
+      </div>
+    </div>
+    <div class="panel b-blue">
+      <img src="storybook-the-wire/image10.png" alt="Rulo de pie explicando">
+      <div class="sb rulo tl tail-br" style="max-width:80%">
+        <span class="tag">RULO</span>
+        "Quizá ese es el punto. Que el juego está amañado. No se supone que te haga sentir bien. Se supone que te haga <em>ver</em>."
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PANEL 8: El veredicto final ── -->
+  <div class="row r1">
+    <div class="panel b-yellow">
+      <img src="storybook-the-wire/image8.png" alt="Los dos en el sofá, final">
+      <div class="sb rulo tl tail-br" style="max-width:48%">
+        <span class="tag">RULO</span>
+        "La serie no te da respuestas, solo te muestra las piezas. Lo que hagas con ellas... eso depende de ti."
+      </div>
+      <div class="sb toni tr tail-bl" style="max-width:48%">
+        <span class="tag">TONI</span>
+        "Tú y tu puta filosofía. Pero sigue siendo la mejor puta serie que he visto en mi vida."
+      </div>
+      <div class="cap">Y Toni gruñó. Y asomó esa maldita sonrisa.</div>
+    </div>
+  </div>
+
+  <div class="fx-row" style="margin-top:8px">
+    <span class="fx pow">FIN.</span>
+  </div>
+
+  <!-- FINALE -->
+  <div class="finale">
+    <span class="fin-tag">Veredicto final · Zaska y Acción</span>
+    <p class="fin-v">LA MEJOR PUTA SERIE<br>QUE HAS VISTO EN TU VIDA.</p>
+    <span class="fin-s">9.5</span>
+    <p class="fin-sub">The Wire · HBO · 2002—2008 · El juego está amañado</p>
+  </div>
+
+  <div style="text-align:center">
+    <a href="index.html" class="back">← Volver al blog</a>
+  </div>
+
+</div><!-- /book -->
+
+</body>
+</html>

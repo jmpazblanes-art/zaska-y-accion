@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storybook Nº006 — Godless | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #0a0702;
+    --white:   #e8e0cc;
+    --sand:    #c8a250;
+    --sand2:   #f0cc78;
+    --leather: #8b5e3c;
+    --leather2:#c4895a;
+    --sky:     #4a7a8b;
+    --sky2:    #7ab8cc;
+    --red:     #8b1a0a;
+    --red2:    #c43020;
+    --panel-border: #1e1408;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #1e1408;
+    background: rgba(10,7,2,.95);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--red2); letter-spacing:2px; text-decoration:none; }
+  .nav-back { font-size:.85rem; color:var(--sand); text-decoration:none; border:1px solid var(--sand); padding:.3rem .9rem; border-radius:4px; }
+  .nav-back:hover { background:var(--sand); color:#000; }
+
+  /* ── COVER ── */
+  .cover {
+    position: relative;
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    background: linear-gradient(180deg, #1a0e04 0%, var(--bg) 100%);
+    border-bottom: 4px solid var(--leather);
+    overflow: hidden;
+  }
+  .cover::before { content:'🤠'; position:absolute; top:20px; right:40px; font-size:5rem; opacity:.08; }
+  .cover::after  { content:'🌵'; position:absolute; bottom:20px; left:30px; font-size:4rem; opacity:.07; }
+  .cover-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 1rem; letter-spacing: 3px;
+    padding: .4rem 1.2rem; border-radius: 4px; margin-bottom: 1.2rem;
+  }
+  .cover-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(4rem, 14vw, 9rem);
+    line-height: .85; letter-spacing: 8px;
+    color: var(--sand2);
+    text-shadow: 5px 5px 0 #3a2800, 10px 10px 0 rgba(0,0,0,.5);
+    margin-bottom: .6rem;
+  }
+  .cover-tagline {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    color: var(--sky2);
+    letter-spacing: 4px;
+    margin-bottom: .8rem;
+  }
+  .cover-subtitle {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    color: var(--white); letter-spacing: 2px; margin-bottom: 1.5rem;
+  }
+  .cover-meta { font-size:.85rem; color:#4a3a18; letter-spacing:1px; text-transform:uppercase; }
+  .cover-scroll {
+    margin-top: 2.5rem; font-size:.8rem; color:var(--sand);
+    letter-spacing:2px; text-transform:uppercase; animation:bounce 1.5s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ── STRIP ── */
+  .strip { max-width:820px; margin:0 auto; padding:2.5rem 1rem 4rem; display:flex; flex-direction:column; gap:0; }
+
+  /* ── PANEL ── */
+  .panel {
+    position: relative; border: 3px solid var(--panel-border);
+    overflow: visible; background: #0d0905; margin-bottom: 6px;
+  }
+  .panel img { width:100%; height:auto; display:block; object-fit:contain; }
+
+  /* ── SPEECH BUBBLES ── */
+  .sb {
+    position: absolute; z-index: 20;
+    background: #fff; border: 3px solid #111; border-radius: 18px;
+    padding: 10px 14px; font-family:'Comic Neue',cursive; font-weight:700;
+    color: #111; font-size: clamp(.95rem,2.2vw,1.15rem); line-height:1.35;
+    max-width: 46%; filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8));
+  }
+  .sb .tag {
+    display:block; font-size:.65rem; font-family:'Inter',sans-serif;
+    font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; opacity:.7;
+  }
+  /* Rulo — arena western */
+  .sb.rulo { background:#fdf5e0; border-color:var(--sand); }
+  .sb.rulo .tag { color:#5a3800; }
+  /* Toni — blanco */
+  .sb.toni { background:#fff; border-color:#333; }
+  .sb.toni .tag { color:#333; }
+  /* Griffin — rojo forajido */
+  .sb.griffin { background:#fff0ee; border-color:var(--red); }
+  .sb.griffin .tag { color:var(--red); }
+  /* Alice — azul cielo */
+  .sb.alice { background:#eef6fa; border-color:var(--sky); }
+  .sb.alice .tag { color:#1a4a5a; }
+
+  /* Posiciones */
+  .tl { top:5%; left:3%; } .tr { top:5%; right:3%; }
+  .cl { top:38%; left:3%; } .cr { top:38%; right:3%; }
+  .bl { bottom:8%; left:3%; } .br { bottom:8%; right:3%; }
+
+  /* Tails */
+  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-br::after   { border-top-color:#fdf5e0; }
+  .toni.tail-br::after   { border-top-color:#fff; }
+  .griffin.tail-br::after{ border-top-color:#fff0ee; }
+  .alice.tail-br::after  { border-top-color:#eef6fa; }
+
+  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-bl::after   { border-top-color:#fdf5e0; }
+  .toni.tail-bl::after   { border-top-color:#fff; }
+  .griffin.tail-bl::after{ border-top-color:#fff0ee; }
+  .alice.tail-bl::after  { border-top-color:#eef6fa; }
+
+  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-tr::after   { border-bottom-color:#fdf5e0; }
+  .toni.tail-tr::after   { border-bottom-color:#fff; }
+
+  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-tl::after   { border-bottom-color:#fdf5e0; }
+  .toni.tail-tl::after   { border-bottom-color:#fff; }
+  .alice.tail-tl::after  { border-bottom-color:#eef6fa; }
+
+  /* Captions */
+  .cap {
+    position:absolute; z-index:20; bottom:0; left:0; right:0;
+    background:rgba(0,0,0,.85); color:var(--sand2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-top:2px solid var(--leather);
+  }
+  .cap-top {
+    position:absolute; z-index:20; top:0; left:0; right:0;
+    background:rgba(0,0,0,.85); color:var(--sand2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-bottom:2px solid var(--leather);
+  }
+
+  /* ── FX ── */
+  .fx { background:var(--bg); border:3px solid var(--sand); text-align:center; padding:2rem 1rem; margin:2px 0; }
+  .fx-text {
+    font-family:'Bangers',cursive; font-size:clamp(3.5rem,12vw,7rem);
+    letter-spacing:6px; color:var(--sand2);
+    text-shadow:4px 4px 0 #3a2800, 8px 8px 0 rgba(0,0,0,.5);
+    line-height:1; display:block;
+  }
+  .fx-text.red-fx {
+    color:var(--red2);
+    text-shadow:4px 4px 0 #440000, 8px 8px 0 rgba(0,0,0,.5);
+  }
+  .fx-sub { font-family:'Inter',sans-serif; font-size:.75rem; color:#4a3a18; letter-spacing:3px; text-transform:uppercase; margin-top:.4rem; }
+
+  /* ── QUOTE ── */
+  .quote-box { border-left:6px solid var(--leather); background:rgba(139,94,60,.08); padding:1.8rem 2rem; margin:4px 0; text-align:center; }
+  .quote-text { font-family:'Bangers',cursive; font-size:clamp(1.6rem,4vw,2.4rem); color:var(--sand2); letter-spacing:2px; line-height:1.2; }
+  .quote-attr { font-size:.8rem; color:#5a4a20; margin-top:.6rem; font-style:italic; letter-spacing:1px; }
+
+  /* ── SCENE LABEL ── */
+  .scene-label {
+    background:var(--leather); color:#0a0702; font-family:'Bangers',cursive;
+    font-size:.9rem; letter-spacing:3px; padding:.4rem 1rem;
+    text-align:center; text-transform:uppercase; margin-bottom:2px;
+  }
+  .scene-label.sky-label { background:var(--sky); color:#fff; }
+  .scene-label.red-label { background:var(--red); color:#fff; }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, #1a0e04, #0a0702);
+    border:4px solid var(--sand); padding:3rem 2rem; text-align:center; margin-top:6px;
+  }
+  .verdict-label { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:5px; color:var(--sand); text-transform:uppercase; margin-bottom:1rem; }
+  .verdict-score { font-family:'Bangers',cursive; font-size:clamp(5rem,18vw,9rem); color:var(--sand2); line-height:.9; text-shadow:5px 5px 0 #3a2800; letter-spacing:-2px; }
+  .verdict-title { font-family:'Bangers',cursive; font-size:clamp(1.8rem,5vw,3rem); color:var(--white); letter-spacing:3px; margin-top:.8rem; }
+  .verdict-body { max-width:520px; margin:1.2rem auto 0; font-size:.9rem; color:#7a6a40; line-height:1.6; }
+  .verdict-tags { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-top:1.5rem; }
+  .verdict-tags span { background:rgba(200,162,80,.1); border:1px solid var(--sand); color:var(--sand2); padding:.3rem .9rem; border-radius:999px; font-size:.75rem; font-weight:600; letter-spacing:1px; }
+
+  /* ── FOOTER ── */
+  footer { text-align:center; padding:3rem 2rem; border-top:2px solid #1e1408; color:#3a2a10; font-size:.8rem; }
+  footer a { color:var(--sand); text-decoration:none; }
+
+  @media (max-width:600px) {
+    .sb { max-width:50%; font-size:.82rem; padding:7px 10px; }
+    .cover-title { font-size:clamp(3rem,12vw,5rem); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">ZASKA Y ACCIÓN</a>
+  <a class="nav-back" href="index.html">← Volver</a>
+</nav>
+
+<header class="cover">
+  <div class="cover-badge">🤠 STORYBOOK Nº006 — MINISERIE</div>
+  <h1 class="cover-title">GODLESS</h1>
+  <p class="cover-tagline">UN PUEBLO. SOLO MUJERES. Y UN FORAJIDO QUE SE ACERCA.</p>
+  <p class="cover-subtitle">Godless vista por Rulo y Toni</p>
+  <p class="cover-meta">Netflix · 2017 · 7 episodios · Dir. Scott Frank</p>
+  <p class="cover-scroll">↓ desplázate ↓</p>
+</header>
+
+<main class="strip">
+
+  <!-- PANEL 1: El pitch -->
+  <div class="scene-label">Escena 1 — El pitch</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-godless/image1.png" alt="Rulo y Toni en el sofá">
+    <div class="cap-top">Nuevo México, 1884. Un pueblo llamado La Belle. Sin hombres. Sin sheriff. Sin suerte.</div>
+    <div class="sb rulo tl tail-br" style="max-width:44%; top:12%;">
+      <span class="tag">RULO</span>
+      "Toni, western de Netflix. Un forajido herido llega a un rancho perdido en el desierto. El pueblo más cercano está lleno de mujeres porque todos los hombres murieron en una mina."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:46%;">
+      <span class="tag">TONI</span>
+      "¿Un pueblo solo de mujeres? ¿Y un forajido que llega herido? ¿Cuántos episodios?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Siete. Y ninguno sobra."
+    </div>
+  </div>
+
+  <!-- PANEL 2: Roy Goode llega -->
+  <div class="scene-label">Escena 2 — Roy Goode</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-godless/image2.png" alt="Rulo de pie explicando — Roy Goode">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:6%;">
+      <span class="tag">RULO</span>
+      "Jack O'Connell. Roy Goode. Forajido con pasado y con algo de consciencia, que es exactamente la mezcla que lo convierte en problema para todo el mundo, incluido él mismo."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Y llega al pueblo de las mujeres?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Llega al rancho de Alice Fletcher. Viuda, sola, con un hijo y un pasado propio que tampoco es sencillo. Y ahí empieza todo."
+    </div>
+  </div>
+
+  <!-- PANEL 3: El ritmo pausado -->
+  <div class="scene-label sky-label">Escena 3 — El ritmo</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-godless/image3.png" alt="Rulo y Toni tranquilos en el sofá">
+    <div class="sb toni tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">TONI</span>
+      "Oye, Rulo. Esta serie va... despacio. No pasa gran cosa en el primer episodio."
+    </div>
+    <div class="sb rulo tr tail-bl" style="max-width:46%; top:46%;">
+      <span class="tag">RULO</span>
+      "Va construyendo. Cada personaje tiene su historia. Cada rincón del pueblo tiene su peso. No es una serie de tiros, Toni. Es una serie de personas."
+    </div>
+    <div class="cap">El ritmo pausado no es un defecto. Es la forma que tiene la serie de que te importe lo que pasa después.</div>
+  </div>
+
+  <!-- PANEL 4: Frank Griffin el malo -->
+  <div class="scene-label red-label">Escena 4 — Frank Griffin</div>
+  <div class="panel" style="min-height:370px;">
+    <img src="storybook-godless/image4.png" alt="Rulo y Toni serios — la amenaza se acerca">
+    <div class="cap-top">Frank Griffin. Jeff Daniels. El malo que se acerca. Despacio. Sin prisa. Eso es peor.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:10%;">
+      <span class="tag">RULO</span>
+      "Jeff Daniels. Emmy merecido. Frank Griffin es el tipo de villano que no grita, no agita los brazos. Habla bajito y te deja claro que va a llegar a donde tiene que llegar."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:52%;">
+      <span class="tag">TONI</span>
+      "¿Y busca a Roy?"
+    </div>
+    <div class="sb griffin bl tail-br" style="max-width:47%;">
+      <span class="tag">GRIFFIN</span>
+      "Busca a Roy. Y lo que encuentra en La Belle no se lo esperaba nadie."
+    </div>
+  </div>
+
+  <!-- FX 1 -->
+  <div class="fx">
+    <span class="fx-text">¡GODLESS!</span>
+    <p class="fx-sub">— Un pueblo sin Dios. Una amenaza sin compasión. —</p>
+  </div>
+
+  <!-- PANEL 5: La Belle — el pueblo de mujeres -->
+  <div class="scene-label">Escena 5 — La Belle</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-godless/image5.png" alt="Rulo solo — el pueblo de La Belle">
+    <div class="cap-top">La Belle, Nuevo México. 83 mujeres. Un sherif ciego a medias. Y nadie que venga a salvarlas.</div>
+    <div class="sb rulo tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">RULO</span>
+      "Mary Agnes McNue. Merritt Wever, Emmy también. La hermana del sheriff. La que lleva el pueblo de verdad. La que no espera que nadie venga a solucionar nada porque sabe que no va a venir nadie."
+    </div>
+    <div class="sb toni" style="top:56%; right:3%; max-width:46%;">
+      <span class="tag">TONI</span>
+      "¿Y son capaces de defenderse solas?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Esa es la pregunta que sostiene toda la serie."
+    </div>
+  </div>
+
+  <!-- PANEL 6: La acción — cuando llega -->
+  <div class="scene-label red-label">Escena 6 — Cuando llega la acción</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-godless/image6.png" alt="Toni furioso con la acción">
+    <div class="sb toni tl tail-br" style="max-width:50%; top:5%;">
+      <span class="tag">TONI</span>
+      "¡RULO! ¡Cuando explota la cosa, explota de verdad! ¡Esto no es slow burn, esto es slow burn con dinamita al final!"
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Eso es Scott Frank. Todo lo que construyes despacio, cada personaje, cada tensión, cada mirada, se cobra de golpe. Y cuando llega el final, ya te importa todo."
+    </div>
+    <div class="cap">Cada minuto de calma es una bala cargada. El séptimo episodio aprieta el gatillo.</div>
+  </div>
+
+  <!-- PANEL 7: Bill McNue el sheriff -->
+  <div class="scene-label">Escena 7 — Bill McNue</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-godless/image7.png" alt="Toni pensativo — el sheriff">
+    <div class="sb toni tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">TONI</span>
+      "El sheriff es un tío que se está quedando ciego. ¿Y es el que tiene que proteger el pueblo?"
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Scoot McNairy. Bill McNue. Un sheriff que sabe que no puede hacer su trabajo pero no puede dejar de intentarlo. Es la historia de un hombre hundiéndose en cámara lenta y sin perder la dignidad."
+    </div>
+    <div class="cap">El western nunca fue sobre los que ganan. Siempre fue sobre los que no se rinden.</div>
+  </div>
+
+  <!-- PANEL 8: La fotografía -->
+  <div class="scene-label sky-label">Escena 8 — Las imágenes</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-godless/image8.png" alt="Rulo pensativo — la fotografía">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:8%;">
+      <span class="tag">RULO</span>
+      "Y mientras te cuenta todo esto, la serie te está poniendo delante los paisajes de Nuevo México. Steven Meizler en fotografía. Cada plano es un cuadro. Sin exagerar."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "No me digas que también tiene banda sonora de esas que se te quedan."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Carlos Rafael Rivera. Un western con toda la majestuosidad que el género merece y que nadie le había dado en Netflix hasta ese momento."
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-box">
+    <p class="quote-text">"Lento, pero la historia te maravilla.<br>Los protagonistas lo hacen muy bien.<br>El final te deja sin respiración."</p>
+    <p class="quote-attr">— Pachi. Esto es lo que importa.</p>
+  </div>
+
+  <!-- PANEL 9: El enfrentamiento final -->
+  <div class="scene-label red-label">Escena 9 — La Belle vs Griffin</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-godless/image9.png" alt="Rulo y Toni cara a cara — el clímax">
+    <div class="cap-top">Episodio 7. La banda de Griffin llega a La Belle. Las mujeres del pueblo están esperando.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Todo lo que has visto en seis episodios. Cada personaje, cada historia, cada arma cargada, cada herida sin cerrar. Todo llega al mismo sitio al mismo tiempo."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:52%;">
+      <span class="tag">TONI</span>
+      "Sin respiración, dices."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Literalmente sin respiración."
+    </div>
+  </div>
+
+  <!-- FX 2 -->
+  <div class="fx" style="border-color:var(--red);">
+    <span class="fx-text red-fx">¡LA BELLE!</span>
+    <p class="fx-sub">— 83 mujeres. Un solo plan. Ningún miedo que no hayan tenido ya. —</p>
+  </div>
+
+  <!-- PANEL 10: Alice Fletcher -->
+  <div class="scene-label">Escena 10 — Alice Fletcher</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-godless/image10.png" alt="Toni enganchado a la pantalla">
+    <div class="sb toni tl tail-br" style="max-width:50%; top:6%;">
+      <span class="tag">TONI</span>
+      "Michelle Dockery está irreconocible. No hay ni rastro de Lady Mary. Aquí es una mujer que ha enterrado a un marido, cría a un hijo sola y tiene sus propios fantasmas."
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Eso es lo que hace grande la serie. Que cada personaje tiene una vida antes del primer plano. Y te la vas descubriendo sin que nadie te la explique con monólogo."
+    </div>
+    <div class="cap">Alice Fletcher. El centro de gravedad de toda la historia.</div>
+  </div>
+
+  <!-- PANEL 11: Veredicto -->
+  <div class="scene-label">Escena 11 — El veredicto</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-godless/image11.png" alt="Rulo y Toni en el veredicto final">
+    <div class="cap-top">Siete episodios. Un western que refresca el género sin traicionarlo.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Godless es lo que pasa cuando le das a un western el tiempo y el presupuesto que merece. No tiene apuro. Sabe lo que es. Y cuando llega adonde tiene que llegar, te deja clavado."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Nota?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Un ocho y medio que sabe a más."
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <p class="verdict-label">🤠 Veredicto de Rulo y Toni 🤠</p>
+    <p class="verdict-score">8.5</p>
+    <p class="verdict-title">EL WESTERN QUE NETFLIX<br>NO MERECE TENER</p>
+    <p class="verdict-body">
+      Siete episodios construidos a fuego lento que explotan en el séptimo con todo lo que llevas acumulado.
+      Actuaciones que merecen los Emmy que se llevaron, una fotografía que es cine en mayúsculas y
+      una historia de mujeres que defienden lo suyo sin que nadie venga a rescatarlas.
+      El ritmo pausado no es un defecto: es el precio de entrada para un final que te deja sin aire.
+      Si eres de los que el western os parece aburrido, dadle una oportunidad. Esta convierte.
+    </p>
+    <div class="verdict-tags">
+      <span>Western</span>
+      <span>Drama</span>
+      <span>Netflix · 2017</span>
+      <span>7 episodios</span>
+      <span>Scott Frank</span>
+      <span>Jeff Daniels</span>
+      <span>Michelle Dockery</span>
+      <span>Jack O'Connell</span>
+      <span>Merritt Wever</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 <a href="index.html">Zaska y Acción</a> — Crítica de cine y series sin filtros ni condescendencia.</p>
+</footer>
+
+</body>
+</html>

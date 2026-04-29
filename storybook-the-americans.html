@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storybook Nº007 — The Americans | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #06060e;
+    --white:   #dce4ec;
+    --soviet:  #cc1122;
+    --soviet2: #ff3344;
+    --blue:    #1a4a8b;
+    --blue2:   #4a8acc;
+    --grey:    #8a9aaa;
+    --grey2:   #b8ccd8;
+    --panel-border: #0e0e1e;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #0e0e1e;
+    background: rgba(6,6,14,.95);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--soviet); letter-spacing:2px; text-decoration:none; }
+  .nav-back { font-size:.85rem; color:var(--blue2); text-decoration:none; border:1px solid var(--blue2); padding:.3rem .9rem; border-radius:4px; }
+  .nav-back:hover { background:var(--blue2); color:#000; }
+
+  /* ── COVER ── */
+  .cover {
+    position: relative;
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    background: linear-gradient(180deg, #100616 0%, var(--bg) 100%);
+    border-bottom: 4px solid var(--soviet);
+    overflow: hidden;
+  }
+  /* Dos banderas cruzadas en el fondo */
+  .cover::before { content:'🇺🇸'; position:absolute; top:20px; right:40px; font-size:4.5rem; opacity:.08; }
+  .cover::after  { content:'🇷🇺'; position:absolute; bottom:20px; left:30px; font-size:4rem; opacity:.08; }
+
+  .cover-badge {
+    display: inline-block;
+    background: var(--soviet);
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 1rem; letter-spacing: 3px;
+    padding: .4rem 1.2rem; border-radius: 4px; margin-bottom: 1.2rem;
+  }
+  .cover-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(3rem, 10vw, 7rem);
+    line-height: .88; letter-spacing: 5px;
+    /* Mitad soviética, mitad americana */
+    background: linear-gradient(90deg, var(--soviet2) 50%, var(--blue2) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,.8));
+    margin-bottom: .6rem;
+  }
+  .cover-tagline {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    color: var(--grey2);
+    letter-spacing: 4px;
+    margin-bottom: .8rem;
+  }
+  .cover-subtitle {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    color: var(--white); letter-spacing: 2px; margin-bottom: 1.5rem;
+  }
+  .cover-meta { font-size:.85rem; color:#3a3a5a; letter-spacing:1px; text-transform:uppercase; }
+  .cover-scroll {
+    margin-top: 2.5rem; font-size:.8rem; color:var(--grey2);
+    letter-spacing:2px; text-transform:uppercase; animation:bounce 1.5s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ── STRIP ── */
+  .strip { max-width:820px; margin:0 auto; padding:2.5rem 1rem 4rem; display:flex; flex-direction:column; gap:0; }
+
+  /* ── PANEL ── */
+  .panel {
+    position: relative; border: 3px solid var(--panel-border);
+    overflow: visible; background: #09090f; margin-bottom: 6px;
+  }
+  .panel img { width:100%; height:auto; display:block; object-fit:contain; }
+
+  /* ── SPEECH BUBBLES ── */
+  .sb {
+    position: absolute; z-index: 20;
+    background: #fff; border: 3px solid #111; border-radius: 18px;
+    padding: 10px 14px; font-family:'Comic Neue',cursive; font-weight:700;
+    color: #111; font-size: clamp(.95rem,2.2vw,1.15rem); line-height:1.35;
+    max-width: 46%; filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8));
+  }
+  .sb .tag {
+    display:block; font-size:.65rem; font-family:'Inter',sans-serif;
+    font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; opacity:.7;
+  }
+  /* Rulo — azul americana */
+  .sb.rulo { background:#eef3fa; border-color:var(--blue); }
+  .sb.rulo .tag { color:#0a2a5a; }
+  /* Toni — blanco */
+  .sb.toni { background:#fff; border-color:#333; }
+  .sb.toni .tag { color:#333; }
+  /* KGB — rojo soviético */
+  .sb.kgb { background:#fff0f2; border-color:var(--soviet); }
+  .sb.kgb .tag { color:var(--soviet); }
+  /* Stan — gris FBI */
+  .sb.stan { background:#f0f4f8; border-color:var(--grey); }
+  .sb.stan .tag { color:#445566; }
+
+  /* Posiciones */
+  .tl { top:5%; left:3%; } .tr { top:5%; right:3%; }
+  .cl { top:38%; left:3%; } .cr { top:38%; right:3%; }
+  .bl { bottom:8%; left:3%; } .br { bottom:8%; right:3%; }
+
+  /* Tails */
+  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-br::after  { border-top-color:#eef3fa; }
+  .toni.tail-br::after  { border-top-color:#fff; }
+  .kgb.tail-br::after   { border-top-color:#fff0f2; }
+  .stan.tail-br::after  { border-top-color:#f0f4f8; }
+
+  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-bl::after  { border-top-color:#eef3fa; }
+  .toni.tail-bl::after  { border-top-color:#fff; }
+  .kgb.tail-bl::after   { border-top-color:#fff0f2; }
+  .stan.tail-bl::after  { border-top-color:#f0f4f8; }
+
+  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-tr::after  { border-bottom-color:#eef3fa; }
+  .toni.tail-tr::after  { border-bottom-color:#fff; }
+
+  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-tl::after  { border-bottom-color:#eef3fa; }
+  .toni.tail-tl::after  { border-bottom-color:#fff; }
+  .stan.tail-tl::after  { border-bottom-color:#f0f4f8; }
+
+  /* Captions */
+  .cap {
+    position:absolute; z-index:20; bottom:0; left:0; right:0;
+    background:rgba(0,0,0,.87); color:var(--grey2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-top:2px solid var(--soviet);
+  }
+  .cap-top {
+    position:absolute; z-index:20; top:0; left:0; right:0;
+    background:rgba(0,0,0,.87); color:var(--grey2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-bottom:2px solid var(--soviet);
+  }
+
+  /* ── FX ── */
+  .fx { background:var(--bg); border:3px solid var(--soviet); text-align:center; padding:2rem 1rem; margin:2px 0; }
+  .fx-text {
+    font-family:'Bangers',cursive; font-size:clamp(3.5rem,12vw,7rem);
+    letter-spacing:6px; color:var(--soviet2);
+    text-shadow:4px 4px 0 #440000, 8px 8px 0 rgba(0,0,0,.5);
+    line-height:1; display:block;
+  }
+  .fx-text.blue-fx {
+    color:var(--blue2);
+    text-shadow:4px 4px 0 #001a44, 8px 8px 0 rgba(0,0,0,.5);
+  }
+  .fx-sub { font-family:'Inter',sans-serif; font-size:.75rem; color:#2a2a4a; letter-spacing:3px; text-transform:uppercase; margin-top:.4rem; }
+
+  /* ── SPLIT PANEL — dos columnas para el contraste ── */
+  .split {
+    display:grid; grid-template-columns:1fr 1fr;
+    border:3px solid var(--panel-border); margin-bottom:6px;
+  }
+  .split-left  { background:#110008; border-right:3px solid var(--panel-border); padding:1.5rem; text-align:center; }
+  .split-right { background:#000a18; padding:1.5rem; text-align:center; }
+  .split-label { font-family:'Bangers',cursive; font-size:.9rem; letter-spacing:3px; margin-bottom:.8rem; }
+  .split-label.red  { color:var(--soviet2); }
+  .split-label.blue { color:var(--blue2); }
+  .split-content { font-family:'Comic Neue',cursive; font-weight:700; font-size:clamp(.85rem,1.8vw,1rem); color:var(--white); line-height:1.4; }
+
+  /* ── QUOTE ── */
+  .quote-box { border-left:6px solid var(--grey); background:rgba(138,154,170,.07); padding:1.8rem 2rem; margin:4px 0; text-align:center; }
+  .quote-text { font-family:'Bangers',cursive; font-size:clamp(1.6rem,4vw,2.4rem); color:var(--grey2); letter-spacing:2px; line-height:1.2; }
+  .quote-attr { font-size:.8rem; color:#445566; margin-top:.6rem; font-style:italic; letter-spacing:1px; }
+
+  /* ── SCENE LABEL ── */
+  .scene-label {
+    background:var(--soviet); color:#fff; font-family:'Bangers',cursive;
+    font-size:.9rem; letter-spacing:3px; padding:.4rem 1rem;
+    text-align:center; text-transform:uppercase; margin-bottom:2px;
+  }
+  .scene-label.blue-label { background:var(--blue); }
+  .scene-label.grey-label { background:#2a3a4a; }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, #100616, #06060e);
+    border:4px solid var(--soviet); padding:3rem 2rem; text-align:center; margin-top:6px;
+    position:relative; overflow:hidden;
+  }
+  .verdict::before {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(90deg, rgba(204,17,34,.04) 0%, transparent 50%, rgba(26,74,139,.04) 100%);
+  }
+  .verdict-label { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:5px; color:var(--soviet); text-transform:uppercase; margin-bottom:1rem; position:relative; }
+  .verdict-score { font-family:'Bangers',cursive; font-size:clamp(5rem,18vw,9rem); line-height:.9; letter-spacing:-2px; position:relative;
+    background: linear-gradient(90deg, var(--soviet2), var(--blue2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,.6));
+  }
+  .verdict-title { font-family:'Bangers',cursive; font-size:clamp(1.8rem,5vw,3rem); color:var(--white); letter-spacing:3px; margin-top:.8rem; position:relative; }
+  .verdict-body { max-width:520px; margin:1.2rem auto 0; font-size:.9rem; color:#5a6a7a; line-height:1.6; position:relative; }
+  .verdict-tags { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-top:1.5rem; position:relative; }
+  .verdict-tags span { background:rgba(204,17,34,.1); border:1px solid var(--soviet); color:var(--soviet2); padding:.3rem .9rem; border-radius:999px; font-size:.75rem; font-weight:600; letter-spacing:1px; }
+  .verdict-tags span.blue-tag { background:rgba(26,74,139,.1); border-color:var(--blue2); color:var(--blue2); }
+
+  /* ── FOOTER ── */
+  footer { text-align:center; padding:3rem 2rem; border-top:2px solid #0e0e1e; color:#2a2a4a; font-size:.8rem; }
+  footer a { color:var(--grey2); text-decoration:none; }
+
+  @media (max-width:600px) {
+    .sb { max-width:50%; font-size:.82rem; padding:7px 10px; }
+    .split { grid-template-columns:1fr; }
+    .split-left { border-right:none; border-bottom:3px solid var(--panel-border); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">ZASKA Y ACCIÓN</a>
+  <a class="nav-back" href="index.html">← Volver</a>
+</nav>
+
+<header class="cover">
+  <div class="cover-badge">🕵️ STORYBOOK Nº007 — SERIE</div>
+  <h1 class="cover-title">THE<br>AMERICANS</h1>
+  <p class="cover-tagline">KGB · WASHINGTON D.C. · ERA REAGAN · PELUCA INCLUIDA</p>
+  <p class="cover-subtitle">The Americans vista por Rulo y Toni</p>
+  <p class="cover-meta">FX · 2013–2018 · 6 temporadas · 75 episodios</p>
+  <p class="cover-scroll">↓ desplázate ↓</p>
+</header>
+
+<main class="strip">
+
+  <!-- PANEL 1: El pitch -->
+  <div class="scene-label">Escena 1 — El pitch</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image1.png" alt="Rulo y Toni en el sofá">
+    <div class="cap-top">Washington D.C., 1981. Un matrimonio normal. Dos hijos. Un coche familiar. KGB.</div>
+    <div class="sb rulo tl tail-br" style="max-width:44%; top:12%;">
+      <span class="tag">RULO</span>
+      "Toni, un matrimonio de agentes del KGB lleva años viviendo bajo cobertura en Washington. Tienen hijos, vecinos, van al súper. Y matan gente entre semana."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:46%;">
+      <span class="tag">TONI</span>
+      "¿Y nadie los descubre?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Su vecino es agente del FBI. Durante seis temporadas. Eso es The Americans."
+    </div>
+  </div>
+
+  <!-- PANEL 2: La doble vida -->
+  <div class="scene-label grey-label">Escena 2 — La doble vida</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-the-americans/image2.png" alt="Rulo y Toni cara a cara — la tensión">
+    <div class="cap-top">Philip y Elizabeth Jennings. Matrimonio. Padres. Espías. En ese orden o en cualquier otro.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:8%;">
+      <span class="tag">RULO</span>
+      "Matthew Rhys y Keri Russell. Philip y Elizabeth. Él lleva años viviendo en América y ya no sabe muy bien de qué lado está. Ella es pura convicción soviética, nunca duda."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Y entre ellos qué hay? ¿Amor de verdad o cobertura?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Esa es la pregunta que te va a tener enganchado seis temporadas."
+    </div>
+  </div>
+
+  <!-- PANEL 3: La ambientación años 80 -->
+  <div class="scene-label blue-label">Escena 3 — Los años 80</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image3.png" alt="Rulo de pie — la ambientación">
+    <div class="sb rulo tl tail-br" style="max-width:48%; top:6%;">
+      <span class="tag">RULO</span>
+      "La ambientación es brutal. Era Reagan, Guerra Fría en su punto más caliente, misiles en Europa, Solidaridad en Polonia. La serie no es de fondo; la historia real ES la serie."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:48%;">
+      <span class="tag">TONI</span>
+      "¿Y hay pelucas? Porque espías años 80 sin pelucas es un fraude."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "Hay pelucas. Hay bigotes postizos. Hay disfraces que solo funcionan porque los llevan con una convicción absoluta."
+    </div>
+  </div>
+
+  <!-- FX 1 -->
+  <div class="fx">
+    <span class="fx-text">¡KGB!</span>
+    <p class="fx-sub">— Комитет государственной безопасности — 1954–1991 —</p>
+  </div>
+
+  <!-- PANEL 4: Los giros -->
+  <div class="scene-label">Escena 4 — Los giros</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image4.png" alt="Rulo solo — los giros de guión">
+    <div class="cap-top">Un guion que no toma prisioneros. Ni favoritos.</div>
+    <div class="sb rulo tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">RULO</span>
+      "Los giros son brutales. Y lo más bestia es que no son de esos giros de impacto gratuito. Cada uno es consecuencia lógica de lo que llevas viendo. Lo ves venir y te duele igual."
+    </div>
+    <div class="sb toni" style="top:56%; right:3%; max-width:46%;">
+      <span class="tag">TONI</span>
+      "¿Tipo Breaking Bad?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "Tipo Breaking Bad pero sin que nadie sea claramente el malo. Ni el bueno."
+    </div>
+  </div>
+
+  <!-- SPLIT: Ni buenos ni malos -->
+  <div class="split">
+    <div class="split-left">
+      <p class="split-label red">🇷🇺 KGB</p>
+      <p class="split-content">Creen en lo que hacen. Sacrifican todo por una causa. No son caricaturas. Son personas con un sistema de valores que simplemente no es el tuyo.</p>
+    </div>
+    <div class="split-right">
+      <p class="split-label blue">🇺🇸 FBI</p>
+      <p class="split-content">Defienden lo correcto. O eso creen. También mienten, también manipulan. La única diferencia es a quién le deben lealtad.</p>
+    </div>
+  </div>
+
+  <!-- PANEL 5: Ni buenos ni malos -->
+  <div class="scene-label grey-label">Escena 5 — Sin bandos</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image5.png" alt="Rulo y Toni en el sofá — reflexivos">
+    <div class="sb toni tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">TONI</span>
+      "Oye, Rulo. Estoy... estoy de parte de los espías rusos. ¿Eso es malo?"
+    </div>
+    <div class="sb rulo tr tail-bl" style="max-width:46%; top:46%;">
+      <span class="tag">RULO</span>
+      "Bienvenido a The Americans. Aquí no hay bando fácil. Aquí solo hay personas con sus razones. Y eso es muchísimo más incómodo que tener un héroe."
+    </div>
+    <div class="cap">Aquí ni los buenos son tan buenos ni los malos tan malos. Y eso lo cambia todo.</div>
+  </div>
+
+  <!-- PANEL 6: Stan Beeman el vecino FBI -->
+  <div class="scene-label blue-label">Escena 6 — Stan Beeman</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-the-americans/image6.png" alt="Toni furioso — Stan el vecino">
+    <div class="sb toni tl tail-br" style="max-width:50%; top:5%;">
+      <span class="tag">TONI</span>
+      "¡RULO! ¡El vecino es del FBI y les invita a cenar! ¡Se hacen amigos! ¡Los Jennings tienen que sentarse a cenar con el tío que los persigue!"
+    </div>
+    <div class="sb stan" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">STAN BEEMAN</span>
+      "Noah Emmerich. El mejor personaje secundario que ha dado el espionaje en televisión. Y no lo sabe."
+    </div>
+    <div class="cap">La cena más incómoda de la historia de la televisión. Repetida durante seis temporadas.</div>
+  </div>
+
+  <!-- PANEL 7: La tensión de que los descubran -->
+  <div class="scene-label">Escena 7 — La tensión constante</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image7.png" alt="Rulo y Toni serios — tensión máxima">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:8%;">
+      <span class="tag">RULO</span>
+      "El ritmo no es vertiginoso. Pero la tensión nunca desaparece. Siempre está ahí, debajo de todo: la posibilidad de que los descubran. En cada conversación con el vecino. En cada mirada."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "Es que incluso cuando no pasa nada, parece que va a pasar algo."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "Eso es escritura de primer nivel. Crear tensión sin acción. Solo con lo que sabes tú como espectador."
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-box">
+    <p class="quote-text">"Seguramente sea la mejor serie<br>de espionaje que hay."</p>
+    <p class="quote-attr">— Pachi. Y tiene razón.</p>
+  </div>
+
+  <!-- PANEL 8: Gadgets, disfraces, persecuciones -->
+  <div class="scene-label grey-label">Escena 8 — Los gadgets y disfraces</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image8.png" alt="Rulo pensativo — los gadgets">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:8%;">
+      <span class="tag">RULO</span>
+      "Y no te creas que es solo drama existencial. Hay gadgets de los 80, micrófonos en embajadas, documentos robados, seducciones de manual de espionaje y persecuciones que te ponen a cien."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Mejor que James Bond?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "James Bond es una fantasía. Esto parece real. Y asusta más."
+    </div>
+  </div>
+
+  <!-- FX 2 -->
+  <div class="fx" style="border-color:var(--blue);">
+    <span class="fx-text blue-fx">¡PELUCA!</span>
+    <p class="fx-sub">— El arma más letal del KGB en suelo americano —</p>
+  </div>
+
+  <!-- PANEL 9: Paige descubre la verdad -->
+  <div class="scene-label">Escena 9 — Paige</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-the-americans/image9.png" alt="Toni conmocionado — Paige descubre la verdad">
+    <div class="cap-top">Paige Jennings. Hija. Adolescente. La que descubre que sus padres no son quienes dicen ser.</div>
+    <div class="sb toni tl tail-br" style="max-width:48%; top:10%;">
+      <span class="tag">TONI</span>
+      "Rulo. La hija lo descubre. Lo descubre TODO. Y ahora los padres tienen que decidir qué hacer con eso."
+    </div>
+    <div class="sb rulo" style="top:52%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Ahí la serie se convierte en otra cosa. Porque ya no es solo: ¿los pillarán? Ahora es: ¿qué le hacen a su propia hija? ¿La protegen? ¿La usan? ¿Las dos cosas?"
+    </div>
+    <div class="cap">Holly Taylor como Paige. La línea roja que la serie cruzó sin miedo.</div>
+  </div>
+
+  <!-- PANEL 10: El final -->
+  <div class="scene-label grey-label">Escena 10 — El final de temporada</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image10.png" alt="Toni enganchado — el final de cada temporada">
+    <div class="sb toni tl tail-br" style="max-width:50%; top:6%;">
+      <span class="tag">TONI</span>
+      "Rulo. Cada final de temporada me deja roto. Y luego arranca la siguiente y tardas un episodio en estar completamente dentro otra vez."
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Eso es una serie que sabe exactamente lo que hace. Que confía en el espectador. Que no explica de más ni subraya las emociones. Las deja ahí y te deja que las proceses."
+    </div>
+    <div class="cap">Seis temporadas. Setenta y cinco episodios. Zero episodios de relleno.</div>
+  </div>
+
+  <!-- PANEL 11: Veredicto -->
+  <div class="scene-label">Escena 11 — El veredicto</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-the-americans/image11.png" alt="Rulo y Toni en el veredicto final">
+    <div class="cap-top">Después de seis años. Dos espías. Una Guerra Fría. Y una respuesta.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Ambientación brutal, protagonistas que se salen, giros que duelen, tensión constante sin ritmo vertiginoso, gadgets, disfraces, persecuciones. Todo. Y un final que te lo da todo sin hacerte ningún regalo fácil."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿La mejor de espionaje que hay?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "La mejor de espionaje que hay. Sin discusión."
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <p class="verdict-label">🕵️ Veredicto de Rulo y Toni 🕵️</p>
+    <p class="verdict-score">9.5</p>
+    <p class="verdict-title">LA MEJOR SERIE DE ESPIONAJE<br>QUE SE HA HECHO</p>
+    <p class="verdict-body">
+      Seis temporadas sin un episodio de relleno. Una pareja protagonista que define lo que es actuar de verdad.
+      Un guion que no toma bandos porque sabe que los bandos son mentira. Tensión permanente sin necesidad
+      de explosiones cada cinco minutos. Y un final que te cierra todo sin hacerte el favor de ponérselo fácil.
+      Si no la has visto, para. Ve ahora. El resto de la lista puede esperar.
+    </p>
+    <div class="verdict-tags">
+      <span>Espionaje</span>
+      <span>Drama</span>
+      <span class="blue-tag">FX · 2013–2018</span>
+      <span>6 temporadas</span>
+      <span>Keri Russell</span>
+      <span>Matthew Rhys</span>
+      <span>Noah Emmerich</span>
+      <span>Guerra Fría</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 <a href="index.html">Zaska y Acción</a> — Crítica de cine y series sin filtros ni condescendencia.</p>
+</footer>
+
+</body>
+</html>

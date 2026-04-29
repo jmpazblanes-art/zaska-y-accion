@@ -1,0 +1,27 @@
+# Videos personales
+*.mp4
+*.mov
+*.avi
+*.gif
+
+# Fotos
+*.jpg
+*.JPG
+*.jpeg
+*.PNG
+IMG_*
+
+# Archivos comprimidos y temporales
+*.zip
+*.txt
+uploads/
+yo/
+FOTOS/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Portada old
+portada the wire_files/

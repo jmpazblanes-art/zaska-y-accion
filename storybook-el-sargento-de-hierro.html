@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storybook Nº005 — El Sargento de Hierro | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #090c06;
+    --white:   #e8e6d0;
+    --khaki:   #8a9a60;
+    --khaki2:  #c4d488;
+    --gold:    #c8a832;
+    --gold2:   #f0cc50;
+    --red:     #8b1a1a;
+    --red2:    #c43030;
+    --panel-border: #1a2210;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #1a2210;
+    background: rgba(9,12,6,.95);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--red2); letter-spacing:2px; text-decoration:none; }
+  .nav-back { font-size:.85rem; color:var(--gold); text-decoration:none; border:1px solid var(--gold); padding:.3rem .9rem; border-radius:4px; }
+  .nav-back:hover { background:var(--gold); color:#000; }
+
+  /* ── COVER ── */
+  .cover {
+    position: relative;
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    background: linear-gradient(180deg, #111a08 0%, var(--bg) 100%);
+    border-bottom: 4px solid var(--khaki);
+    overflow: hidden;
+  }
+  .cover::before { content:'★'; position:absolute; top:20px; right:40px; font-size:6rem; opacity:.06; color:var(--gold); }
+  .cover::after  { content:'★'; position:absolute; bottom:20px; left:30px; font-size:5rem; opacity:.05; color:var(--gold); }
+  .cover-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 1rem; letter-spacing: 3px;
+    padding: .4rem 1.2rem; border-radius: 4px; margin-bottom: 1.2rem;
+  }
+  .cover-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(3rem, 9vw, 6rem);
+    line-height: .9; letter-spacing: 4px;
+    color: var(--gold2);
+    text-shadow: 4px 4px 0 #3a2800, 8px 8px 0 rgba(0,0,0,.5);
+    margin-bottom: .6rem;
+  }
+  .cover-tagline {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    color: var(--khaki2);
+    letter-spacing: 5px;
+    margin-bottom: .8rem;
+  }
+  .cover-subtitle {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    color: var(--white); letter-spacing: 2px; margin-bottom: 1.5rem;
+  }
+  .cover-meta { font-size:.85rem; color:#4a5530; letter-spacing:1px; text-transform:uppercase; }
+  .cover-scroll {
+    margin-top: 2.5rem; font-size:.8rem; color:var(--gold);
+    letter-spacing:2px; text-transform:uppercase; animation:bounce 1.5s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ── STRIP ── */
+  .strip { max-width:820px; margin:0 auto; padding:2.5rem 1rem 4rem; display:flex; flex-direction:column; gap:0; }
+
+  /* ── PANEL ── */
+  .panel {
+    position: relative; border: 3px solid var(--panel-border);
+    overflow: visible; background: #0c1008; margin-bottom: 6px;
+  }
+  .panel img { width:100%; height:auto; display:block; object-fit:contain; }
+
+  /* ── SPEECH BUBBLES ── */
+  .sb {
+    position: absolute; z-index: 20;
+    background: #fff; border: 3px solid #111; border-radius: 18px;
+    padding: 10px 14px; font-family:'Comic Neue',cursive; font-weight:700;
+    color: #111; font-size: clamp(.95rem,2.2vw,1.15rem); line-height:1.35;
+    max-width: 46%; filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8));
+  }
+  .sb .tag {
+    display:block; font-size:.65rem; font-family:'Inter',sans-serif;
+    font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; opacity:.7;
+  }
+  /* Rulo — khaki militar */
+  .sb.rulo { background:#f0f4e0; border-color:var(--khaki); }
+  .sb.rulo .tag { color:#3a4420; }
+  /* Toni — blanco */
+  .sb.toni { background:#fff; border-color:#333; }
+  .sb.toni .tag { color:#333; }
+  /* Highway — rojo cuartel */
+  .sb.highway { background:#fff0ee; border-color:var(--red); }
+  .sb.highway .tag { color:var(--red); }
+
+  /* Posiciones */
+  .tl { top:5%; left:3%; } .tr { top:5%; right:3%; }
+  .cl { top:38%; left:3%; } .cr { top:38%; right:3%; }
+  .bl { bottom:8%; left:3%; } .br { bottom:8%; right:3%; }
+
+  /* Tails */
+  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-br::after    { border-top-color:#f0f4e0; }
+  .toni.tail-br::after    { border-top-color:#fff; }
+  .highway.tail-br::after { border-top-color:#fff0ee; }
+
+  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-bl::after    { border-top-color:#f0f4e0; }
+  .toni.tail-bl::after    { border-top-color:#fff; }
+  .highway.tail-bl::after { border-top-color:#fff0ee; }
+
+  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-tr::after    { border-bottom-color:#f0f4e0; }
+  .toni.tail-tr::after    { border-bottom-color:#fff; }
+  .highway.tail-tr::after { border-bottom-color:#fff0ee; }
+
+  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-tl::after    { border-bottom-color:#f0f4e0; }
+  .toni.tail-tl::after    { border-bottom-color:#fff; }
+  .highway.tail-tl::after { border-bottom-color:#fff0ee; }
+
+  /* Captions */
+  .cap {
+    position:absolute; z-index:20; bottom:0; left:0; right:0;
+    background:rgba(0,0,0,.85); color:var(--khaki2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-top:2px solid var(--khaki);
+  }
+  .cap-top {
+    position:absolute; z-index:20; top:0; left:0; right:0;
+    background:rgba(0,0,0,.85); color:var(--khaki2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-bottom:2px solid var(--khaki);
+  }
+
+  /* ── FX ── */
+  .fx { background:var(--bg); border:3px solid var(--gold); text-align:center; padding:2rem 1rem; margin:2px 0; }
+  .fx-text {
+    font-family:'Bangers',cursive; font-size:clamp(3rem,11vw,6.5rem);
+    letter-spacing:6px; color:var(--gold2);
+    text-shadow:4px 4px 0 #3a2800, 8px 8px 0 rgba(0,0,0,.5);
+    line-height:1; display:block;
+  }
+  .fx-sub { font-family:'Inter',sans-serif; font-size:.75rem; color:#443a20; letter-spacing:3px; text-transform:uppercase; margin-top:.4rem; }
+
+  /* ── TRIPLE FX ── */
+  .triple-fx {
+    background:var(--bg); border:3px solid var(--red);
+    text-align:center; padding:2.5rem 1rem; margin:2px 0;
+    display:flex; flex-direction:column; gap:.5rem; align-items:center;
+  }
+  .triple-fx .fx-word {
+    font-family:'Bangers',cursive; letter-spacing:8px; line-height:1;
+    color:var(--gold2);
+    text-shadow:3px 3px 0 #3a2800, 6px 6px 0 rgba(0,0,0,.4);
+  }
+  .triple-fx .fx-word:nth-child(1) { font-size:clamp(2.5rem,9vw,5.5rem); }
+  .triple-fx .fx-word:nth-child(2) { font-size:clamp(2rem,7vw,4.5rem); color:var(--khaki2); }
+  .triple-fx .fx-word:nth-child(3) { font-size:clamp(2.5rem,9vw,5.5rem); }
+  .triple-fx .fx-sub { font-family:'Inter',sans-serif; font-size:.75rem; color:#443a20; letter-spacing:3px; text-transform:uppercase; margin-top:.4rem; }
+
+  /* ── QUOTE ── */
+  .quote-box { border-left:6px solid var(--gold); background:rgba(200,168,50,.06); padding:1.8rem 2rem; margin:4px 0; text-align:center; }
+  .quote-text { font-family:'Bangers',cursive; font-size:clamp(1.6rem,4vw,2.4rem); color:var(--gold2); letter-spacing:2px; line-height:1.2; }
+  .quote-attr { font-size:.8rem; color:#554a20; margin-top:.6rem; font-style:italic; letter-spacing:1px; }
+
+  /* ── SCENE LABEL ── */
+  .scene-label {
+    background:var(--khaki); color:#090c06; font-family:'Bangers',cursive;
+    font-size:.9rem; letter-spacing:3px; padding:.4rem 1rem;
+    text-align:center; text-transform:uppercase; margin-bottom:2px;
+  }
+  .scene-label.red-label { background:var(--red); color:#fff; }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, #111a08, #090c06);
+    border:4px solid var(--gold); padding:3rem 2rem; text-align:center; margin-top:6px;
+  }
+  .verdict-label { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:5px; color:var(--gold); text-transform:uppercase; margin-bottom:1rem; }
+  .verdict-score { font-family:'Bangers',cursive; font-size:clamp(5rem,18vw,9rem); color:var(--gold2); line-height:.9; text-shadow:5px 5px 0 #3a2800; letter-spacing:-2px; }
+  .verdict-title { font-family:'Bangers',cursive; font-size:clamp(1.8rem,5vw,3rem); color:var(--white); letter-spacing:3px; margin-top:.8rem; }
+  .verdict-body { max-width:520px; margin:1.2rem auto 0; font-size:.9rem; color:#778855; line-height:1.6; }
+  .verdict-tags { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-top:1.5rem; }
+  .verdict-tags span { background:rgba(200,168,50,.1); border:1px solid var(--gold); color:var(--gold2); padding:.3rem .9rem; border-radius:999px; font-size:.75rem; font-weight:600; letter-spacing:1px; }
+
+  /* ── FOOTER ── */
+  footer { text-align:center; padding:3rem 2rem; border-top:2px solid #1a2210; color:#334422; font-size:.8rem; }
+  footer a { color:var(--gold); text-decoration:none; }
+
+  @media (max-width:600px) {
+    .sb { max-width:50%; font-size:.82rem; padding:7px 10px; }
+    .cover-title { font-size:clamp(2.2rem,10vw,3.5rem); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">ZASKA Y ACCIÓN</a>
+  <a class="nav-back" href="index.html">← Volver</a>
+</nav>
+
+<header class="cover">
+  <div class="cover-badge">★ STORYBOOK Nº005 — PELÍCULA</div>
+  <h1 class="cover-title">EL SARGENTO<br>DE HIERRO</h1>
+  <p class="cover-tagline">ADAPT · IMPROVISE · OVERCOME</p>
+  <p class="cover-subtitle">Heartbreak Ridge visto por Rulo y Toni</p>
+  <p class="cover-meta">Warner Bros. · 1986 · Dir. &amp; Prot. Clint Eastwood</p>
+  <p class="cover-scroll">↓ desplázate ↓</p>
+</header>
+
+<main class="strip">
+
+  <!-- PANEL 1: El pitch -->
+  <div class="scene-label">Escena 1 — El pitch</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-el-sargento-de-hierro/image1.png" alt="Rulo y Toni en el sofá">
+    <div class="cap-top">Un viernes de 1986. Un cuartel lleno de inútiles. Un sargento con ganas de pegar.</div>
+    <div class="sb rulo tl tail-br" style="max-width:44%; top:12%;">
+      <span class="tag">RULO</span>
+      "Toni, Clint Eastwood de sargento veterano al mando de unos reclutas más perdidos que un calcetín en la secadora."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:46%;">
+      <span class="tag">TONI</span>
+      "¿Y hace qué? ¿Les enseña a disparar con voz bonita?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Les enseña a disparar soltando palabras que haría sonrojar a un camionero. Con cariño, eso sí."
+    </div>
+  </div>
+
+  <!-- PANEL 2: Highway, el más duro del cuartel -->
+  <div class="scene-label">Escena 2 — El sargento Highway</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-el-sargento-de-hierro/image2.png" alt="Rulo pensativo como Highway">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:6%;">
+      <span class="tag">RULO</span>
+      "Tom Highway. Veterano de Corea y Vietnam. Más condecoraciones que el uniforme tiene sitio. Y un carácter tan bueno como un día de lluvia en el desierto."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Es de esos sargentos que gritan mucho pero en el fondo son buena gente?"
+    </div>
+    <div class="sb highway bl tail-br" style="max-width:47%;">
+      <span class="tag">HIGHWAY</span>
+      "Grita mucho. Y en el fondo también grita. Pero tiene su corazoncito."
+    </div>
+  </div>
+
+  <!-- PANEL 3: Los reclutas -->
+  <div class="scene-label">Escena 3 — Los reclutas del apocalipsis</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-el-sargento-de-hierro/image3.png" alt="Rulo solo descojonado">
+    <div class="cap-top">Cabo Stitch Jones y compañía. El pelotón más inútil del Cuerpo de Marines.</div>
+    <div class="sb rulo tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">RULO</span>
+      "Mario Van Peebles como el cabo Jones. Rockero, bocazas, convencido de que el ejército es una mierda y de que él es lo más. Exactamente el tipo que Highway necesita destrozar."
+    </div>
+    <div class="sb toni" style="top:55%; right:3%; max-width:46%;">
+      <span class="tag">TONI</span>
+      "¿Y les hace caso?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Les hace lo que Highway hace siempre: conseguir que funcionen aunque no quieran."
+    </div>
+  </div>
+
+  <!-- PANEL 4: El entrenamiento — hostias como panes -->
+  <div class="scene-label red-label">Escena 4 — El entrenamiento</div>
+  <div class="panel" style="min-height:370px;">
+    <img src="storybook-el-sargento-de-hierro/image4.png" alt="Rulo y Toni en el sofá viendo el entreno">
+    <div class="sb toni tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">TONI</span>
+      "¡Rulo! ¡Este tío les está insultando en cuatro idiomas a la vez! ¡Eso no se puede decir en una película!"
+    </div>
+    <div class="sb rulo tr tail-bl" style="max-width:44%; top:46%;">
+      <span class="tag">RULO</span>
+      "Es 1986, Toni. Puedes decir cualquier cosa si la dices con voz de Clint Eastwood."
+    </div>
+    <div class="cap">El vocabulario de Highway. Clasificado. No apto para cardiacos ni para suegras.</div>
+  </div>
+
+  <!-- Triple FX: ADAPT IMPROVISE OVERCOME -->
+  <div class="triple-fx">
+    <span class="fx-word">¡ADAPT!</span>
+    <span class="fx-word">¡IMPROVISE!</span>
+    <span class="fx-word">¡OVERCOME!</span>
+    <p class="fx-sub">— El mantra del sargento Highway. Y de Clint Eastwood en general. —</p>
+  </div>
+
+  <!-- PANEL 5: La historia de amor — la parte floja -->
+  <div class="scene-label">Escena 5 — La historia de amor</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-el-sargento-de-hierro/image5.png" alt="Rulo y Toni serios en el sofá">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:8%;">
+      <span class="tag">RULO</span>
+      "Hay una subtrama romántica con su ex mujer, Aggie. Marsha Mason. Highway intenta reconquistarla leyendo revistas de mujeres para entenderlas."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Clint Eastwood leyendo Cosmopolitan?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Es la parte más floja. No te voy a mentir. Pero tampoco estorba mucho."
+    </div>
+  </div>
+
+  <!-- PANEL 6: Las frases lapidarias -->
+  <div class="scene-label red-label">Escena 6 — Las perlas del sargento</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-el-sargento-de-hierro/image6.png" alt="Toni furioso aplaudiendo las frases">
+    <div class="sb toni tl tail-br" style="max-width:50%; top:5%;">
+      <span class="tag">TONI</span>
+      "¡RULO! ¡Ha dicho que son tan inútiles que no podrían organizar un follón en un burdel aunque tuvieran la cartera llena!"
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Eso es Eastwood. Frases lapidarias soltadas con cara de no haber roto un plato en la vida. El hombre tiene un talento especial para el insulto con clase."
+    </div>
+    <div class="cap">Cada frase de Highway: un insulto, una lección y una sonrisa torcida. Por orden.</div>
+  </div>
+
+  <!-- PANEL 7: Granada — la batalla final -->
+  <div class="scene-label">Escena 7 — Operación Granada</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-el-sargento-de-hierro/image7.png" alt="Toni en shock viendo la batalla">
+    <div class="cap-top">Octubre de 1983. La invasión de Granada. El momento de la verdad.</div>
+    <div class="sb toni tl tail-br" style="max-width:48%; top:12%;">
+      <span class="tag">TONI</span>
+      "Espera, ¿van a la guerra de verdad? ¿En Granada?"
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:46%;">
+      <span class="tag">RULO</span>
+      "La invasión de Granada de 1983. Una operación real. Y el momento en que todos esos pardillos tienen que demostrar que algo han aprendido."
+    </div>
+    <div class="cap">De inútiles a marines. Con muchos insultos por el camino.</div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-box">
+    <p class="quote-text">"Aquí el que no hace bien su faena<br>se queda en el barro comiéndose los mocos."</p>
+    <p class="quote-attr">— Sargento Highway. Más o menos.</p>
+  </div>
+
+  <!-- PANEL 8: Clint vs el sistema -->
+  <div class="scene-label">Escena 8 — Highway vs el sistema</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-el-sargento-de-hierro/image8.png" alt="Rulo de pie explicando">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:8%;">
+      <span class="tag">RULO</span>
+      "Hay un oficial por encima de Highway, el Mayor Powers. Everett McGill. El típico burócrata militar que nunca ha pisado un campo de batalla y le pone trabas a todo."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Y Highway le hace caso?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Highway hace lo que tiene que hacer. Siempre. El sistema que le rodea es su problema, no su límite."
+    </div>
+  </div>
+
+  <!-- PANEL 9: La máquina de guerra -->
+  <div class="scene-label red-label">Escena 9 — La transformación</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-el-sargento-de-hierro/image9.png" alt="Rulo y Toni cara a cara intensos">
+    <div class="cap-top">El pelotón de los perdedores. Convertido en pelotón de marines de verdad.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Lo que hace Eastwood con esta peli es lo que Highway hace con el pelotón: la coge rota, la ralla a base de bien y la devuelve funcionando. Con su magia particular."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:52%;">
+      <span class="tag">TONI</span>
+      "O sea que la comparas con La Chaqueta Metálica pero con más humor y menos drama."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "La Chaqueta Metálica pero que te puedes reír sin sentirte culpable."
+    </div>
+  </div>
+
+  <!-- FX: HOSTIAS COMO PANES -->
+  <div class="fx">
+    <span class="fx-text">¡HOSTIAS<br>COMO PANES!</span>
+    <p class="fx-sub">— El método pedagógico del sargento Highway, 1986 —</p>
+  </div>
+
+  <!-- PANEL 10: Eastwood modo bestia -->
+  <div class="scene-label">Escena 10 — El Eastwood de siempre</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-el-sargento-de-hierro/image10.png" alt="Toni enganchado a la pantalla">
+    <div class="sb toni tl tail-br" style="max-width:50%; top:6%;">
+      <span class="tag">TONI</span>
+      "Rulo, es la típica peli de Clint. No reinventa nada. Pero Eastwood haciendo de Eastwood es suficiente para que funcione."
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Ahí está la clave. No te viene a sorprender. Te viene a dar lo que esperas del tío, bien hecho, con diálogos que se te quedan grabados y sin andarse con tonterías."
+    </div>
+    <div class="cap">Eastwood no es un actor. Es una institución con cara de mala leche.</div>
+  </div>
+
+  <!-- PANEL 11: Veredicto -->
+  <div class="scene-label">Escena 11 — El veredicto</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-el-sargento-de-hierro/image11.png" alt="Rulo y Toni en el veredicto final">
+    <div class="cap-top">Al final de la función. Dos colegas que saben lo que han visto.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Entretenida, bien hecha, con un personaje central que ya es leyenda. La historia de amor no termina de funcionar pero el núcleo —Highway, el pelotón, el humor— aguanta perfectamente."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "Para los amantes de la acción con humor y faltadas por todas partes."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "Para los amantes de Eastwood en general. Que somos muchos."
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <p class="verdict-label">★ Veredicto de Rulo y Toni ★</p>
+    <p class="verdict-score">7.5</p>
+    <p class="verdict-title">EL EASTWOOD DE SIEMPRE.<br>Y ESO ES SUFICIENTE.</p>
+    <p class="verdict-body">
+      La típica película de Clint: frases lapidarias, hostias como panes y un corazoncito escondido
+      detrás de dos metros de mala leche. El sargento Highway ya es personaje de leyenda, los diálogos
+      son para enmarcar y la transformación del pelotón funciona sin forzar nada. La historia de amor
+      es la parte más floja, pero el conjunto tiene la suficiente energía y humor para que no importe
+      demasiado. Peli para el finde, con palomitas y ganas de reírte. Sin más pretensiones. Sin falta.
+    </p>
+    <div class="verdict-tags">
+      <span>Acción bélica</span>
+      <span>Comedia negra</span>
+      <span>Warner Bros. · 1986</span>
+      <span>Clint Eastwood</span>
+      <span>Mario Van Peebles</span>
+      <span>Marsha Mason</span>
+      <span>Heartbreak Ridge</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 <a href="index.html">Zaska y Acción</a> — Crítica de cine y series sin filtros ni condescendencia.</p>
+</footer>
+
+</body>
+</html>

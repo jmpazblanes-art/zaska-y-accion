@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storybook Nº004 — Chernobyl | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #06090a;
+    --white:   #e8ead6;
+    --rad:     #a8e63d;
+    --rad2:    #d4f57a;
+    --soviet:  #cc1100;
+    --soviet2: #ff4433;
+    --grey:    #5a6a55;
+    --panel-border: #1a2210;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #1a2210;
+    background: rgba(6,9,10,.95);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--soviet); letter-spacing:2px; text-decoration:none; }
+  .nav-back { font-size:.85rem; color:var(--rad); text-decoration:none; border:1px solid var(--rad); padding:.3rem .9rem; border-radius:4px; }
+  .nav-back:hover { background:var(--rad); color:#000; }
+
+  /* ── COVER ── */
+  .cover {
+    position: relative;
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    background: linear-gradient(180deg, #0d1505 0%, var(--bg) 100%);
+    border-bottom: 4px solid var(--rad);
+    overflow: hidden;
+  }
+  .cover::before { content:'☢'; position:absolute; top:20px; right:40px; font-size:5rem; opacity:.09; color:var(--rad); }
+  .cover::after  { content:'☢'; position:absolute; bottom:20px; left:30px; font-size:4rem; opacity:.07; color:var(--rad); }
+  .cover-badge {
+    display: inline-block;
+    background: var(--soviet);
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 1rem; letter-spacing: 3px;
+    padding: .4rem 1.2rem; border-radius: 4px; margin-bottom: 1.2rem;
+  }
+  .cover-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    line-height: .95; letter-spacing: 3px;
+    color: var(--rad2);
+    text-shadow: 4px 4px 0 #1a3000, 8px 8px 0 rgba(0,0,0,.5);
+    margin-bottom: .5rem;
+  }
+  .cover-roentgen {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--soviet2);
+    letter-spacing: 4px;
+    margin-bottom: .8rem;
+  }
+  .cover-subtitle {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    color: var(--white); letter-spacing: 2px; margin-bottom: 1.5rem;
+  }
+  .cover-meta { font-size:.85rem; color:#556644; letter-spacing:1px; text-transform:uppercase; }
+  .cover-scroll {
+    margin-top: 2.5rem; font-size:.8rem; color:var(--rad);
+    letter-spacing:2px; text-transform:uppercase; animation:bounce 1.5s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ── STRIP ── */
+  .strip { max-width:820px; margin:0 auto; padding:2.5rem 1rem 4rem; display:flex; flex-direction:column; gap:0; }
+
+  /* ── PANEL ── */
+  .panel {
+    position: relative; border: 3px solid var(--panel-border);
+    overflow: visible; background: #090d07; margin-bottom: 6px;
+  }
+  .panel img { width:100%; height:auto; display:block; object-fit:contain; }
+
+  /* ── SPEECH BUBBLES ── */
+  .sb {
+    position: absolute; z-index: 20;
+    background: #fff; border: 3px solid #111; border-radius: 18px;
+    padding: 10px 14px; font-family:'Comic Neue',cursive; font-weight:700;
+    color: #111; font-size: clamp(.95rem,2.2vw,1.15rem); line-height:1.35;
+    max-width: 46%; filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8));
+  }
+  .sb .tag {
+    display:block; font-size:.65rem; font-family:'Inter',sans-serif;
+    font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; opacity:.7;
+  }
+  /* Rulo — radiation green */
+  .sb.rulo { background:#eaffd0; border-color:#5a9a00; }
+  .sb.rulo .tag { color:#2a5500; }
+  /* Toni — blanco */
+  .sb.toni { background:#fff; border-color:#333; }
+  .sb.toni .tag { color:#333; }
+  /* Soviet — Soviet red, for emphasis */
+  .sb.soviet { background:#fff0ee; border-color:var(--soviet); }
+  .sb.soviet .tag { color:var(--soviet); }
+
+  /* Posiciones */
+  .tl { top:5%; left:3%; } .tr { top:5%; right:3%; }
+  .cl { top:38%; left:3%; } .cr { top:38%; right:3%; }
+  .bl { bottom:8%; left:3%; } .br { bottom:8%; right:3%; }
+
+  /* Tails */
+  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-br::after   { border-top-color:#eaffd0; }
+  .toni.tail-br::after   { border-top-color:#fff; }
+  .soviet.tail-br::after { border-top-color:#fff0ee; }
+
+  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-bl::after   { border-top-color:#eaffd0; }
+  .toni.tail-bl::after   { border-top-color:#fff; }
+  .soviet.tail-bl::after { border-top-color:#fff0ee; }
+
+  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-tr::after   { border-bottom-color:#eaffd0; }
+  .toni.tail-tr::after   { border-bottom-color:#fff; }
+  .soviet.tail-tr::after { border-bottom-color:#fff0ee; }
+
+  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-tl::after   { border-bottom-color:#eaffd0; }
+  .toni.tail-tl::after   { border-bottom-color:#fff; }
+  .soviet.tail-tl::after { border-bottom-color:#fff0ee; }
+
+  /* Captions */
+  .cap {
+    position:absolute; z-index:20; bottom:0; left:0; right:0;
+    background:rgba(0,0,0,.85); color:var(--rad2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-top:2px solid var(--rad);
+  }
+  .cap-top {
+    position:absolute; z-index:20; top:0; left:0; right:0;
+    background:rgba(0,0,0,.85); color:var(--rad2);
+    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
+    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
+    border-bottom:2px solid var(--rad);
+  }
+
+  /* ── FX ── */
+  .fx { background:var(--bg); border:3px solid var(--rad); text-align:center; padding:2rem 1rem; margin:2px 0; }
+  .fx-text {
+    font-family:'Bangers',cursive; font-size:clamp(3rem,11vw,6.5rem);
+    letter-spacing:4px; color:var(--rad2);
+    text-shadow:4px 4px 0 #1a3000, 8px 8px 0 rgba(0,0,0,.5);
+    line-height:1; display:block;
+  }
+  .fx-text.soviet-fx {
+    color:var(--soviet2);
+    text-shadow:4px 4px 0 #440000, 8px 8px 0 rgba(0,0,0,.5);
+  }
+  .fx-sub { font-family:'Inter',sans-serif; font-size:.75rem; color:#445533; letter-spacing:3px; text-transform:uppercase; margin-top:.4rem; }
+
+  /* ── DOSIMETER BOX ── */
+  .dosimeter-box {
+    background: linear-gradient(135deg, #0d1505, #06090a);
+    border: 3px solid var(--rad);
+    padding: 2rem; text-align:center; margin:4px 0;
+    position:relative; overflow:hidden;
+  }
+  .dosimeter-box::before {
+    content:'☢'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    font-size:8rem; opacity:.04; color:var(--rad);
+  }
+  .dosimeter-big {
+    font-family:'Bangers',cursive; font-size:clamp(2rem,6vw,4rem);
+    color:var(--soviet2); letter-spacing:6px;
+    text-shadow:3px 3px 0 #440000; line-height:1.1;
+    position:relative;
+  }
+  .dosimeter-sub { font-size:.8rem; color:#445533; margin-top:.6rem; letter-spacing:2px; text-transform:uppercase; position:relative; }
+
+  /* ── QUOTE ── */
+  .quote-box { border-left:6px solid var(--rad); background:rgba(168,230,61,.06); padding:1.8rem 2rem; margin:4px 0; text-align:center; }
+  .quote-text { font-family:'Bangers',cursive; font-size:clamp(1.6rem,4vw,2.4rem); color:var(--rad2); letter-spacing:2px; line-height:1.2; }
+  .quote-attr { font-size:.8rem; color:#556644; margin-top:.6rem; font-style:italic; letter-spacing:1px; }
+
+  /* ── SCENE LABEL ── */
+  .scene-label {
+    background:var(--rad); color:#0d1505; font-family:'Bangers',cursive;
+    font-size:.9rem; letter-spacing:3px; padding:.4rem 1rem;
+    text-align:center; text-transform:uppercase; margin-bottom:2px;
+  }
+  .scene-label.soviet-label {
+    background:var(--soviet); color:#fff;
+  }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, #0d1505, #06090a);
+    border:4px solid var(--rad); padding:3rem 2rem; text-align:center; margin-top:6px;
+  }
+  .verdict-label { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:5px; color:var(--rad); text-transform:uppercase; margin-bottom:1rem; }
+  .verdict-score { font-family:'Bangers',cursive; font-size:clamp(5rem,18vw,9rem); color:var(--rad2); line-height:.9; text-shadow:5px 5px 0 #1a3000; letter-spacing:-2px; }
+  .verdict-title { font-family:'Bangers',cursive; font-size:clamp(1.8rem,5vw,3rem); color:var(--white); letter-spacing:3px; margin-top:.8rem; }
+  .verdict-body { max-width:520px; margin:1.2rem auto 0; font-size:.9rem; color:#778866; line-height:1.6; }
+  .verdict-tags { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-top:1.5rem; }
+  .verdict-tags span { background:rgba(168,230,61,.1); border:1px solid var(--rad); color:var(--rad2); padding:.3rem .9rem; border-radius:999px; font-size:.75rem; font-weight:600; letter-spacing:1px; }
+
+  /* ── FOOTER ── */
+  footer { text-align:center; padding:3rem 2rem; border-top:2px solid #1a2210; color:#334422; font-size:.8rem; }
+  footer a { color:var(--rad); text-decoration:none; }
+
+  @media (max-width:600px) {
+    .sb { max-width:50%; font-size:.82rem; padding:7px 10px; }
+    .cover-title { font-size:clamp(2.2rem,10vw,3.5rem); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">ZASKA Y ACCIÓN</a>
+  <a class="nav-back" href="index.html">← Volver</a>
+</nav>
+
+<header class="cover">
+  <div class="cover-badge">☢ STORYBOOK Nº004 — MINISERIE</div>
+  <h1 class="cover-title">3,6 RÖNTGENS.<br>NO ES TAN MALO.</h1>
+  <p class="cover-roentgen">☢ &nbsp; NO SON TODOS &nbsp; ☢</p>
+  <p class="cover-subtitle">Chernobyl visto por Rulo y Toni</p>
+  <p class="cover-meta">HBO · 2019 · 5 episodios · Dir. Johan Renck</p>
+  <p class="cover-scroll">↓ desplázate ↓</p>
+</header>
+
+<main class="strip">
+
+  <!-- PANEL 1: El pitch -->
+  <div class="scene-label">Escena 1 — El pitch</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-chernobyl/image1.png" alt="Rulo y Toni en el sofá">
+    <div class="cap-top">26 de abril de 1986. 1:23 de la madrugada. Pripyat duerme.</div>
+    <div class="sb rulo tl tail-br" style="max-width:44%; top:14%;">
+      <span class="tag">RULO</span>
+      "Toni, te voy a poner una miniserie de HBO sobre el accidente nuclear de Chernobyl."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:46%;">
+      <span class="tag">TONI</span>
+      "Eso es un documental, Rulo. Paso."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "No es un documental. Es la historia de cómo la mentira puede acabar con un Imperio."
+    </div>
+  </div>
+
+  <!-- PANEL 2: La explosión -->
+  <div class="scene-label">Escena 2 — 1:23:45 a.m.</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-chernobyl/image2.png" alt="Rulo explicando en pie">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:6%;">
+      <span class="tag">RULO</span>
+      "El reactor número cuatro explota durante una prueba de seguridad. El techo sale por los aires. Los operarios ven el núcleo con sus propios ojos."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Y qué dicen los jefes cuando llegan?"
+    </div>
+    <div class="sb soviet bl tail-br" style="max-width:47%;">
+      <span class="tag">DYATLOV</span>
+      "3,6 röntgens. No es tan malo."
+    </div>
+  </div>
+
+  <!-- FX 1 -->
+  <div class="fx" style="border-color:var(--soviet);">
+    <span class="fx-text soviet-fx">¡3,6 RÖNTGENS!</span>
+    <p class="fx-sub" style="color:#554433;">— El número más famoso de la historia de la física nuclear —</p>
+  </div>
+
+  <!-- PANEL 3: Legasov -->
+  <div class="scene-label">Escena 3 — Legasov entra en escena</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-chernobyl/image3.png" alt="Rulo mirando solo">
+    <div class="cap-top">Valery Legasov. El hombre que sabía la verdad y la dijo.</div>
+    <div class="sb rulo tl tail-br" style="max-width:48%; top:10%;">
+      <span class="tag">RULO</span>
+      "Jared Harris. El científico que le explica al Politburó qué es un reactor RBMK y por qué van todos a morir. En una sala llena de hombres que no quieren escucharlo."
+    </div>
+    <div class="sb toni" style="top:56%; right:3%; max-width:46%;">
+      <span class="tag">TONI</span>
+      "¿Y le escuchan?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Lo que escuchan es lo que quieren escuchar. Que es distinto."
+    </div>
+  </div>
+
+  <!-- PANEL 4: La burocracia soviética -->
+  <div class="scene-label soviet-label">Escena 4 — La burocracia soviética</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-chernobyl/image4.png" alt="Toni pensativo y preocupado">
+    <div class="sb toni tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">TONI</span>
+      "O sea que sabían que el reactor tenía un defecto de diseño. Y no lo dijeron porque admitirlo suponía admitir que el sistema soviético había fallado."
+    </div>
+    <div class="sb rulo" style="top:54%; right:3%; max-width:46%;">
+      <span class="tag">RULO</span>
+      "Premio. Y mientras tanto evacúan Pripyat 36 horas tarde. Porque primero había que consultar con Moscú."
+    </div>
+    <div class="cap">El coste del orgullo: 50.000 personas evacuadas en tres horas.</div>
+  </div>
+
+  <!-- Dosimeter box -->
+  <div class="dosimeter-box">
+    <p class="dosimeter-big">≥ 400 RÖNTGENS</p>
+    <p class="dosimeter-sub">Dosis letal. El detector no marcaba más. El límite era el aparato, no la realidad.</p>
+  </div>
+
+  <!-- PANEL 5: Los liquidadores — momento humano -->
+  <div class="scene-label">Escena 5 — Los liquidadores</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-chernobyl/image5.png" alt="Rulo y Toni en el sofá en silencio">
+    <div class="cap-top">600.000 hombres. 90 segundos en el techo. Medallas que no podían llevar.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Los liquidadores. Mineros que excavan en el sótano del reactor para evitar que la lava nuclear llegue al agua freática. Sin saber bien para qué exactamente."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Y van?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Van. Porque son soviéticos. Porque les piden que lo hagan. Porque alguien tiene que hacerlo."
+    </div>
+  </div>
+
+  <!-- PANEL 6: La tensión — "están mintiendo" -->
+  <div class="scene-label soviet-label">Escena 6 — "Están mintiendo"</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-chernobyl/image6.png" alt="Toni furioso">
+    <div class="sb toni tl tail-br" style="max-width:50%; top:5%;">
+      <span class="tag">TONI</span>
+      "¡Están mintiendo, Rulo! El jefe de turno sabe que el reactor ha explotado y sigue diciendo que no. ¡Lo está mirando!"
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:46%;">
+      <span class="tag">RULO</span>
+      "Eso es la serie. El sistema que te enseña que reconocer la realidad es más peligroso que la realidad misma."
+    </div>
+    <div class="cap">La mentira como política de Estado. No como excepción.</div>
+  </div>
+
+  <!-- PANEL 7: Los mineros — momento humano -->
+  <div class="scene-label">Escena 7 — El momento humano</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-chernobyl/image7.png" alt="Rulo y Toni serios juntos">
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:8%;">
+      <span class="tag">RULO</span>
+      "El capítulo de los bomberos. Sus mujeres en el hospital. El médico intentando explicarles que no pueden entrar en esa habitación. Que ya no son sus maridos. Que son fuentes radiactivas."
+    </div>
+    <div class="sb toni" style="top:56%; right:3%; max-width:46%;">
+      <span class="tag">TONI</span>
+      "...calla."
+    </div>
+    <div class="cap">Ulana Khomyuk. Lyudmilla Ignatenko. Nombres que no deberían olvidarse.</div>
+  </div>
+
+  <!-- FX 2 -->
+  <div class="fx">
+    <span class="fx-text">¡SARCÓFAGO!</span>
+    <p class="fx-sub">— 400.000 metros cúbicos de hormigón. Construido en 206 días. —</p>
+  </div>
+
+  <!-- PANEL 8: El debate de los acentos -->
+  <div class="scene-label">Escena 8 — El debate de los acentos</div>
+  <div class="panel" style="min-height:340px;">
+    <img src="storybook-chernobyl/image8.png" alt="Rulo pensativo">
+    <div class="sb toni tl tail-br" style="max-width:48%; top:8%;">
+      <span class="tag">TONI</span>
+      "Rulo, una pregunta. ¿Por qué hablan todos en inglés con acento americano? ¿No deberían hablar en ruso?"
+    </div>
+    <div class="sb rulo" style="top:50%; right:3%; max-width:47%;">
+      <span class="tag">RULO</span>
+      "Aquí hay dos opciones: o haces la serie en ruso con subtítulos, o la haces en inglés y te olvidas. Lo que no puedes es mezclar. Mazin lo sabía. Y lo hizo bien."
+    </div>
+    <div class="cap">El acento no es un defecto. Es una decisión de producción. Pasa página.</div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-box">
+    <p class="quote-text">"¿Cuál es el coste de las mentiras?<br>No que las confundamos con la verdad.<br>El verdadero peligro es que, si escuchamos suficientes mentiras, ya no reconocemos la verdad."</p>
+    <p class="quote-attr">— Valery Legasov, episodio 1</p>
+  </div>
+
+  <!-- PANEL 9: El juicio -->
+  <div class="scene-label">Escena 9 — El juicio final</div>
+  <div class="panel" style="min-height:380px;">
+    <img src="storybook-chernobyl/image9.png" alt="Rulo y Toni frente a frente intensos">
+    <div class="cap-top">Kiev, 1987. El tribunal que juzga el accidente más grave de la historia nuclear.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Legasov en el estrado. Explicándole al mundo entero cómo funciona un reactor RBMK. Cómo el diseño era defectuoso. Cómo todos lo sabían."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Y Dyatlov? ¿El de '3,6 no es tan malo'?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Sigue diciendo que él no hizo nada mal. Hasta el final."
+    </div>
+  </div>
+
+  <!-- PANEL 10: Rulo enganchado -->
+  <div class="scene-label">Escena 10 — Rulo se viene abajo</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-chernobyl/image10.png" alt="Rulo enganchado al televisor">
+    <div class="sb rulo tl tail-br" style="max-width:50%; top:6%;">
+      <span class="tag">RULO</span>
+      "Craig Mazin tardó cinco años en escribir esto. Cinco años investigando, leyendo testimonios, hablando con supervivientes. Y se nota en cada plano."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "Es que parece real."
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:47%;">
+      <span class="tag">RULO</span>
+      "Es que lo es. Lo que cambia es el orden de los hechos, no los hechos."
+    </div>
+  </div>
+
+  <!-- PANEL 11: Veredicto -->
+  <div class="scene-label">Escena 11 — El veredicto</div>
+  <div class="panel" style="min-height:360px;">
+    <img src="storybook-chernobyl/image11.png" alt="Rulo y Toni en el veredicto final">
+    <div class="cap-top">Después de cinco capítulos. Cincuenta y cinco minutos de media. Ninguno de sobra.</div>
+    <div class="sb rulo tl tail-br" style="max-width:47%; top:12%;">
+      <span class="tag">RULO</span>
+      "Chernobyl no es entretenimiento. Es un documento. La historia de cómo un sistema basado en la mentira se destruye a sí mismo. Y arrastra todo lo que toca."
+    </div>
+    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
+      <span class="tag">TONI</span>
+      "¿Nota?"
+    </div>
+    <div class="sb rulo bl tail-br" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "La serie perfecta no existe. Pero esto se acerca más que casi cualquier cosa."
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <p class="verdict-label">☢ Veredicto de Rulo y Toni ☢</p>
+    <p class="verdict-score">9.5</p>
+    <p class="verdict-title">MASTERCLASS EN FORMA DE SERIE</p>
+    <p class="verdict-body">
+      Cinco episodios que no sobran. Una producción que no busca espectáculo sino verdad.
+      Actuaciones que merecen cada premio que recibieron. Johan Renck dirigiendo con la frialdad
+      quirúrgica que el material exige. Y Craig Mazin demostrando que la realidad, bien contada,
+      supera a cualquier ficción. No la verás igual que el resto del catálogo. Ni deberías.
+    </p>
+    <div class="verdict-tags">
+      <span>Drama histórico</span>
+      <span>Thriller político</span>
+      <span>HBO · 2019</span>
+      <span>5 episodios</span>
+      <span>Johan Renck</span>
+      <span>Jared Harris</span>
+      <span>Stellan Skarsgård</span>
+      <span>Emily Watson</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 <a href="index.html">Zaska y Acción</a> — Crítica de cine y series sin filtros ni condescendencia.</p>
+</footer>
+
+</body>
+</html>
