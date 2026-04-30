@@ -211,62 +211,145 @@
 
 
 <style id="criticas-css">
-.criticas-section{background:#0a0a0f;color:#e0ddd8;font-family:'Inter',sans-serif;padding:60px 20px;border-top:3px solid #1c1c28}
-.criticas-container{max-width:820px;margin:0 auto}
-.criticas-section h2.cs-title{font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;color:#fff;text-transform:uppercase;margin:48px 0 18px;padding-bottom:8px;border-bottom:2px solid #1c1c28}
-.criticas-section h2.cs-title:first-child{margin-top:0}
-.ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;background:#111118;border:1px solid #2a2a3a;border-radius:8px;padding:24px;margin-bottom:16px}
-.fi{display:flex;flex-direction:column;gap:3px}
-.fi-label{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:#555}
-.fi-val{font-size:.92rem;color:#ccc;font-weight:500}
-.fi-full{grid-column:1/-1}
-.nota-box{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:#1a1a28;border-radius:6px;padding:14px 18px;margin-top:6px}
-.nota-num{font-family:'Bangers',cursive;font-size:2.6rem;line-height:1;color:#fff}
-.nota-sub{font-size:.65rem;color:#666;text-transform:uppercase;letter-spacing:2px}
-.cs-block{background:#0f0f18;border-left:4px solid #333;border-radius:0 8px 8px 0;padding:22px 26px;margin-bottom:14px;line-height:1.8;font-size:.93rem}
-.cs-block.seria{border-left-color:#4a7fa5}
-.cs-block.canalla{border-left-color:#c0392b}
-.cs-block.pachi{border-left-color:#8b6914}
-.cs-block.pachi2{border-left-color:#c8a250}
-.cs-block.sin{border-left-color:#444;color:#aaa;font-style:italic}
-.cs-block.criticos{border-left-color:#27ae60}
-.cs-block.usuarios{border-left-color:#8e44ad}
-.cs-block p{margin:0 0 10px}
-.cs-block p:last-child{margin:0}
-.cs-sub{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:#666;margin-bottom:10px}
-@media(max-width:600px){.ficha-grid{grid-template-columns:1fr}.nota-num{font-size:2rem}}
+.criticas-section {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  padding: 60px 20px 80px;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+.criticas-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.criticas-section h2.criticas-titulo {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0 0 40px;
+  border-bottom: 3px solid #e63946;
+  padding-bottom: 16px;
+}
+.ficha-tecnica {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+}
+.ficha-tecnica table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ficha-tecnica td {
+  padding: 6px 0;
+  vertical-align: top;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.ficha-tecnica td:first-child {
+  color: #888;
+  width: 130px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-right: 16px;
+}
+.ficha-tecnica .nota-grande {
+  font-family: 'Bangers', cursive;
+  font-size: 2.2rem;
+  color: #e63946;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.critica-bloque {
+  margin-bottom: 44px;
+}
+.critica-bloque h3 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #e63946;
+  margin: 0 0 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+.critica-bloque p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0 0 1em;
+}
+.critica-bloque p:last-child { margin-bottom: 0; }
+.critica-canalla {
+  background: #111;
+  border-left: 4px solid #f4a261;
+  padding: 24px 28px;
+  border-radius: 0 8px 8px 0;
+}
+.critica-canalla h3 { color: #f4a261; }
+.critica-canalla p { color: #ddd; }
+.pachi-bloque {
+  background: #0d1117;
+  border: 1px solid #1a2540;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-bloque h3 { color: #4fc3f7; }
+.pachi-canalla-bloque {
+  background: #110d0d;
+  border: 1px solid #2a1515;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-canalla-bloque h3 { color: #ff6b6b; }
 </style>
 <section class="criticas-section">
-<div class="criticas-container">
-<h2 class="cs-title">Ficha t&eacute;cnica</h2>
-<div class="ficha-grid">
-  <div class="fi"><span class="fi-label">T&iacute;tulo</span><span class="fi-val">Perdidos (Lost)</span></div>
-  <div class="fi"><span class="fi-label">A&ntilde;o</span><span class="fi-val">2004</span></div>
-  <div class="fi"><span class="fi-label">Director / Creador</span><span class="fi-val">J.J. Abrams, Damon Lindelof, Jeffrey Lieber</span></div>
-  <div class="fi"><span class="fi-label">Plataforma</span><span class="fi-val">Disney+</span></div>
-  <div class="fi"><span class="fi-label">Duraci&oacute;n</span><span class="fi-val">121 episodios &middot; 6 temporadas (2004&ndash;2010)</span></div>
-  <div class="fi"><span class="fi-label">G&eacute;nero</span><span class="fi-val">Drama &middot; Misterio</span></div>
-  <div class="fi fi-full"><span class="fi-label">Reparto</span><span class="fi-val">Matthew Fox, Evangeline Lilly, Josh Holloway, Terry O'Quinn, Jorge Garc&iacute;a, Naveen Andrews, Michael Emerson, Dominic Monaghan, Daniel Dae Kim, Yunjin Kim</span></div>
-  <div class="nota-box">
-    <div><div class="nota-num">8.0</div><div class="nota-sub">Puntuaci&oacute;n Zaska y Acci&oacute;n</div></div>
-    <div style="font-size:.8rem;color:#666">/ 10</div>
-  </div>
+<div class="criticas-inner">
+<h2 class="criticas-titulo">Perdidos (Lost)</h2>
+<div class="ficha-tecnica"><table>
+<tr><td>Tipo</td><td>Serie</td></tr>
+<tr><td>Año</td><td>2004</td></tr>
+<tr><td>Director</td><td>J.J. Abrams, Damon Lindelof, Jeffrey Lieber</td></tr>
+<tr><td>Reparto</td><td>Matthew Fox, Evangeline Lilly, Josh Holloway, Terry O'Quinn, Jorge García, Naveen Andrews, Michael Emerson, Dominic Monaghan, Daniel Dae Kim, Yunjin Kim</td></tr>
+<tr><td>Plataforma</td><td>Disney+</td></tr>
+<tr><td>Duración</td><td>121 episodios · 6 temporadas (2004–2010)</td></tr>
+<tr><td>Nota</td><td><span class="nota-grande">8,0</span> / 10</td></tr>
+</table></div>
+<div class="critica-bloque">
+<h3>Sinopsis</h3>
+<p>Un grupo de supervivientes de un accidente de avión queda varado en una misteriosa isla del Pacífico llena de enigmas sobrenaturales. La lucha por sobrevivir saca lo mejor y lo peor de cada uno mientras descubren que la isla guarda secretos que desafían toda lógica.</p>
 </div>
-<h2 class="cs-title">Sinopsis</h2>
-<div class="cs-block sin"><p>Un grupo de supervivientes de un accidente de avi&oacute;n queda varado en una misteriosa isla del Pac&iacute;fico llena de enigmas sobrenaturales. La lucha por sobrevivir saca lo mejor y lo peor de cada uno mientras descubren que la isla guarda secretos que desaf&iacute;an toda l&oacute;gica.</p></div>
-<h2 class="cs-title">Qu&eacute; dice la cr&iacute;tica</h2>
-<div class="cs-block criticos"><span class="cs-sub">Prensa especializada</span><p>Las primeras tres temporadas son magn&iacute;ficas: una monta&ntilde;a rusa emocional llena de suspense e innovaci&oacute;n narrativa. El desarrollo de Jack, Locke y Sawyer es sobresaliente. A partir de la cuarta temporada el ritmo se resiente y el exceso de misterios sin resolver empieza a pesar. El final ha dividido a la cr&iacute;tica: para algunos es una estafa; para otros, la serie merece ser recordada por su ambici&oacute;n y originalidad.</p></div>
-<h2 class="cs-title">Qu&eacute; dice el p&uacute;blico</h2>
-<div class="cs-block usuarios"><span class="cs-sub">Opiniones de usuarios</span><p>La primera serie en generar popularidad masiva con la gente esperando cada episodio para comentarlo al d&iacute;a siguiente. IMDb: 8.4/10. Las primeras temporadas son incre&iacute;bles en personajes, tramas, di&aacute;logos y misterios. A partir de la cuarta empiezan a no cerrar tramas y quedan misterios sin resolver. El final result&oacute; demasiado extra&ntilde;o, como si los guionistas no hubieran sabido cerrar todo lo que ten&iacute;an abierto.</p></div>
-<h2 class="cs-title">Cr&iacute;tica seria</h2>
-<div class="cs-block seria"><span class="cs-sub">Zaska y Acci&oacute;n &mdash; An&aacute;lisis editorial</span><p>Perdidos redefini&oacute; la televisi&oacute;n de misterio y aventuras entre 2004 y 2010. Sus seis temporadas presentan a un grupo de supervivientes de un accidente a&eacute;reo en una isla del Pac&iacute;fico llena de enigmas, donde la lucha por sobrevivir saca lo mejor y lo peor de cada personaje.</p><p>Las primeras tres temporadas son brillantes. Una narrativa adictiva que combina drama de supervivencia, misterio sobrenatural y un desarrollo de personajes de profundidad inusual para la televisi&oacute;n de la &eacute;poca. El uso de flashbacks y flashforwards para construir la psicolog&iacute;a de los supervivientes es uno de los recursos narrativos m&aacute;s inteligentes de la historia de la televisi&oacute;n americana.</p><p>A partir de la cuarta temporada, la ambici&oacute;n supera la capacidad de ejecuci&oacute;n. Las tramas se multiplican sin cohesi&oacute;n, los misterios se acumulan sin respuesta y la sensaci&oacute;n de p&eacute;rdida de control del universo creado se hace evidente. El desenlace divide.</p><p>Perdidos sigue siendo un hito: la primera serie en generar comunidad masiva en tiempo real, innovadora en estructura narrativa y productora de personajes que siguen siendo recordados veinte a&ntilde;os despu&eacute;s.</p></div>
-<h2 class="cs-title">Cr&iacute;tica canalla</h2>
-<div class="cs-block canalla"><span class="cs-sub">Estilo 80/90 &middot; Sin filtros</span><p>Dicen que sobrevivir en una isla desierta te cambia la vida, pero estos t&iacute;os tienen la misma suerte que aquel colega al que le toca el asiento del medio en el avi&oacute;n. Solo que en vez de quejarse por el caf&eacute; fr&iacute;o tienen osos polares en el Pac&iacute;fico, columnas de humo asesinas con mala leche y una francesa que lleva d&eacute;cadas enfadada con la vida.</p><p>Si crees que has visto historias raras, esp&eacute;rate a los n&uacute;meros: 4, 8, 15, 16, 23, 42. No sirven ni para la loter&iacute;a del barrio porque aqu&iacute; o ganas millones o te caen maldiciones. Cada temporada es como el men&uacute; del d&iacute;a en un restaurante de carretera: lo empiezas con ganas y acabas diciendo &iquest;qu&eacute; me han puesto en el plato?</p><p>El final provoc&oacute; a m&aacute;s de uno dejar de confiar en cualquier historia que dure m&aacute;s de una temporada. Y cuando te canses de misterios que no terminan ni con superpegamento, recuerda: lo importante es la amistad, el amor&hellip; y esquivar columnas de humo.</p></div>
-<h2 class="cs-title">La opini&oacute;n de Pachi</h2>
-<div class="cs-block pachi"><span class="cs-sub">Versi&oacute;n seria</span><p>Resulta innegable que Perdidos fue la primera serie en alcanzar ese nivel de popularidad masivo, consiguiendo que millones esperaran cada episodio con ansias para debatirlo al d&iacute;a siguiente. Sus primeras temporadas son simplemente brillantes: personajes inolvidables, tramas adictivas, di&aacute;logos afilados y misterios que enganchan desde el primer minuto.</p><p>Sin embargo, a partir de la cuarta temporada la historia parece perder el rumbo: abundan los arcos abiertos, misterios sin cerrar y l&iacute;neas argumentales que se amontonan. Menci&oacute;n especial merece su desenlace: un final excesivamente extra&ntilde;o, con la sensaci&oacute;n de que los guionistas no supieron c&oacute;mo cerrar todos los frentes que hab&iacute;an abierto.</p></div>
-<div class="cs-block pachi2"><span class="cs-sub">Versi&oacute;n canalla</span><p>Esta serie fue como el juego de moda en el recreo: todo el mundo hablando, comentando y especulando sobre la isla&hellip; y t&uacute; ah&iacute;, esperando el pr&oacute;ximo episodio como si se repartiera pizza gratis. Las primeras temporadas una pasada; personajes que molan, frases para el recuerdo y misterios que daban m&aacute;s vueltas que el ventilador del ba&ntilde;o.</p><p>Pero a partir de la cuarta, empiezan a sacar hilos sueltos como si decoraran el &aacute;rbol de Navidad&hellip; &iquest;Y el final? Digno de quedarse pensando: &iquest;Esto era una broma o estaban probando caf&eacute; raro en la sala de guionistas? Vamos, que ni la isla se enter&oacute; de lo que pas&oacute;.</p></div>
+<div class="critica-bloque">
+<h3>📰 Qué dice la prensa</h3>
+<p>Las primeras tres temporadas son magníficas: una montaña rusa emocional llena de suspense e innovación narrativa. El desarrollo de Jack, Locke y Sawyer es sobresaliente. A partir de la cuarta temporada el ritmo se resiente y el exceso de misterios sin resolver empieza a pesar. El final ha dividido a la crítica: para algunos es una estafa; para otros, la serie merece ser recordada por su ambición y originalidad pese a su polémico desenlace.</p>
 </div>
-</section>
+<div class="critica-bloque">
+<h3>🎭 Crítica</h3>
+<p>Perdidos redefinió la televisión de misterio y aventuras entre 2004 y 2010. Sus seis temporadas presentan a un grupo de supervivientes de un accidente aéreo en una isla del Pacífico llena de enigmas, donde la lucha por sobrevivir saca lo mejor y lo peor de cada personaje.</p>
+<p>Las primeras tres temporadas son brillantes. Una narrativa adictiva que combina drama de supervivencia, misterio sobrenatural y un desarrollo de personajes de profundidad inusual para la televisión de la época. El uso de flashbacks y flashforwards para construir la psicología de los supervivientes es uno de los recursos narrativos más inteligentes de la historia de la televisión americana. Jack Shephard, John Locke y James Sawyer representan tres arquetipos de masculinidad en conflicto que funcionan como el núcleo emocional de la serie.</p>
+<p>A partir de la cuarta temporada, la ambición supera la capacidad de ejecución. Las tramas se multiplican sin cohesión, los misterios se acumulan sin respuesta y la sensación de pérdida de control del universo creado se hace evidente. El desenlace divide: quienes lo leen como metáfora emocional colectiva lo defienden; quienes esperaban respuestas concretas se sintieron estafados.</p>
+<p>Perdidos sigue siendo un hito: la primera serie en generar comunidad masiva en tiempo real, innovadora en estructura narrativa y productora de personajes que siguen siendo recordados veinte años después.</p>
+</div>
+<div class="critica-bloque critica-canalla">
+<h3>🤘 La canalla (estilo 80/90)</h3>
+<p>Dicen que sobrevivir en una isla desierta te cambia la vida, pero estos tíos tienen la misma suerte que aquel colega al que le toca el asiento del medio en el avión. Solo que en vez de quejarse por el café frío tienen osos polares en el Pacífico, columnas de humo asesinas con mala leche y una francesa que lleva décadas enfadada con la vida.</p>
+<p>Si crees que has visto historias raras, espérate a los números: 4, 8, 15, 16, 23, 42. No sirven ni para la lotería del barrio porque aquí o ganas millones o te caen maldiciones. Cada temporada es como el menú del día en un restaurante de carretera: lo empiezas con ganas y acabas diciendo ¿qué me han puesto en el plato?</p>
+<p>El final provocó a más de uno dejar de confiar en cualquier historia que dure más de una temporada. Si te molan los cliffhangers, aquí tienes para coleccionar. Y cuando te canses de misterios que no terminan ni con superpegamento, recuerda: lo importante es la amistad, el amor… y esquivar columnas de humo. Al menos aprenderás a no confiar en guionistas con acceso a café gratis.</p>
+</div>
+<div class="critica-bloque">
+<h3>👥 Qué dice la gente</h3>
+<p>La primera serie en generar popularidad masiva con la gente esperando cada episodio para comentarlo al día siguiente. IMDb: 8.4/10. Las primeras temporadas son increíbles en personajes, tramas, diálogos y misterios. A partir de la cuarta empiezan a no cerrar tramas y quedan misterios sin resolver con demasiados frentes abiertos. El final resultó demasiado extraño, como si los guionistas no hubieran sabido cerrar todo lo que tenían abierto.</p>
+</div>
+<div class="critica-bloque pachi-bloque">
+<h3>🎖️ Opinión de Pachi</h3>
+<p>Resulta innegable que Perdidos fue la primera serie en alcanzar ese nivel de popularidad masivo, consiguiendo que millones esperaran cada episodio con ansias para debatirlo al día siguiente. Sus primeras temporadas son simplemente brillantes: personajes inolvidables, tramas adictivas, diálogos afilados y misterios que enganchan desde el primer minuto. Sin embargo, a partir de la cuarta temporada la historia parece perder el rumbo: abundan los arcos abiertos, misterios sin cerrar y líneas argumentales que se amontonan. Mención especial merece su desenlace: un final excesivamente extraño, con la sensación de que los guionistas no supieron cómo cerrar todos los frentes que habían abierto.</p>
+</div>
+<div class="critica-bloque pachi-canalla-bloque">
+<h3>💥 Pachi (versión sin filtros)</h3>
+<p>Esta serie fue como el juego de moda en el recreo: todo el mundo hablando, comentando y especulando sobre la isla… y tú ahí, esperando el próximo episodio como si se repartiera pizza gratis. Las primeras temporadas una pasada; personajes que molan, frases para el recuerdo y misterios que daban más vueltas que el ventilador del baño. Pero a partir de la cuarta, empiezan a sacar hilos sueltos como si decoraran el árbol de Navidad… ¡y acaban dejando más cabos sueltos que en un curso de nudos exprés! ¿Y el final? Digno de quedarse pensando: ¿Esto era una broma o estaban probando café raro en la sala de guionistas? Vamos, que ni la isla se enteró de lo que pasó.</p>
+</div>
+</div></section>
 
 <header class="cover">
   <div class="cover-badge">📺 STORYBOOK Nº003 — SERIE</div>

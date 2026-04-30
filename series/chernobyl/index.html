@@ -236,62 +236,145 @@
 
 
 <style id="criticas-css">
-.criticas-section{background:#0a0a0f;color:#e0ddd8;font-family:'Inter',sans-serif;padding:60px 20px;border-top:3px solid #1c1c28}
-.criticas-container{max-width:820px;margin:0 auto}
-.criticas-section h2.cs-title{font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;color:#fff;text-transform:uppercase;margin:48px 0 18px;padding-bottom:8px;border-bottom:2px solid #1c1c28}
-.criticas-section h2.cs-title:first-child{margin-top:0}
-.ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;background:#111118;border:1px solid #2a2a3a;border-radius:8px;padding:24px;margin-bottom:16px}
-.fi{display:flex;flex-direction:column;gap:3px}
-.fi-label{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:#555}
-.fi-val{font-size:.92rem;color:#ccc;font-weight:500}
-.fi-full{grid-column:1/-1}
-.nota-box{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:#1a1a28;border-radius:6px;padding:14px 18px;margin-top:6px}
-.nota-num{font-family:'Bangers',cursive;font-size:2.6rem;line-height:1;color:#fff}
-.nota-sub{font-size:.65rem;color:#666;text-transform:uppercase;letter-spacing:2px}
-.cs-block{background:#0f0f18;border-left:4px solid #333;border-radius:0 8px 8px 0;padding:22px 26px;margin-bottom:14px;line-height:1.8;font-size:.93rem}
-.cs-block.seria{border-left-color:#4a7fa5}
-.cs-block.canalla{border-left-color:#c0392b}
-.cs-block.pachi{border-left-color:#8b6914}
-.cs-block.pachi2{border-left-color:#c8a250}
-.cs-block.sin{border-left-color:#444;color:#aaa;font-style:italic}
-.cs-block.criticos{border-left-color:#27ae60}
-.cs-block.usuarios{border-left-color:#8e44ad}
-.cs-block p{margin:0 0 10px}
-.cs-block p:last-child{margin:0}
-.cs-sub{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:#666;margin-bottom:10px}
-@media(max-width:600px){.ficha-grid{grid-template-columns:1fr}.nota-num{font-size:2rem}}
+.criticas-section {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  padding: 60px 20px 80px;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+.criticas-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.criticas-section h2.criticas-titulo {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0 0 40px;
+  border-bottom: 3px solid #e63946;
+  padding-bottom: 16px;
+}
+.ficha-tecnica {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+}
+.ficha-tecnica table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ficha-tecnica td {
+  padding: 6px 0;
+  vertical-align: top;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.ficha-tecnica td:first-child {
+  color: #888;
+  width: 130px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-right: 16px;
+}
+.ficha-tecnica .nota-grande {
+  font-family: 'Bangers', cursive;
+  font-size: 2.2rem;
+  color: #e63946;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.critica-bloque {
+  margin-bottom: 44px;
+}
+.critica-bloque h3 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #e63946;
+  margin: 0 0 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+.critica-bloque p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0 0 1em;
+}
+.critica-bloque p:last-child { margin-bottom: 0; }
+.critica-canalla {
+  background: #111;
+  border-left: 4px solid #f4a261;
+  padding: 24px 28px;
+  border-radius: 0 8px 8px 0;
+}
+.critica-canalla h3 { color: #f4a261; }
+.critica-canalla p { color: #ddd; }
+.pachi-bloque {
+  background: #0d1117;
+  border: 1px solid #1a2540;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-bloque h3 { color: #4fc3f7; }
+.pachi-canalla-bloque {
+  background: #110d0d;
+  border: 1px solid #2a1515;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-canalla-bloque h3 { color: #ff6b6b; }
 </style>
 <section class="criticas-section">
-<div class="criticas-container">
-<h2 class="cs-title">Ficha t&eacute;cnica</h2>
-<div class="ficha-grid">
-  <div class="fi"><span class="fi-label">T&iacute;tulo</span><span class="fi-val">Chernobyl (Miniserie HBO)</span></div>
-  <div class="fi"><span class="fi-label">A&ntilde;o</span><span class="fi-val">2019</span></div>
-  <div class="fi"><span class="fi-label">Director / Creador</span><span class="fi-val">Johan Renck</span></div>
-  <div class="fi"><span class="fi-label">Plataforma</span><span class="fi-val">HBO Max</span></div>
-  <div class="fi"><span class="fi-label">Duraci&oacute;n</span><span class="fi-val">5 episodios (miniserie)</span></div>
-  <div class="fi"><span class="fi-label">G&eacute;nero</span><span class="fi-val">Drama &middot; Historia</span></div>
-  <div class="fi fi-full"><span class="fi-label">Reparto</span><span class="fi-val">Jared Harris, Stellan Skarsg&aring;rd, Emily Watson, Jessie Buckley, Paul Ritter, Adam Nagaitis, Sam Troughton</span></div>
-  <div class="nota-box">
-    <div><div class="nota-num">9.5</div><div class="nota-sub">Puntuaci&oacute;n Zaska y Acci&oacute;n</div></div>
-    <div style="font-size:.8rem;color:#666">/ 10</div>
-  </div>
+<div class="criticas-inner">
+<h2 class="criticas-titulo">Chernobyl (Miniserie HBO)</h2>
+<div class="ficha-tecnica"><table>
+<tr><td>Tipo</td><td>Serie</td></tr>
+<tr><td>Año</td><td>2019</td></tr>
+<tr><td>Director</td><td>Johan Renck</td></tr>
+<tr><td>Reparto</td><td>Jared Harris, Stellan Skarsgård, Emily Watson, Jessie Buckley, Paul Ritter, Adam Nagaitis, Sam Troughton</td></tr>
+<tr><td>Plataforma</td><td>HBO Max</td></tr>
+<tr><td>Duración</td><td>5 episodios (miniserie)</td></tr>
+<tr><td>Nota</td><td><span class="nota-grande">9,5</span> / 10</td></tr>
+</table></div>
+<div class="critica-bloque">
+<h3>Sinopsis</h3>
+<p>La historia real del peor desastre nuclear de la historia: la explosión del reactor número 4 de la central de Chernóbil en abril de 1986 y los esfuerzos desesperados para contener la catástrofe mientras la burocracia soviética intenta ocultar la verdad.</p>
 </div>
-<h2 class="cs-title">Sinopsis</h2>
-<div class="cs-block sin"><p>La historia real del peor desastre nuclear de la historia: la explosi&oacute;n del reactor n&uacute;mero 4 de la central de Chern&oacute;bil en abril de 1986 y los esfuerzos desesperados para contener la cat&aacute;strofe mientras la burocracia sovi&eacute;tica intenta ocultar la verdad.</p></div>
-<h2 class="cs-title">Qu&eacute; dice la cr&iacute;tica</h2>
-<div class="cs-block criticos"><span class="cs-sub">Prensa especializada</span><p>IMDb: 9.3/10. Ampliamente considerada una de las mejores producciones televisivas de la d&eacute;cada. Premio Emmy a Mejor Miniserie 2019. La serie destaca por su narrativa absorbente, su recreaci&oacute;n atmosf&eacute;rica de la URSS de los 80 y unas actuaciones excepcionales. Algunos cr&iacute;ticos se&ntilde;alan licencias creativas y el uso de actores que no hablan ruso, aunque la mayor&iacute;a coincide en que son detalles menores frente a la magnitud del conjunto.</p></div>
-<h2 class="cs-title">Qu&eacute; dice el p&uacute;blico</h2>
-<div class="cs-block usuarios"><span class="cs-sub">Opiniones de usuarios</span><p>Una experiencia de visionado que deja huella. La tensi&oacute;n y angustia son palpables en cada cap&iacute;tulo, y el hecho de saber que todo esto ocurri&oacute; de verdad a&ntilde;ade un peso emocional que pocas series pueden igualar. Los espectadores destacan las interpretaciones de Jared Harris y Stellan Skarsg&aring;rd como algunas de las mejores vistas en televisi&oacute;n. Cinco episodios que se ven en un marat&oacute;n nocturno sin poder parar.</p></div>
-<h2 class="cs-title">Cr&iacute;tica seria</h2>
-<div class="cs-block seria"><span class="cs-sub">Zaska y Acci&oacute;n &mdash; An&aacute;lisis editorial</span><p>Chernobyl es una de esas producciones que justifican por s&iacute; solas la existencia de la televisi&oacute;n de calidad. En solo cinco episodios, Craig Mazin y Johan Renck construyen un relato absorbente, preciso y profundamente humano sobre el peor desastre nuclear de la historia y, sobre todo, sobre el sistema de mentiras que lo hizo posible.</p><p>La ambientaci&oacute;n es magistral. La recreaci&oacute;n de la URSS de 1986 &mdash;el hormig&oacute;n gris, la luz fr&iacute;a, la burocracia aplastante, el miedo s&oacute;rdido de quienes saben la verdad pero no pueden decirla&mdash; funciona como un personaje m&aacute;s. Jared Harris como Valery Legasov es la actuaci&oacute;n televisiva del a&ntilde;o: un hombre que carga con la responsabilidad de decir la verdad en un sistema que ha hecho de la mentira su arquitectura fundamental.</p><p>Chernobyl no es solo historia. Es una advertencia sobre lo que ocurre cuando un sistema institucional convierte la verdad en un peligro.</p></div>
-<h2 class="cs-title">Cr&iacute;tica canalla</h2>
-<div class="cs-block canalla"><span class="cs-sub">Estilo 80/90 &middot; Sin filtros</span><p>Mira, Chernobyl no es otra serie donde meten explosiones y se van todos corriendo. Esta joyita de HBO te pone en medio del apocalipsis sovi&eacute;tico con un drama tan intenso que te sientes en el mism&iacute;simo reactor, solo que sin traje anti-radiaci&oacute;n.</p><p>Jared Harris como el cient&iacute;fico serio que sabe m&aacute;s que el jefe del KGB, Stellan Skarsg&aring;rd haciendo de pol&iacute;tico nervioso que en cualquier momento parece que se le va a salir la babita de miedo, y Emily Watson pateando traseros mientras investiga. La serie te agarra con esa vibra de todo va a explotar en cualquier momento y no te suelta.</p><p>Esta serie te deja con m&aacute;s pelos de punta que cualquier pel&iacute;cula de terror, pero la diferencia es que aqu&iacute; no hay fantasmas. Solo radiaci&oacute;n pura y burocracia pesada. Agarra el traje de plomo y prep&aacute;rate.</p></div>
-<h2 class="cs-title">La opini&oacute;n de Pachi</h2>
-<div class="cs-block pachi"><span class="cs-sub">Versi&oacute;n seria</span><p>La ambientaci&oacute;n en Chernobyl es realmente magistral, logrando que el espectador se sumerja completamente en aquella fat&iacute;dica &eacute;poca y lugar. La tensi&oacute;n y la angustia son palpables en cada episodio, y el hecho de saber que los eventos retratados ocurrieron realmente a&ntilde;ade una capa extra de impacto emocional que no muchas series pueden igualar.</p><p>Los actores brillan en sus interpretaciones, aportando humanidad y profundidad a personajes complejos y desgarrados por la tragedia. Aunque la miniserie tiene algunas licencias creativas, considerarlo un defecto es ser demasiado estricto con una producci&oacute;n que, en general, es una joya narrativa y visual.</p></div>
-<div class="cs-block pachi2"><span class="cs-sub">Versi&oacute;n canalla</span><p>Esta serie no es pa&apos; cualquiera que quiere solo luces y explosiones bonitas: esto es una inmersi&oacute;n en el infierno radioactivo. Te pone all&iacute;, en medio del desastre, con esos momentos tan tensos que te agarras la silla como si te fueran a tirar una radiograf&iacute;a en la cabeza.</p><p>&iquest;Licencias? &iquest;Acentos raros? Pues claro, esto no es un documental hecho por la NASA, es HBO d&aacute;ndote un show que es una joya por donde quiera que la veas. Pero si quieres sentir que te est&aacute;s muriendo de miedo con estilo, esta es tu serie.</p></div>
+<div class="critica-bloque">
+<h3>📰 Qué dice la prensa</h3>
+<p>IMDb: 9.3/10. Ampliamente considerada una de las mejores producciones televisivas de la década. Premio Emmy a Mejor Miniserie 2019. La serie destaca por su narrativa absorbente, su recreación atmosférica de la URSS de los 80 y unas actuaciones excepcionales. Algunos críticos señalan licencias creativas y el uso de actores que no hablan ruso, aunque la mayoría coincide en que son detalles menores frente a la magnitud del conjunto.</p>
 </div>
-</section>
+<div class="critica-bloque">
+<h3>🎭 Crítica</h3>
+<p>Chernobyl es una de esas producciones que justifican por sí solas la existencia de la televisión de calidad. En solo cinco episodios, Craig Mazin y Johan Renck construyen un relato absorbente, preciso y profundamente humano sobre el peor desastre nuclear de la historia y, sobre todo, sobre el sistema de mentiras que lo hizo posible y que amenazó con multiplicar sus consecuencias.</p>
+<p>La ambientación es magistral. La recreación de la URSS de 1986 —el hormigón gris, la luz fría, la burocracia aplastante, el miedo sórdido de quienes saben la verdad pero no pueden decirla— funciona como un personaje más. Jared Harris como Valery Legasov es la actuación televisiva del año: un hombre que carga con la responsabilidad de decir la verdad en un sistema que ha hecho de la mentira su arquitectura fundamental.</p>
+<p>Si hay licencias creativas —el personaje de Ulana Khomyuk es una construcción compuesta—, Mazin las usa con honestidad narrativa: para dar voz a todas las voces que no tuvieron poder individual pero cuya suma colectiva cambió la historia. El debate sobre los acentos ingleses en boca de personajes soviéticos es el tipo de crítica que se hace cuando no se tiene nada más serio que objetar.</p>
+<p>Chernobyl no es solo historia. Es una advertencia sobre lo que ocurre cuando un sistema institucional convierte la verdad en un peligro.</p>
+</div>
+<div class="critica-bloque critica-canalla">
+<h3>🤘 La canalla (estilo 80/90)</h3>
+<p>Mira, Chernobyl no es otra serie donde meten explosiones y se van todos corriendo. Esta joyita de HBO te pone en medio del apocalipsis soviético con un drama tan intenso que te sientes en el mismísimo reactor, solo que sin traje anti-radiación.</p>
+<p>Jared Harris como el científico serio que sabe más que el jefe del KGB, Stellan Skarsgård haciendo de político nervioso que en cualquier momento parece que se le va a salir la babita de miedo, y Emily Watson pateando traseros mientras investiga. La serie te agarra con esa vibra de todo va a explotar en cualquier momento y no te suelta, como ese vecino que te promete hacer un asado pero termina quemándolo todo.</p>
+<p>Sí, los actores hablan en inglés con acentos raros. Al tercer minuto te has olvidado. Esta serie te deja con más pelos de punta que cualquier película de terror, pero la diferencia es que aquí no hay fantasmas. Solo radiación pura y burocracia pesada. Agarra el traje de plomo y prepárate.</p>
+</div>
+<div class="critica-bloque">
+<h3>👥 Qué dice la gente</h3>
+<p>Una experiencia de visionado que deja huella. La tensión y angustia son palpables en cada capítulo, y el hecho de saber que todo esto ocurrió de verdad añade un peso emocional que pocas series pueden igualar. Los espectadores destacan las interpretaciones de Jared Harris y Stellan Skarsgård como algunas de las mejores vistas en televisión. Cinco episodios que se ven en un maratón nocturno sin poder parar.</p>
+</div>
+<div class="critica-bloque pachi-bloque">
+<h3>🎖️ Opinión de Pachi</h3>
+<p>La ambientación en Chernobyl es realmente magistral, logrando que el espectador se sumerja completamente en aquella fatídica época y lugar. La tensión y la angustia son palpables en cada episodio, y el hecho de saber que los eventos retratados ocurrieron realmente añade una capa extra de impacto emocional que no muchas series pueden igualar. Los actores brillan en sus interpretaciones, aportando humanidad y profundidad a personajes complejos y desgarrados por la tragedia. Aunque la miniserie podría tener algunas licencias creativas o detalles como acentos no auténticos, considerarlo un defecto es ser demasiado estricto con una producción que, en general, es una joya narrativa y visual.</p>
+</div>
+<div class="critica-bloque pachi-canalla-bloque">
+<h3>💥 Pachi (versión sin filtros)</h3>
+<p>Esta serie no es pa' cualquiera que quiere solo luces y explosiones bonitas: esto es una inmersión en el infierno radioactivo. Te pone allí, en medio del desastre, con esos momentos tan tensos que te agarras la silla como si te fueran a tirar una radiografía en la cabeza. ¿Licencias? ¿Acentos raros? Pues claro, esto no es un documental hecho por la NASA, es HBO dándote un show que es una joya por donde quiera que la veas. Así que si estás buscando perfección en los detalles, estás en la serie equivocada. Pero si quieres sentir que te estás muriendo de miedo con estilo, esta es tu serie.</p>
+</div>
+</div></section>
 
 <header class="cover">
   <div class="cover-badge">☢ STORYBOOK Nº004 — MINISERIE</div>

@@ -227,58 +227,128 @@
 
 
 <style id="criticas-css">
-.criticas-section{background:#0a0a0f;color:#e0ddd8;font-family:'Inter',sans-serif;padding:60px 20px;border-top:3px solid #1c1c28}
-.criticas-container{max-width:820px;margin:0 auto}
-.criticas-section h2.cs-title{font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;color:#fff;text-transform:uppercase;margin:48px 0 18px;padding-bottom:8px;border-bottom:2px solid #1c1c28}
-.criticas-section h2.cs-title:first-child{margin-top:0}
-.ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;background:#111118;border:1px solid #2a2a3a;border-radius:8px;padding:24px;margin-bottom:16px}
-.fi{display:flex;flex-direction:column;gap:3px}
-.fi-label{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:#555}
-.fi-val{font-size:.92rem;color:#ccc;font-weight:500}
-.fi-full{grid-column:1/-1}
-.nota-box{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:#1a1a28;border-radius:6px;padding:14px 18px;margin-top:6px}
-.nota-num{font-family:'Bangers',cursive;font-size:2.6rem;line-height:1;color:#fff}
-.nota-sub{font-size:.65rem;color:#666;text-transform:uppercase;letter-spacing:2px}
-.cs-block{background:#0f0f18;border-left:4px solid #333;border-radius:0 8px 8px 0;padding:22px 26px;margin-bottom:14px;line-height:1.8;font-size:.93rem}
-.cs-block.seria{border-left-color:#4a7fa5}
-.cs-block.canalla{border-left-color:#c0392b}
-.cs-block.pachi{border-left-color:#8b6914}
-.cs-block.pachi2{border-left-color:#c8a250}
-.cs-block.sin{border-left-color:#444;color:#aaa;font-style:italic}
-.cs-block.criticos{border-left-color:#27ae60}
-.cs-block.usuarios{border-left-color:#8e44ad}
-.cs-block p{margin:0 0 10px}
-.cs-block p:last-child{margin:0}
-.cs-sub{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:#666;margin-bottom:10px}
-@media(max-width:600px){.ficha-grid{grid-template-columns:1fr}.nota-num{font-size:2rem}}
+.criticas-section {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  padding: 60px 20px 80px;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+.criticas-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.criticas-section h2.criticas-titulo {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0 0 40px;
+  border-bottom: 3px solid #e63946;
+  padding-bottom: 16px;
+}
+.ficha-tecnica {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+}
+.ficha-tecnica table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ficha-tecnica td {
+  padding: 6px 0;
+  vertical-align: top;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.ficha-tecnica td:first-child {
+  color: #888;
+  width: 130px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-right: 16px;
+}
+.ficha-tecnica .nota-grande {
+  font-family: 'Bangers', cursive;
+  font-size: 2.2rem;
+  color: #e63946;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.critica-bloque {
+  margin-bottom: 44px;
+}
+.critica-bloque h3 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #e63946;
+  margin: 0 0 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+.critica-bloque p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0 0 1em;
+}
+.critica-bloque p:last-child { margin-bottom: 0; }
+.critica-canalla {
+  background: #111;
+  border-left: 4px solid #f4a261;
+  padding: 24px 28px;
+  border-radius: 0 8px 8px 0;
+}
+.critica-canalla h3 { color: #f4a261; }
+.critica-canalla p { color: #ddd; }
+.pachi-bloque {
+  background: #0d1117;
+  border: 1px solid #1a2540;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-bloque h3 { color: #4fc3f7; }
+.pachi-canalla-bloque {
+  background: #110d0d;
+  border: 1px solid #2a1515;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-canalla-bloque h3 { color: #ff6b6b; }
 </style>
 <section class="criticas-section">
-<div class="criticas-container">
-<h2 class="cs-title">Ficha t&eacute;cnica</h2>
-<div class="ficha-grid">
-  <div class="fi"><span class="fi-label">T&iacute;tulo</span><span class="fi-val">El Sargento de Hierro (Heartbreak Ridge)</span></div>
-  <div class="fi"><span class="fi-label">A&ntilde;o</span><span class="fi-val">1986</span></div>
-  <div class="fi"><span class="fi-label">Director / Creador</span><span class="fi-val">Clint Eastwood</span></div>
-  <div class="fi"><span class="fi-label">Plataforma</span><span class="fi-val">F&iacute;sico / VHS</span></div>
-  <div class="fi"><span class="fi-label">Duraci&oacute;n</span><span class="fi-val">130 min</span></div>
-  <div class="fi"><span class="fi-label">G&eacute;nero</span><span class="fi-val">Acci&oacute;n &middot; B&eacute;lico</span></div>
-  <div class="fi fi-full"><span class="fi-label">Reparto</span><span class="fi-val">Clint Eastwood, Marsha Mason, Everett McGill, Mario Van Peebles, Moses Gunn</span></div>
-  <div class="nota-box">
-    <div><div class="nota-num">7.5</div><div class="nota-sub">Puntuaci&oacute;n Zaska y Acci&oacute;n</div></div>
-    <div style="font-size:.8rem;color:#666">/ 10</div>
-  </div>
+<div class="criticas-inner">
+<h2 class="criticas-titulo">El Sargento de Hierro (Heartbreak Ridge)</h2>
+<div class="ficha-tecnica"><table>
+<tr><td>Tipo</td><td>Película</td></tr>
+<tr><td>Año</td><td>1986</td></tr>
+<tr><td>Director</td><td>Clint Eastwood</td></tr>
+<tr><td>Reparto</td><td>Clint Eastwood, Marsha Mason, Everett McGill, Mario Van Peebles, Moses Gunn</td></tr>
+<tr><td>Plataforma</td><td>Físico/VHS</td></tr>
+<tr><td>Duración</td><td>130 min</td></tr>
+<tr><td>Nota</td><td><span class="nota-grande">7,5</span> / 10</td></tr>
+</table></div>
+<div class="critica-bloque">
+<h3>🎭 Crítica</h3>
+<p>"El sargento de hierro" es un clásico del cine bélico de los ochenta que mezcla humor ácido con escenas de acción y drama militar. Clint Eastwood brilla interpretando a Tom Highway, un sargento veterano que con métodos duros y directos transforma a unos reclutas indisciplinados en auténticos marines. La película ofrece una mirada cruda y a la vez cómica al Ejército estadounidense, donde el humor sarcástico y las irreverentes perlas de Highway son el alma del film. Aunque la historia de amor es la parte más floja, el conjunto resulta muy entretenido y con un personaje principal ya legendario.</p>
 </div>
-<h2 class="cs-title">Sinopsis</h2>
-<div class="cs-block sin"><p>El sargento Tom Highway, un veterano de Korea y Vietnam, recibe el encargo de entrenar a un grupo de reclutas indisciplinados de los Marines. Ambientada en la invasi&oacute;n real de Granada de octubre de 1983.</p></div>
-<h2 class="cs-title">Cr&iacute;tica seria</h2>
-<div class="cs-block seria"><span class="cs-sub">Zaska y Acci&oacute;n &mdash; An&aacute;lisis editorial</span><p>&laquo;El sargento de hierro&raquo; es un cl&aacute;sico del cine b&eacute;lico de los ochenta que mezcla humor &aacute;cido con escenas de acci&oacute;n y drama militar. Clint Eastwood brilla interpretando a Tom Highway, un sargento veterano que con m&eacute;todos duros y directos transforma a unos reclutas indisciplinados en aut&eacute;nticos marines.</p><p>La pel&iacute;cula ofrece una mirada cruda y a la vez c&oacute;mica al Ej&eacute;rcito estadounidense, donde el humor sarcast&iacute;co y las irreverentes perlas de Highway son el alma del film. Aunque la historia de amor es la parte m&aacute;s floja, el conjunto resulta muy entretenido y con un personaje principal ya legendario.</p></div>
-<h2 class="cs-title">Cr&iacute;tica canalla</h2>
-<div class="cs-block canalla"><span class="cs-sub">Estilo 80/90 &middot; Sin filtros</span><p>&iexcl;Ay, mam&aacute;! Aqu&iacute; tenemos al sargento de hierro, m&aacute;s rudo que un bocata de chorizo en domingo de resaca. Clint Eastwood sale a patear culos y a repartir hostias con sonrisa torcida de esos que sacan cuando les toca limpiar el pa&ntilde;al a unos reclutas m&aacute;s perdidos que un cola&apos;o sin cobertura.</p><p>Este t&iacute;o no viene a hacer amigos, viene a convertir a los pardillos en m&aacute;quinas de guerra, a hostias si hace falta, porque la diplomacia la dej&oacute; en la puerta del cuartel.</p></div>
-<h2 class="cs-title">La opini&oacute;n de Pachi</h2>
-<div class="cs-block pachi"><span class="cs-sub">Versi&oacute;n seria</span><p>La t&iacute;pica de Clint: soltando frases lapidarias y hostias como panes. Eastwood es el m&aacute;s duro del cuartel y tiene que dar una lecci&oacute;n a sus alumnos aunque no le falta su corazoncito. Para los amantes de la acci&oacute;n con humor y faltadas por todas partes.</p></div>
-<div class="cs-block pachi2"><span class="cs-sub">Versi&oacute;n canalla</span><p>Pues eso, la peli es Clint Eastwood en modo &laquo;te parto la cara y te suelto una frase que te deja m&aacute;s seco que un litro de tequila&raquo;. Aqu&iacute; el sargento es el m&aacute;s duro de la partida, el jefe chungo que viene a poner en su sitio a los ni&ntilde;atos del cuartel. Le da ca&ntilde;a a todo y a todos, pero ojo, que aunque parezca una piedra, tiene su corazoncito escondido detr&aacute;s de la mala leche.</p></div>
+<div class="critica-bloque critica-canalla">
+<h3>🤘 La canalla (estilo 80/90)</h3>
+<p>¡Ay, mamá! Aquí tenemos al sargento de hierro, más rudo que un bocata de chorizo en domingo de resaca. Clint Eastwood sale a patear culos y a repartir hostias con sonrisa torcida de esos que sacan cuando les toca limpiar el pañal a unos reclutas más perdidos que un cola'o sin cobertura. Este tío no viene a hacer amigos, viene a convertir a los pardillos en máquinas de guerra, a hostias si hace falta, porque la diplomacia la dejó en la puerta del cuartel.</p>
 </div>
-</section>
+<div class="critica-bloque pachi-bloque">
+<h3>🎖️ Opinión de Pachi</h3>
+<p>La típica de Clint: soltando frases lapidarias y hostias como panes. Eastwood es el más duro del cuartel y tiene que dar una lección a sus alumnos aunque no le falta su corazoncito. Para los amantes de la acción con humor y faltadas por todas partes.</p>
+</div>
+<div class="critica-bloque pachi-canalla-bloque">
+<h3>💥 Pachi (versión sin filtros)</h3>
+<p>Pues eso, la peli es Clint Eastwood en modo «te parto la cara y te suelto una frase que te deja más seco que un litro de tequila». Aquí el sargento es el más duro de la partida, el jefe chungo que viene a poner en su sitio a los niñatos del cuartel. Le da caña a todo y a todos, pero ojo, que aunque parezca una piedra, tiene su corazoncito escondido detrás de la mala leche.</p>
+</div>
+</div></section>
 
 <header class="cover">
   <div class="cover-badge">★ STORYBOOK Nº005 — PELÍCULA</div>

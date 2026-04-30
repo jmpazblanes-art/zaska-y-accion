@@ -249,58 +249,128 @@
 
 
 <style id="criticas-css">
-.criticas-section{background:#0a0a0f;color:#e0ddd8;font-family:'Inter',sans-serif;padding:60px 20px;border-top:3px solid #1c1c28}
-.criticas-container{max-width:820px;margin:0 auto}
-.criticas-section h2.cs-title{font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;color:#fff;text-transform:uppercase;margin:48px 0 18px;padding-bottom:8px;border-bottom:2px solid #1c1c28}
-.criticas-section h2.cs-title:first-child{margin-top:0}
-.ficha-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;background:#111118;border:1px solid #2a2a3a;border-radius:8px;padding:24px;margin-bottom:16px}
-.fi{display:flex;flex-direction:column;gap:3px}
-.fi-label{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:#555}
-.fi-val{font-size:.92rem;color:#ccc;font-weight:500}
-.fi-full{grid-column:1/-1}
-.nota-box{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:#1a1a28;border-radius:6px;padding:14px 18px;margin-top:6px}
-.nota-num{font-family:'Bangers',cursive;font-size:2.6rem;line-height:1;color:#fff}
-.nota-sub{font-size:.65rem;color:#666;text-transform:uppercase;letter-spacing:2px}
-.cs-block{background:#0f0f18;border-left:4px solid #333;border-radius:0 8px 8px 0;padding:22px 26px;margin-bottom:14px;line-height:1.8;font-size:.93rem}
-.cs-block.seria{border-left-color:#4a7fa5}
-.cs-block.canalla{border-left-color:#c0392b}
-.cs-block.pachi{border-left-color:#8b6914}
-.cs-block.pachi2{border-left-color:#c8a250}
-.cs-block.sin{border-left-color:#444;color:#aaa;font-style:italic}
-.cs-block.criticos{border-left-color:#27ae60}
-.cs-block.usuarios{border-left-color:#8e44ad}
-.cs-block p{margin:0 0 10px}
-.cs-block p:last-child{margin:0}
-.cs-sub{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:#666;margin-bottom:10px}
-@media(max-width:600px){.ficha-grid{grid-template-columns:1fr}.nota-num{font-size:2rem}}
+.criticas-section {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  padding: 60px 20px 80px;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+.criticas-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.criticas-section h2.criticas-titulo {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0 0 40px;
+  border-bottom: 3px solid #e63946;
+  padding-bottom: 16px;
+}
+.ficha-tecnica {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+}
+.ficha-tecnica table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ficha-tecnica td {
+  padding: 6px 0;
+  vertical-align: top;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.ficha-tecnica td:first-child {
+  color: #888;
+  width: 130px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-right: 16px;
+}
+.ficha-tecnica .nota-grande {
+  font-family: 'Bangers', cursive;
+  font-size: 2.2rem;
+  color: #e63946;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.critica-bloque {
+  margin-bottom: 44px;
+}
+.critica-bloque h3 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #e63946;
+  margin: 0 0 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+.critica-bloque p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0 0 1em;
+}
+.critica-bloque p:last-child { margin-bottom: 0; }
+.critica-canalla {
+  background: #111;
+  border-left: 4px solid #f4a261;
+  padding: 24px 28px;
+  border-radius: 0 8px 8px 0;
+}
+.critica-canalla h3 { color: #f4a261; }
+.critica-canalla p { color: #ddd; }
+.pachi-bloque {
+  background: #0d1117;
+  border: 1px solid #1a2540;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-bloque h3 { color: #4fc3f7; }
+.pachi-canalla-bloque {
+  background: #110d0d;
+  border: 1px solid #2a1515;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-canalla-bloque h3 { color: #ff6b6b; }
 </style>
 <section class="criticas-section">
-<div class="criticas-container">
-<h2 class="cs-title">Ficha t&eacute;cnica</h2>
-<div class="ficha-grid">
-  <div class="fi"><span class="fi-label">T&iacute;tulo</span><span class="fi-val">The Americans</span></div>
-  <div class="fi"><span class="fi-label">A&ntilde;o</span><span class="fi-val">2013</span></div>
-  <div class="fi"><span class="fi-label">Director / Creador</span><span class="fi-val">Joe Weisberg</span></div>
-  <div class="fi"><span class="fi-label">Plataforma</span><span class="fi-val">Prime Video</span></div>
-  <div class="fi"><span class="fi-label">Duraci&oacute;n</span><span class="fi-val">6 temporadas &middot; 75 episodios (2013&ndash;2018)</span></div>
-  <div class="fi"><span class="fi-label">G&eacute;nero</span><span class="fi-val">Thriller &middot; Espionaje</span></div>
-  <div class="fi fi-full"><span class="fi-label">Reparto</span><span class="fi-val">Keri Russell, Matthew Rhys, Noah Emmerich, Holly Taylor, Keidrich Sellati, Costa Ronin, Margo Martindale, Alison Wright</span></div>
-  <div class="nota-box">
-    <div><div class="nota-num">9.5</div><div class="nota-sub">Puntuaci&oacute;n Zaska y Acci&oacute;n</div></div>
-    <div style="font-size:.8rem;color:#666">/ 10</div>
-  </div>
+<div class="criticas-inner">
+<h2 class="criticas-titulo">The Americans</h2>
+<div class="ficha-tecnica"><table>
+<tr><td>Tipo</td><td>Serie</td></tr>
+<tr><td>Año</td><td>2013</td></tr>
+<tr><td>Director</td><td>Joe Weisberg (creador)</td></tr>
+<tr><td>Reparto</td><td>Keri Russell, Matthew Rhys, Noah Emmerich, Holly Taylor, Keidrich Sellati, Costa Ronin, Margo Martindale, Alison Wright</td></tr>
+<tr><td>Plataforma</td><td>Prime Video</td></tr>
+<tr><td>Duración</td><td>6 temporadas · 75 ep.</td></tr>
+<tr><td>Nota</td><td><span class="nota-grande">9,5</span> / 10</td></tr>
+</table></div>
+<div class="critica-bloque">
+<h3>🎭 Crítica</h3>
+<p>"The Americans" es una serie que redefine el espionaje en televisión, situando a un matrimonio de agentes del KGB en pleno Washington de la era Reagan. Críticos y usuarios coinciden: destaca por sus diálogos adultos, el ritmo sosegado y una interpretación sobresaliente de Keri Russell y Matthew Rhys. No es solo acción y gadgets; el drama emerge del dilema ético y la doble vida, mostrando espías que seducen, engañan y chantajean con los métodos más humanos posibles. El espionaje se viste de tragedia doméstica y la duda moral está presente en cada episodio.</p>
 </div>
-<h2 class="cs-title">Sinopsis</h2>
-<div class="cs-block sin"><p>Washington D.C., era Reagan. Un matrimonio aparentemente normal en los suburbios es en realidad una pareja de agentes del KGB que llevan a&ntilde;os infiltrados en Estados Unidos. La guerra fr&iacute;a vivida desde dentro, entre pelucas, operaciones encubiertas y dilemas morales.</p></div>
-<h2 class="cs-title">Cr&iacute;tica seria</h2>
-<div class="cs-block seria"><span class="cs-sub">Zaska y Acci&oacute;n &mdash; An&aacute;lisis editorial</span><p>&laquo;The Americans&raquo; es una serie que redefine el espionaje en televisi&oacute;n, situando a un matrimonio de agentes del KGB en pleno Washington de la era Reagan. Cr&iacute;ticos y usuarios coinciden: destaca por sus di&aacute;logos adultos, el ritmo sosegado y una interpretaci&oacute;n sobresaliente de Keri Russell y Matthew Rhys.</p><p>No es solo acci&oacute;n y gadgets; el drama emerge del dilema &eacute;tico y la doble vida, mostrando esp&iacute;as que seducen, enga&ntilde;an y chantajean con los m&eacute;todos m&aacute;s humanos posibles. El espionaje se viste de tragedia dom&eacute;stica y la duda moral est&aacute; presente en cada episodio.</p><p>Ganadora de 2 Emmy (Matthew Rhys y Keri Russell en temporadas finales). Considerada reiteradamente una de las mejores series de la d&eacute;cada 2010&ndash;2020. Final aclamado como uno de los mejores de la historia de la televisi&oacute;n.</p></div>
-<h2 class="cs-title">Cr&iacute;tica canalla</h2>
-<div class="cs-block canalla"><span class="cs-sub">Estilo 80/90 &middot; Sin filtros</span><p>Si te esperas gadgets con wifi y peleas estilo patada voladora en la reuni&oacute;n de padres, aqu&iacute; solo vas a ver gente haci&eacute;ndose pasar por lo que no es, con m&aacute;s pelucas que el carnaval y menos pu&ntilde;etazos que una convenci&oacute;n de contadores.</p><p>Los dilemas morales de estos esp&iacute;as hacen que tu conflicto con los impuestos parezca un picnic, y el FBI persigui&eacute;ndolos entra y sale de la trama como un adolescente en la nevera.</p></div>
-<h2 class="cs-title">La opini&oacute;n de Pachi</h2>
-<div class="cs-block pachi"><span class="cs-sub">Versi&oacute;n seria</span><p>Seguramente sea la mejor serie de espionaje que hay. La ambientaci&oacute;n es brutal, los protagonistas se salen, tienen unos giros brutales, aqu&iacute; ni los buenos son tan buenos ni los malos tan malos.</p><p>Aunque el ritmo no es vertiginoso siempre est&aacute; la tensi&oacute;n de que los descubran, con muchos gadgets, disfraces y persecuciones. Una serie que no te puedes perder.</p></div>
-<div class="cs-block pachi2"><span class="cs-sub">Versi&oacute;n canalla</span><p>Esta serie es como ese bocadillo que te preparas el domingo: parece normal pero cada bocado te suelta un giro que te deja boquiabierto. Los protas no son ni el vecino perfecto ni el malote de pel&iacute;cula; todos tienen m&aacute;s matices que ese jersey que nunca combin&oacute; con nada.</p><p>La tensi&oacute;n... m&aacute;s nervios que esperando ver si tu m&oacute;vil sobrevivi&oacute; a la ca&iacute;da. &iquest;Y gadgets? M&aacute;s artilugios que en el caj&oacute;n de los cables de casa.</p></div>
+<div class="critica-bloque critica-canalla">
+<h3>🤘 La canalla (estilo 80/90)</h3>
+<p>Si te esperas gadgets con wifi y peleas estilo patada voladora en la reunión de padres, aquí solo vas a ver gente haciéndose pasar por lo que no es, con más pelucas que el carnaval y menos puñetazos que una convención de contadores. Los dilemas morales de estos espías hacen que tu conflicto con los impuestos parezca un picnic, y el FBI persiguiéndolos entra y sale de la trama como un adolescente en la nevera.</p>
 </div>
-</section>
+<div class="critica-bloque pachi-bloque">
+<h3>🎖️ Opinión de Pachi</h3>
+<p>Seguramente sea la mejor serie de espionaje que hay. La ambientación es brutal, los protagonistas se salen, tienen unos giros brutales, aquí ni los buenos son tan buenos ni los malos tan malos. Aunque el ritmo no es vertiginoso siempre está la tensión de que los descubran, con muchos gadgets, disfraces y persecuciones. Una serie que no te puedes perder.</p>
+</div>
+<div class="critica-bloque pachi-canalla-bloque">
+<h3>💥 Pachi (versión sin filtros)</h3>
+<p>Esta serie es como ese bocadillo que te preparas el domingo: parece normal pero cada bocado te suelta un giro que te deja boquiabierto. Los protas no son ni el vecino perfecto ni el malote de película; todos tienen más matices que ese jersey que nunca combinó con nada. La tensión... más nervios que esperando ver si tu móvil sobrevivió a la caída. ¿Y gadgets? Más artilugios que en el cajón de los cables de casa.</p>
+</div>
+</div></section>
 
 <header class="cover">
   <div class="cover-badge">🕵️ STORYBOOK Nº007 — SERIE</div>
