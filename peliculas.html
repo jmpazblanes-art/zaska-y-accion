@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Películas — Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+@media (max-width: 900px) { .cards-3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .cards-3 { grid-template-columns: 1fr; } }
+.card { display: flex; flex-direction: column; background: var(--bg-2); border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent); transition: all .2s; position: relative; overflow: hidden; cursor: pointer; }
+.card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 0 0 1px var(--red), 0 16px 40px rgba(255,26,26,.25); }
+.card .img { aspect-ratio: 16/10; position: relative; overflow: hidden; }
+.card .img .ph { width: 100%; height: 100%; }
+.card .chip-pos { position: absolute; top: 14px; left: 14px; z-index: 2; background: var(--bg); }
+.card-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.card-title { font-family: var(--f-display); font-size: 28px; letter-spacing: .02em; font-style: italic; line-height: 1; margin: 0; text-transform: uppercase; }
+.card-title a:hover { color: var(--red); text-shadow: var(--glow-red); }
+.card-excerpt { font-size: 14px; color: var(--ink-dim); line-height: 1.55; margin: 0; }
+.card-foot { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--ink) 6%, transparent); }
+.card-foot .author { font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+.card-link { position: absolute; inset: 0; z-index: 1; }
+.card .card-title a, .card .chip-pos { position: relative; z-index: 2; }
+.page-hero { padding: 60px 0 40px; border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); margin-bottom: 60px; }
+.page-hero h1 { font-family: var(--f-display); font-size: clamp(48px, 7vw, 96px); font-style: italic; line-height: .9; margin: 0 0 12px; text-transform: uppercase; }
+.page-hero p { color: var(--ink-dim); font-size: 16px; margin: 0; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><img src="assets/logo.png" alt="Zaska y Acción"></span>
+      <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Storybooks</a>
+      <a href="series.html">Series</a>
+      <a href="peliculas.html" class="active">Películas</a>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-hero">
+    <h1>Películas <span class="glow-red">analizadas</span></h1>
+    <p>1 película. Rulo y Toni van al cine de vez en cuando.</p>
+  </div>
+
+  <div class="cards-3" style="margin-bottom: 80px;">
+
+    <article class="card">
+      <a class="card-link" href="peliculas/el-sargento-de-hierro/index.html"></a>
+      <div class="img">
+        <span class="chip chip-pelicula chip-pos">PELÍCULA</span>
+        <div class="ph" data-tone="red" data-label="EL SARGENTO DE HIERRO"></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title"><a href="peliculas/el-sargento-de-hierro/index.html">El Sargento de Hierro</a></h3>
+        <p class="card-excerpt">Clint Eastwood, Vietnam y la fórmula más clásica del cine bélico americano. Adapt. Improvise. Overcome.</p>
+        <div class="card-foot">
+          <span class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="filled"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="filled" style="opacity:.3"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="empty"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          </span>
+          <span class="author">7.5/10 · Físico/VHS</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>© 2026 Zaska y Acción</span>
+      <span>Hecho con pólvora y amor</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const stored = localStorage.getItem('zaska-theme');
+  if (stored) html.setAttribute('data-theme', stored);
+  toggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('zaska-theme', next);
+  });
+</script>
+</body>
+</html>
