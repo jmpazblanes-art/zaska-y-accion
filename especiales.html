@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Especiales — Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.page-hero { padding: 60px 0 40px; border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); margin-bottom: 60px; }
+.page-hero h1 { font-family: var(--f-display); font-size: clamp(48px, 7vw, 96px); font-style: italic; line-height: .9; margin: 0 0 12px; text-transform: uppercase; }
+.page-hero p { color: var(--ink-dim); font-size: 16px; margin: 0; }
+
+.especiales-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; }
+
+.especial-card {
+  position: relative;
+  padding: 60px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--red) 18%, var(--bg-2)), color-mix(in srgb, #6E2BFF 14%, var(--bg-2)) 60%, var(--bg-2));
+  border: 1px solid color-mix(in srgb, var(--red) 35%, transparent);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 800px) { .especial-card { grid-template-columns: 1fr; padding: 40px 30px; } }
+.especial-card::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent 0 30px, rgba(255,26,26,.05) 30px 31px);
+  pointer-events: none;
+}
+.especial-num {
+  font-family: var(--f-display);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+  font-style: normal;
+}
+.especial-card h2 {
+  font-family: var(--f-display);
+  font-size: clamp(36px, 5vw, 72px);
+  font-style: italic;
+  line-height: .9;
+  margin: 0 0 18px;
+  text-transform: uppercase;
+}
+.especial-card h2 .accent { color: var(--red); text-shadow: var(--glow-red); }
+.especial-card h2 .accent2 { color: var(--blue); text-shadow: var(--glow-blue); }
+.especial-card p { color: var(--ink); max-width: 480px; line-height: 1.6; margin: 0 0 24px; font-size: 16px; }
+.especial-meta {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+
+.vhs-stack { position: relative; height: 260px; }
+.vhs {
+  position: absolute;
+  width: 180px; height: 260px;
+  border: 2px solid #000;
+  background: var(--bg);
+  box-shadow: 8px 8px 0 0 #000, 12px 12px 24px rgba(0,0,0,.5);
+  display: flex; flex-direction: column;
+  font-family: var(--f-display);
+  font-style: italic;
+  overflow: hidden;
+}
+.vhs-1 { transform: rotate(-6deg); top: -10px; left: 0; color: var(--red); }
+.vhs-2 { transform: rotate(4deg); top: 10px; left: 110px; z-index: 2; color: var(--blue); }
+.vhs-3 { transform: rotate(-2deg); top: 45px; left: 220px; color: var(--magenta); }
+.vhs .top { padding: 7px 9px; display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 8px; font-style: normal; letter-spacing: .14em; border-bottom: 1px solid currentColor; }
+.vhs .body { flex: 1; display: grid; place-items: center; padding: 12px; text-align: center; line-height: .9; font-size: 20px; }
+.vhs .bottom { background: currentColor; height: 34px; display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 8px; font-style: normal; letter-spacing: .14em; }
+.vhs .bottom span { color: #000; }
+
+.proximo {
+  padding: 48px;
+  border: 1px dashed color-mix(in srgb, var(--ink) 20%, transparent);
+  text-align: center;
+}
+.proximo h3 { font-family: var(--f-display); font-size: 32px; font-style: italic; text-transform: uppercase; margin: 0 0 12px; color: var(--ink-dim); }
+.proximo p { color: var(--ink-faint); font-size: 14px; margin: 0; font-family: var(--f-mono); letter-spacing: .1em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><img src="assets/logo.png" alt="Zaska y Acción"></span>
+      <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="series.html">Series</a>
+      <a href="peliculas.html">Películas</a>
+      <a href="especiales.html" class="active">Especiales</a>
+      <a href="listas.html">Listas</a>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-hero">
+    <h1>Espe<span class="glow-red">ciales</span></h1>
+    <p>Análisis largos, retrospectivas y profundidades. Cuando una crítica no es suficiente.</p>
+  </div>
+
+  <div class="especiales-grid">
+
+    <!-- ESPECIAL 01 — EL VHS -->
+    <div class="especial-card">
+      <div>
+        <div class="especial-num">— Especial 01 · 12 entregas</div>
+        <h2>El cine de acción <span class="accent">se rinde</span> al <span class="accent2">VHS</span></h2>
+        <p>Una serie de doce textos largos donde repasamos por qué los noventa fueron, en realidad, la mejor década del cine de acción mainstream. Sin nostalgia barata. Con análisis del ruido del rebobinado, eso sí.</p>
+        <div class="especial-meta">Próximamente · 12 entregas</div>
+        <a href="#" class="btn btn-red">Empezar el especial</a>
+      </div>
+      <div class="vhs-stack">
+        <div class="vhs vhs-1">
+          <div class="top"><span>VOL.01</span><span>REC ●</span></div>
+          <div class="body">CINTA<br>ROTA</div>
+          <div class="bottom"><span>SP · 180min</span></div>
+        </div>
+        <div class="vhs vhs-2">
+          <div class="top"><span>VOL.02</span><span>PLAY ▶</span></div>
+          <div class="body">EL AÑO<br>DEL TIRO</div>
+          <div class="bottom"><span>EP · 120min</span></div>
+        </div>
+        <div class="vhs vhs-3">
+          <div class="top"><span>VOL.03</span><span>FF ▶▶</span></div>
+          <div class="body">SOBRE<br>EXPLOTAR</div>
+          <div class="bottom"><span>SP · 240min</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRÓXIMOS ESPECIALES -->
+    <div class="proximo">
+      <h3>Próximos especiales</h3>
+      <p>Están en el horno. Rulo y Toni no paran.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>© 2026 Zaska y Acción</span>
+      <span>Hecho con pólvora y amor</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const stored = localStorage.getItem('zaska-theme');
+  if (stored) html.setAttribute('data-theme', stored);
+  toggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('zaska-theme', next);
+  });
+</script>
+</body>
+</html>

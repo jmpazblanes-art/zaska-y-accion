@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Listas — Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.page-hero { padding: 60px 0 40px; border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); margin-bottom: 60px; }
+.page-hero h1 { font-family: var(--f-display); font-size: clamp(48px, 7vw, 96px); font-style: italic; line-height: .9; margin: 0 0 12px; text-transform: uppercase; }
+.page-hero p { color: var(--ink-dim); font-size: 16px; margin: 0; }
+
+.listas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-bottom: 80px;
+}
+@media (max-width: 700px) { .listas-grid { grid-template-columns: 1fr; } }
+
+.lista-card {
+  background: var(--bg-2);
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  padding: 36px;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.lista-card:hover {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 1px var(--yellow), 0 12px 32px rgba(255,210,63,.2);
+  transform: translateY(-3px);
+}
+.lista-card::before {
+  content: attr(data-num);
+  position: absolute;
+  top: -10px; right: 20px;
+  font-family: var(--f-display);
+  font-size: 120px;
+  font-style: italic;
+  color: color-mix(in srgb, var(--ink) 4%, transparent);
+  line-height: 1;
+  pointer-events: none;
+}
+.lista-tag {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.lista-card h2 {
+  font-family: var(--f-display);
+  font-size: 36px;
+  font-style: italic;
+  line-height: .95;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.lista-card p {
+  color: var(--ink-dim);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0 0 24px;
+}
+.lista-items {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lista-items li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--ink);
+  padding-bottom: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.lista-items li:last-child { border-bottom: none; padding-bottom: 0; }
+.lista-items .n {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--yellow);
+  text-shadow: 0 0 12px rgba(255,210,63,.5);
+  width: 32px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.lista-items .info { display: flex; flex-direction: column; gap: 2px; }
+.lista-items .titulo { font-weight: 600; font-size: 14px; }
+.lista-items .meta { font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+
+.proximas {
+  grid-column: 1 / -1;
+  padding: 40px;
+  border: 1px dashed color-mix(in srgb, var(--ink) 20%, transparent);
+  text-align: center;
+}
+.proximas h3 { font-family: var(--f-display); font-size: 28px; font-style: italic; text-transform: uppercase; margin: 0 0 8px; color: var(--ink-dim); }
+.proximas p { color: var(--ink-faint); font-size: 13px; margin: 0; font-family: var(--f-mono); letter-spacing: .1em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><img src="assets/logo.png" alt="Zaska y Acción"></span>
+      <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="series.html">Series</a>
+      <a href="peliculas.html">Películas</a>
+      <a href="especiales.html">Especiales</a>
+      <a href="listas.html" class="active">Listas</a>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-hero">
+    <h1>Top <span class="glow-magenta">Listas</span></h1>
+    <p>Rankings, selecciones y colecciones temáticas. Lo más zaska de cada categoría.</p>
+  </div>
+
+  <div class="listas-grid">
+
+    <div class="lista-card" data-num="01">
+      <div class="lista-tag">— Lista 01 · Acción</div>
+      <h2>10 tiroteos perfectos</h2>
+      <p>Las escenas de acción que definen un género. Las que se estudian en las escuelas de cine y las que se ven a las 3 de la mañana.</p>
+      <ul class="lista-items">
+        <li><span class="n">1</span><div class="info"><span class="titulo">Heat — La balacera del banco</span><span class="meta">Michael Mann · 1995</span></div></li>
+        <li><span class="n">2</span><div class="info"><span class="titulo">El bueno, el feo y el malo — Final</span><span class="meta">Sergio Leone · 1966</span></div></li>
+        <li><span class="n">3</span><div class="info"><span class="titulo">Terminator 2 — La fuga del hospital</span><span class="meta">James Cameron · 1991</span></div></li>
+        <li><span class="n">4</span><div class="info"><span class="titulo">Collateral — La discoteca</span><span class="meta">Michael Mann · 2004</span></div></li>
+        <li><span class="n">5</span><div class="info"><span class="titulo">Mad Max: Fury Road — Todo</span><span class="meta">George Miller · 2015</span></div></li>
+      </ul>
+    </div>
+
+    <div class="lista-card" data-num="02">
+      <div class="lista-tag">— Lista 02 · Personajes</div>
+      <h2>Antagonistas con clase</h2>
+      <p>Los malos que se roban la película. Los que tienes que ver dos veces porque no puedes creer que alguien los escribió tan bien.</p>
+      <ul class="lista-items">
+        <li><span class="n">1</span><div class="info"><span class="titulo">Anton Chigurh</span><span class="meta">No Country for Old Men · 2007</span></div></li>
+        <li><span class="n">2</span><div class="info"><span class="titulo">Hans Landa</span><span class="meta">Inglourious Basterds · 2009</span></div></li>
+        <li><span class="n">3</span><div class="info"><span class="titulo">The Joker (Heath Ledger)</span><span class="meta">The Dark Knight · 2008</span></div></li>
+        <li><span class="n">4</span><div class="info"><span class="titulo">Gustavo Fring</span><span class="meta">Breaking Bad · 2009-2011</span></div></li>
+        <li><span class="n">5</span><div class="info"><span class="titulo">Roy Batty</span><span class="meta">Blade Runner · 1982</span></div></li>
+      </ul>
+    </div>
+
+    <div class="lista-card" data-num="03">
+      <div class="lista-tag">— Lista 03 · Buddy movies</div>
+      <h2>Buddy movies del siglo XXI</h2>
+      <p>Dos tíos, una misión y la mejor química posible. El género más infravalorado del cine moderno.</p>
+      <ul class="lista-items">
+        <li><span class="n">1</span><div class="info"><span class="titulo">Hot Fuzz</span><span class="meta">Edgar Wright · 2007</span></div></li>
+        <li><span class="n">2</span><div class="info"><span class="titulo">Rush Hour</span><span class="meta">Brett Ratner · 1998</span></div></li>
+        <li><span class="n">3</span><div class="info"><span class="titulo">The Nice Guys</span><span class="meta">Shane Black · 2016</span></div></li>
+        <li><span class="n">4</span><div class="info"><span class="titulo">21 Jump Street</span><span class="meta">Phil Lord · 2012</span></div></li>
+        <li><span class="n">5</span><div class="info"><span class="titulo">Lethal Weapon</span><span class="meta">Richard Donner · 1987</span></div></li>
+      </ul>
+    </div>
+
+    <div class="lista-card" data-num="04">
+      <div class="lista-tag">— Lista 04 · Series</div>
+      <h2>Series para apagar el móvil</h2>
+      <p>Las que te enganchan desde el primer minuto del primer episodio y no te sueltan hasta el final. Sin excusas. Sin móvil.</p>
+      <ul class="lista-items">
+        <li><span class="n">1</span><div class="info"><span class="titulo">The Wire</span><span class="meta">HBO · 2002-2008</span></div></li>
+        <li><span class="n">2</span><div class="info"><span class="titulo">Chernobyl</span><span class="meta">HBO · 2019</span></div></li>
+        <li><span class="n">3</span><div class="info"><span class="titulo">Los Soprano</span><span class="meta">HBO · 1999-2007</span></div></li>
+        <li><span class="n">4</span><div class="info"><span class="titulo">The Americans</span><span class="meta">FX · 2013-2018</span></div></li>
+        <li><span class="n">5</span><div class="info"><span class="titulo">Ozark</span><span class="meta">Netflix · 2017-2022</span></div></li>
+      </ul>
+    </div>
+
+    <div class="proximas">
+      <h3>Más listas en camino</h3>
+      <p>Rulo y Toni están debatiendo. Pueden tardar.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>© 2026 Zaska y Acción</span>
+      <span>Hecho con pólvora y amor</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const stored = localStorage.getItem('zaska-theme');
+  if (stored) html.setAttribute('data-theme', stored);
+  toggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('zaska-theme', next);
+  });
+</script>
+</body>
+</html>
