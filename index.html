@@ -411,6 +411,15 @@
 .top-item .info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .top-item .ti { font-family: var(--f-display); font-size: 18px; font-style: italic; line-height: 1; text-transform: uppercase; }
 .top-item .me { font-family: var(--f-mono); font-size: 10px; letter-spacing: .14em; color: var(--ink-dim); text-transform: uppercase; }
+
+/* Card entera clickable */
+.card { position: relative; cursor: pointer; }
+.card-link { position: absolute; inset: 0; z-index: 1; }
+.card .card-title a,
+.card .chip-pos { position: relative; z-index: 2; }
+
+/* Filtro categorías */
+.card[hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -423,9 +432,9 @@
       <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
     </a>
     <nav class="nav">
-      <a href="#storybooks" class="active">Storybooks</a>
-      <a href="#series">Series</a>
-      <a href="#peliculas">Películas</a>
+      <a href="#storybooks" class="nav-filter active" data-filter="all">Storybooks</a>
+      <a href="#storybooks" class="nav-filter" data-filter="serie">Series</a>
+      <a href="#storybooks" class="nav-filter" data-filter="pelicula">Películas</a>
     </nav>
     <div class="header-right">
       <button class="search-btn" aria-label="Buscar">
@@ -516,7 +525,8 @@
       <a href="#storybooks" class="more">Ver todos →</a>
     </div>
     <div class="cards-3">
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/westworld/index.html" aria-label="Westworld"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="magenta" data-label="WESTWORLD"></div>
@@ -537,7 +547,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/ozark/index.html" aria-label="Ozark"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="blue" data-label="OZARK"></div>
@@ -558,7 +569,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/the-americans/index.html" aria-label="The Americans"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="red" data-label="THE AMERICANS"></div>
@@ -598,7 +610,8 @@
     <h3 id="series" style="font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);text-shadow:var(--glow-blue);margin:0 0 20px;padding-top:8px;">── Series</h3>
     <div class="cards-3">
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/the-wire/index.html" aria-label="The Wire"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="blue" data-label="THE WIRE"></div>
@@ -619,7 +632,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/los-soprano/index.html" aria-label="Los Soprano"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="magenta" data-label="LOS SOPRANO"></div>
@@ -640,7 +654,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/perdidos/index.html" aria-label="Perdidos"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="blue" data-label="PERDIDOS"></div>
@@ -661,7 +676,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/chernobyl/index.html" aria-label="Chernobyl"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="red" data-label="CHERNOBYL"></div>
@@ -682,7 +698,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/godless/index.html" aria-label="Godless"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="blue" data-label="GODLESS"></div>
@@ -703,7 +720,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/the-americans/index.html" aria-label="The Americans"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="red" data-label="THE AMERICANS"></div>
@@ -724,7 +742,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/ozark/index.html" aria-label="Ozark"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="blue" data-label="OZARK"></div>
@@ -745,7 +764,8 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card" data-cat="serie">
+        <a class="card-link" href="series/westworld/index.html" aria-label="Westworld"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
           <div class="ph" data-tone="magenta" data-label="WESTWORLD"></div>
@@ -766,13 +786,8 @@
         </div>
       </article>
 
-    </div>
-
-    <!-- PELÍCULAS -->
-    <h3 id="peliculas" style="font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);text-shadow:var(--glow-red);margin:48px 0 20px;padding-top:8px;">── Películas</h3>
-    <div class="cards-3">
-
-      <article class="card">
+      <article class="card" data-cat="pelicula">
+        <a class="card-link" href="peliculas/el-sargento-de-hierro/index.html" aria-label="El Sargento de Hierro"></a>
         <div class="img">
           <span class="chip chip-pelicula chip-pos">PELÍCULA</span>
           <div class="ph" data-tone="red" data-label="EL SARGENTO DE HIERRO"></div>
@@ -946,6 +961,24 @@
     </div>
   </div>
 </footer>
+
+<script>
+  // Filtro de categorías
+  document.querySelectorAll('.nav-filter').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const filter = this.dataset.filter;
+      document.querySelectorAll('.nav-filter').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('#storybooks .card').forEach(card => {
+        if (filter === 'all' || card.dataset.cat === filter) {
+          card.removeAttribute('hidden');
+        } else {
+          card.setAttribute('hidden', '');
+        }
+      });
+    });
+  });
+</script>
 
 <script>
   const html = document.documentElement;
