@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hijos de la Anarquía — Zaska y Acción</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #070608;
+  --orange:  #e05800;
+  --red:     #cc1100;
+  --chrome:  #b0b8c4;
+  --grey:    #888;
+  --white:   #f0ece0;
+  --gap:     6px;
+}
+
+body {
+  background: var(--bg);
+  color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.hdr {
+  background: #040305;
+  border-bottom: 3px solid var(--orange);
+  padding: 12px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 200;
+}
+.hdr-logo { font-family:'Bangers',cursive; font-size:1.8rem; letter-spacing:2px; color:var(--orange); text-shadow:0 0 14px rgba(224,88,0,.6); text-decoration:none; }
+.hdr-logo span { color:var(--red); }
+.hdr-bc { font-size:.68rem; color:#555; letter-spacing:1px; text-transform:uppercase; }
+.hdr-bc a { color:var(--chrome); text-decoration:none; }
+
+/* PORTADA */
+.cover {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:80px 24px;
+  background:radial-gradient(ellipse at 50% 35%,#1a0800 0%,#070608 65%);
+  position:relative; overflow:hidden;
+}
+.cover::before {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(224,88,0,.02) 60px),
+             repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(224,88,0,.02) 60px);
+  pointer-events:none;
+}
+
+/* Rueda de moto decorativa */
+.wheel-deco {
+  position:absolute;
+  bottom:-180px; right:-180px;
+  width:500px; height:500px;
+  border-radius:50%;
+  border: 18px solid rgba(224,88,0,.08);
+  pointer-events:none; z-index:0;
+  box-shadow: 0 0 60px rgba(224,88,0,.04);
+}
+.wheel-deco::before {
+  content:''; position:absolute; inset:40px;
+  border-radius:50%;
+  border: 10px solid rgba(224,88,0,.06);
+}
+.wheel-deco::after {
+  content:''; position:absolute; inset:90px;
+  border-radius:50%;
+  border: 6px solid rgba(224,88,0,.05);
+}
+.wheel-deco-2 {
+  position:absolute;
+  top:-120px; left:-120px;
+  width:350px; height:350px;
+  border-radius:50%;
+  border: 12px solid rgba(176,184,196,.04);
+  pointer-events:none; z-index:0;
+}
+
+.c-badge {
+  font-family:'Bangers',cursive; font-size:.85rem; letter-spacing:5px;
+  color:var(--orange); opacity:.7; margin-bottom:18px; position:relative; z-index:1;
+}
+.c-eyebrow {
+  font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:8px;
+  color:var(--chrome); opacity:.5; margin-bottom:12px; position:relative; z-index:1;
+}
+.c-title {
+  font-family:'Bangers',cursive;
+  font-size:clamp(4rem,14vw,10rem);
+  letter-spacing:4px; line-height:.9;
+  color:var(--white); position:relative; z-index:1;
+  text-shadow:0 0 40px rgba(224,88,0,.4), 4px 4px 0 var(--orange), 8px 8px 0 rgba(204,17,0,.5);
+  margin-bottom:22px;
+}
+.c-title em { color:var(--orange); font-style:normal; }
+.c-sub {
+  font-family:'Bangers',cursive; font-size:1.1rem; letter-spacing:4px;
+  color:var(--chrome); opacity:.8; margin-bottom:10px; position:relative; z-index:1;
+}
+.c-series {
+  font-family:'Bangers',cursive; font-size:.8rem; letter-spacing:3px;
+  color:var(--red); opacity:.7; margin-bottom:32px; position:relative; z-index:1;
+}
+.c-by {
+  font-size:.8rem; letter-spacing:2px; text-transform:uppercase;
+  color:#555; position:relative; z-index:1;
+}
+.c-by span { color:var(--orange); }
+.c-scroll {
+  margin-top:48px; font-size:.75rem; letter-spacing:3px; text-transform:uppercase;
+  color:#444; animation:bob 2s ease-in-out infinite; position:relative; z-index:1;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+/* LIBRO */
+.book {
+  max-width:900px; margin:0 auto; padding:40px 20px 80px;
+}
+
+/* PANELES */
+.panel {
+  background:#0e0b0a;
+  border:3px solid #1e1710;
+  margin-bottom: var(--gap);
+  position:relative; overflow:hidden;
+  display:flex; gap:0;
+}
+.panel.wide { flex-direction:column; }
+
+.panel-img {
+  flex:0 0 260px;
+  min-height:220px;
+  background:#181210;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bangers',cursive; font-size:1.1rem;
+  color:rgba(224,88,0,.35); letter-spacing:2px;
+  border-right:3px solid #1e1710;
+  position:relative; overflow:hidden;
+}
+.panel-img::after {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(135deg,transparent,transparent 6px,rgba(224,88,0,.03) 7px);
+}
+
+.panel-txt {
+  flex:1; padding:22px 24px; display:flex; flex-direction:column; gap:14px;
+}
+
+/* BURBUJAS */
+.bubble {
+  background:#1a1410; border:2px solid var(--orange);
+  border-radius:12px; padding:12px 16px;
+  font-family:'Comic Neue',cursive; font-size:1rem; line-height:1.5;
+  color:#f0e8d8; position:relative;
+}
+.bubble::after {
+  content:''; position:absolute; left:22px; bottom:-11px;
+  width:0; height:0;
+  border-left:10px solid transparent; border-right:10px solid transparent;
+  border-top:11px solid var(--orange);
+}
+.bubble.right::after { left:auto; right:22px; }
+.bubble.top::after { display:none; }
+.bubble.top::before {
+  content:''; position:absolute; left:22px; top:-11px;
+  width:0; height:0;
+  border-left:10px solid transparent; border-right:10px solid transparent;
+  border-bottom:11px solid var(--orange);
+}
+
+/* Jax — burbuja especial cuero oscuro */
+.bubble-jax {
+  background:#120800; border:2px solid var(--orange);
+  color:#f4c07a; border-radius:12px; padding:12px 16px;
+  font-family:'Comic Neue',cursive; font-size:1rem; line-height:1.5;
+  position:relative;
+}
+.bubble-jax::after {
+  content:''; position:absolute; right:22px; bottom:-11px;
+  width:0; height:0;
+  border-left:10px solid transparent; border-right:10px solid transparent;
+  border-top:11px solid var(--orange);
+}
+
+/* ETIQUETAS */
+.speaker {
+  font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:2px;
+  color:var(--orange); margin-bottom:4px; opacity:.8;
+}
+.speaker.chr { color:var(--chrome); }
+
+/* PANEL FX */
+.panel-fx {
+  min-height:160px; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#1a0800,#0d0605);
+  border:3px solid var(--orange);
+  margin-bottom:var(--gap);
+  position:relative; overflow:hidden;
+}
+.panel-fx::before {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(224,88,0,.04) 9px);
+}
+.fx-word {
+  font-family:'Bangers',cursive;
+  font-size:clamp(4rem,14vw,7rem);
+  letter-spacing:6px;
+  color:var(--orange);
+  text-shadow:4px 4px 0 var(--red),8px 8px 0 #000,0 0 40px rgba(224,88,0,.6);
+  position:relative; z-index:1;
+}
+.fx-word.chrome {
+  color:var(--chrome);
+  text-shadow:4px 4px 0 #555,8px 8px 0 #000,0 0 30px rgba(176,184,196,.4);
+}
+
+/* PANEL PERSONAJE */
+.panel-char {
+  background:linear-gradient(135deg,#130a00,#0a0605);
+  border:3px solid var(--orange);
+  padding:24px 28px; margin-bottom:var(--gap);
+  display:flex; gap:24px; align-items:flex-start;
+}
+.char-icon {
+  flex:0 0 70px; height:70px; border-radius:50%;
+  background:var(--orange); display:flex; align-items:center; justify-content:center;
+  font-family:'Bangers',cursive; font-size:1.8rem; color:#000;
+  border:3px solid var(--red); box-shadow:0 0 16px rgba(224,88,0,.5);
+}
+.char-info h4 {
+  font-family:'Bangers',cursive; font-size:1.4rem; letter-spacing:2px;
+  color:var(--orange); margin-bottom:6px;
+}
+.char-info p { font-size:.9rem; line-height:1.5; color:#ccc; }
+
+/* CURVA CALIDAD */
+.quality-curve {
+  background:#0e0b0a; border:3px solid #1e1710;
+  padding:28px; margin-bottom:var(--gap);
+}
+.quality-curve h3 {
+  font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:3px;
+  color:var(--orange); margin-bottom:20px;
+}
+.q-bars { display:flex; gap:10px; align-items:flex-end; height:120px; }
+.q-bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.q-bar {
+  width:100%; background:linear-gradient(to top,var(--orange),#ff9944);
+  border-radius:3px 3px 0 0; transition:height .3s;
+  box-shadow:0 0 8px rgba(224,88,0,.3);
+}
+.q-label { font-family:'Bangers',cursive; font-size:.75rem; color:var(--chrome); letter-spacing:1px; }
+.q-val { font-family:'Bangers',cursive; font-size:.85rem; color:var(--orange); }
+
+/* VEREDICTO */
+.veredicto {
+  background:linear-gradient(135deg,#1a0800,#0d0605);
+  border:3px solid var(--orange);
+  padding:32px; margin-bottom:var(--gap); text-align:center;
+}
+.veredicto h2 {
+  font-family:'Bangers',cursive; font-size:2rem; letter-spacing:4px;
+  color:var(--orange); margin-bottom:8px;
+}
+.nota-final {
+  font-family:'Bangers',cursive; font-size:5rem; color:var(--orange);
+  text-shadow:4px 4px 0 var(--red),0 0 30px rgba(224,88,0,.6);
+  line-height:1;
+}
+.nota-texto { font-size:.85rem; color:var(--chrome); letter-spacing:2px; text-transform:uppercase; margin-top:8px; }
+
+/* ===== SECCIÓN CRÍTICAS ===== */
+<style id="criticas-css">
+.criticas-section {
+  background:#080608;
+  border-top:3px solid var(--orange);
+  padding:60px 0 80px;
+}
+.criticas-inner {
+  max-width:860px; margin:0 auto; padding:0 24px;
+}
+h2.criticas-titulo {
+  font-family:'Bangers',cursive; font-size:3rem; letter-spacing:4px;
+  color:var(--orange); margin-bottom:36px; text-align:center;
+  text-shadow:0 0 20px rgba(224,88,0,.4);
+}
+.ficha-tecnica {
+  background:#0e0b0a; border:2px solid #2a1f10;
+  padding:20px 24px; margin-bottom:36px; border-radius:4px;
+}
+.ficha-tecnica table { width:100%; border-collapse:collapse; }
+.ficha-tecnica td {
+  padding:7px 10px; font-size:.9rem; border-bottom:1px solid #1a1410;
+  vertical-align:top;
+}
+.ficha-tecnica td:first-child { color:var(--chrome); font-weight:700; width:130px; text-transform:uppercase; font-size:.78rem; letter-spacing:1px; }
+.ficha-tecnica td:last-child { color:#e8dcc8; }
+.nota-grande { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--orange); }
+
+.critica-bloque {
+  margin-bottom:36px;
+  background:#0e0b0a; border-left:4px solid var(--orange);
+  padding:22px 24px; border-radius:0 4px 4px 0;
+}
+.critica-bloque h3 {
+  font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:2px;
+  color:var(--orange); margin-bottom:14px;
+}
+.critica-bloque p {
+  font-size:.95rem; line-height:1.7; color:#d8ccc0; margin-bottom:10px;
+}
+.critica-bloque p:last-child { margin-bottom:0; }
+.critica-canalla { border-left-color:#f4a261; }
+.critica-canalla h3 { color:#f4a261; }
+.critica-canalla p { color:#ddd; }
+.pachi-bloque { border-left-color:var(--chrome); }
+.pachi-bloque h3 { color:var(--chrome); }
+.pachi-canalla-bloque { border-left-color:#ff6b6b; }
+.pachi-canalla-bloque h3 { color:#ff6b6b; }
+.pachi-canalla-bloque p { color:#ddd; }
+</style>
+
+<section class="criticas-section">
+<div class="criticas-inner">
+<h2 class="criticas-titulo">Hijos de la Anarquía</h2>
+<div class="ficha-tecnica"><table>
+<tr><td>Tipo</td><td>Serie</td></tr>
+<tr><td>Año</td><td>2008</td></tr>
+<tr><td>Creador</td><td>Kurt Sutter</td></tr>
+<tr><td>Reparto</td><td>Charlie Hunnam, Katey Sagal, Ron Perlman, Maggie Siff, Mark Boone Junior, Kim Coates, Tommy Flanagan</td></tr>
+<tr><td>Plataforma</td><td>FX / Amazon Prime</td></tr>
+<tr><td>Duración</td><td>7 temporadas · 92 ep. (2008–2014)</td></tr>
+<tr><td>Nota</td><td><span class="nota-grande">8,5</span> / 10</td></tr>
+</table></div>
+
+<div class="critica-bloque">
+<h3>🎭 Crítica</h3>
+<p>"Hijos de la Anarquía" es una serie que gira en torno a la vida de un club de moteros fuera de la ley ubicado en Charming, California. La serie explora sus actividades ilegales como el tráfico de armas, peleas, drogas y enfrentamientos con bandas rivales y autoridades, pero también se adentra en sus complejas relaciones familiares y partidarias internas. Con un fuerte tinte dramático y oscuro, la serie es más que una apología de violencia: presenta personajes con problemas personales profundos y dilemas morales, destacando la lucha del vicepresidente Jax Teller por el futuro del club y la familia.</p>
+<p>La narrativa se sostiene en una atmósfera de tensión constante, política interna y violencia, con momentos de humanidad entre los protagonistas. La serie fue alabada por su intensidad, construcción de personajes y guion sólido, aunque algunos vieron una progresiva caída hacia tramas demasiado densas o inerciales en ciertas temporadas. En general, "Hijos de la Anarquía" es un drama criminal intenso y cautivador que se ha ganado un lugar icónico en la televisión contemporánea por su retrato crudo de un mundo criminal y familiar entrelazados.</p>
+</div>
+
+<div class="critica-bloque critica-canalla">
+<h3>🤘 La canalla (estilo 80/90)</h3>
+<p>¿Una serie de moteros con más tatuajes que sentido común? Claro que sí, "Hijos de la Anarquía" te pone en la carretera donde la ley es solo una sugerencia y la violencia es la hostia... literalmente. Imagínate una sitcom donde en vez de risas grabadas tienes disparos, peleas y dramas familiares que harían sudar frío hasta a tu abuela. Aquí el ajedrez es con armas y los reyes se pelean por quién controla el club, pero con menos etiqueta y más botas de cuero.</p>
+<p>Nuestro héroe Jax Teller es ese tipo que se levanta cada día con la idea de "voy a arreglar todo", mientras que todo lo que toca se desarma más rápido que el motor de una moto chunga. ¿Y las mujeres? No esperes princesas Disney; acá son guerreras y manipuladoras que podrían darle una clase magistral a cualquiera. La serie es como esa barra de bar donde todos tienen secretos turbios y la cerveza se acaba justo cuando las cosas se ponen buenas. Un drama intenso, con moteros duros y dramas aún más duros. Abróchate el casco y prepárate a gritar "¡otra ronda!", pero de balas.</p>
+</div>
+
+<div class="critica-bloque pachi-bloque">
+<h3>🎖️ Opinión de Pachi</h3>
+<p>"Hijos de la Anarquía" es una serie espectacular que mantiene un ritmo vertiginoso que atrapa desde el primer episodio, haciendo muy difícil dejar de ver el siguiente capítulo. La trama está llena de giros inesperados, acción constante, traiciones y momentos de alta adrenalina que sostienen el interés a lo largo de todas las temporadas. Aunque en ciertos momentos parece que se estira un poco la cuerda, nunca pierde el pulso en su narrativa. El protagonista, interpretado magistralmente, se convierte en una figura inolvidable dentro de la serie, apoyado por un sólido grupo de secundarios, destacando especialmente a Ron Perlman, quienes complementan perfectamente sus roles dentro del club y la historia. El cierre de la serie puede parecer algo menos impactante comparado con el resto, pero aún así cumple y ofrece un desenlace digno.</p>
+</div>
+
+<div class="critica-bloque pachi-canalla-bloque">
+<h3>💥 Pachi (versión sin filtros)</h3>
+<p>Si esta serie fuera una moto, sería una Harley rugiendo a mil por hora sin frenos. "Hijos de la Anarquía" no te da un respiro, hermano, te engancha como ese primo que te ofrece un porro y no te suelta hasta las 5 de la mañana. Giros de trama que te dejan boquiabierto, acción que te hace saltar del sofá y traiciones que te golpean más duro que un puño de hierro. El protagonista es como ese tipo que llega a la fiesta y la parte él solo, con un reparto que no está para jugar, especialmente ese grandullón de Ron Perlman, que parece salido de una película de acción de los buenos. Vale, el final es como cuando se te acaba la gasolina en mitad de la autopista: un bajón, pero todavía aguanta el tipo para que no te quedes tirado del todo. Así que prepárate, que esto es adrenalina pura en vena.</p>
+</div>
+
+</div>
+</section>
+
+<!-- PORTADA -->
+<section class="cover">
+  <div class="wheel-deco"></div>
+  <div class="wheel-deco-2"></div>
+  <div class="c-badge">STORYBOOK Nº012</div>
+  <div class="c-eyebrow">ZASKA Y ACCIÓN PRESENTA</div>
+  <h1 class="c-title"><em>HIJOS</em><br>DE LA<br>ANARQUÍA</h1>
+  <div class="c-sub">CHARMING, CALIFORNIA · SAMCRO · SIN LEY</div>
+  <div class="c-series">DRAMA · ACCIÓN · FX (2008–2014)</div>
+  <div class="c-by">Una crítica de <span>Rulo y Toni</span> — con la opinión de Pachi</div>
+  <div class="c-scroll">↓ Arranca el motor ↓</div>
+</section>
+
+<!-- LIBRO -->
+<div class="book">
+
+<!-- PANEL 1: PITCH -->
+<div class="panel">
+  <div class="panel-img">CHARMING,<br>CALIFORNIA</div>
+  <div class="panel-txt">
+    <div class="speaker">RULO</div>
+    <div class="bubble">
+      Toni, imagínate un pueblo tranquilo de California donde el club de moteros local controla todo: las armas, la droga, las calles. Y en el centro, Jax Teller, vicepresidente, con un hijo recién nacido y el diario de su padre muerto que le dice que todo esto podría haber sido diferente.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      ¿Un motero con crisis existencial? Eso o me lo han puesto en la cerveza.
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 2: SAMCRO -->
+<div class="panel">
+  <div class="panel-txt">
+    <div class="speaker">RULO</div>
+    <div class="bubble">
+      Sons of Anarchy Motorcycle Club Redwood Original. SAMCRO. Tráfico de armas, guerras de territorio, la policía pisándoles los talones... y en medio, una familia disfuncional de cuero y acero que se quiere y se traiciona a partes iguales.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      Suena a Los Soprano pero con Harleys. ¿Y eso es malo?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      Es glorioso, Toni. Glorioso.
+    </div>
+  </div>
+  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;">SAMCRO<br>1%</div>
+</div>
+
+<!-- PANEL 3: JAX + GEMMA -->
+<div class="panel-char">
+  <div class="char-icon">J</div>
+  <div class="char-info">
+    <h4>Jackson "Jax" Teller</h4>
+    <p>Charlie Hunnam como el hombre que quiere cambiar el club desde dentro mientras el club le cambia a él. Cada temporada más roto, más peligroso, más irresistible. El protagonista se hace famoso en esta serie y se sale por completo.</p>
+  </div>
+</div>
+
+<!-- FX 1 -->
+<div class="panel-fx">
+  <div class="fx-word">¡SAMCRO!</div>
+</div>
+
+<!-- PANEL 4: GEMMA + CLAY -->
+<div class="panel">
+  <div class="panel-img">GEMMA<br>&<br>CLAY</div>
+  <div class="panel-txt">
+    <div class="speaker">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      Vale, ¿y quién manda realmente en el club?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble">
+      Clay Morrow, el presidente. Ron Perlman con mano de hierro y secretos oscuros. Pero detrás está Gemma, la matriarca. Katey Sagal bordando a una mujer que ama, manipula y destruye en el mismo aliento. Los secundarios le acompañan perfectamente, teniendo cada uno su rol.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      ¿Y las mujeres son las de siempre, decorativas?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      Aquí son guerreras y manipuladoras que podrían dar clase magistral a cualquiera.
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 5: JAX habla -->
+<div class="panel">
+  <div class="panel-txt">
+    <div class="speaker">JAX TELLER</div>
+    <div class="bubble-jax">
+      "Cada vez que intento salir, me vuelven a meter. Pero esta vez... esta vez juego con mis reglas."
+    </div>
+    <div class="speaker" style="margin-top:14px">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      Ese tío me recuerda al Hamlet de Shakespeare pero con tatuajes y una Harley.
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      Exactamente. Kurt Sutter lo diseñó así. Hamlet en cuero negro. Te lo juro.
+    </div>
+  </div>
+  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;">JAX<br>VS<br>MUNDO</div>
+</div>
+
+<!-- PANEL 6: RITMO -->
+<div class="panel">
+  <div class="panel-img">92<br>EP.</div>
+  <div class="panel-txt">
+    <div class="speaker">RULO</div>
+    <div class="bubble">
+      Es una serie espectacular con un ritmo vertiginoso. No puedes parar de poner el siguiente capítulo. Giros inesperados, mucha acción, traiciones, mucha adrenalina. Y aunque se estira un poco el chicle, mantiene el ritmo hasta el final.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      ¿Siete temporadas sin perder el hilo?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      Con algún bache, sí. La T3 en Irlanda pincha. Pero vuelves a la pista.
+    </div>
+  </div>
+</div>
+
+<!-- FX 2 -->
+<div class="panel-fx">
+  <div class="fx-word chrome">¡REAPER!</div>
+</div>
+
+<!-- PANEL 7: CURVA CALIDAD -->
+<div class="quality-curve">
+  <h3>📈 Curva de calidad · 7 temporadas</h3>
+  <div class="q-bars">
+    <div class="q-bar-wrap">
+      <div class="q-val">8.5</div>
+      <div class="q-bar" style="height:85%"></div>
+      <div class="q-label">T1</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">9.0</div>
+      <div class="q-bar" style="height:100%"></div>
+      <div class="q-label">T2</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">7.5</div>
+      <div class="q-bar" style="height:70%"></div>
+      <div class="q-label">T3</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">8.5</div>
+      <div class="q-bar" style="height:85%"></div>
+      <div class="q-label">T4</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">8.0</div>
+      <div class="q-bar" style="height:78%"></div>
+      <div class="q-label">T5</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">8.5</div>
+      <div class="q-bar" style="height:85%"></div>
+      <div class="q-label">T6</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">7.5</div>
+      <div class="q-bar" style="height:70%"></div>
+      <div class="q-label">T7</div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 8: FINAL -->
+<div class="panel">
+  <div class="panel-img">THE<br>END?</div>
+  <div class="panel-txt">
+    <div class="speaker">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      ¿Y el final? ¿A la altura?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble">
+      El final es como cuando se te acaba la gasolina en mitad de la autopista: un bajón, pero todavía aguanta el tipo para que no te quedes tirado del todo. Un poco flojo comparado con el resto, pero ofrece un desenlace digno.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      O sea que no es de esas series que destrozan todo lo anterior con un mal final.
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      No. Cumple. Y eso ya es mucho.
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 9: VEREDICTO -->
+<div class="panel">
+  <div class="panel-txt">
+    <div class="speaker">RULO</div>
+    <div class="bubble">
+      Si esta serie fuera una moto, sería una Harley rugiendo a mil por hora sin frenos. Te engancha como ese primo que no te suelta hasta las 5 de la mañana. Adrenalina pura en vena.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
+      ¿La recomendamos?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      Sin dudarlo. Abróchate el casco.
+    </div>
+  </div>
+  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;">VERDICT:<br>SAMCRO<br>APPROVED</div>
+</div>
+
+<!-- PANEL 10: PERSONAJES -->
+<div class="panel wide">
+  <div class="panel-txt" style="padding:20px 24px;">
+    <div class="speaker" style="font-size:.9rem; margin-bottom:10px;">CLUB DE PERSONAJES — SAMCRO</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div style="background:#130f0a; padding:10px 14px; border-left:3px solid var(--orange);">
+        <div style="font-family:'Bangers',cursive; color:var(--orange); letter-spacing:1px;">JAX TELLER</div>
+        <div style="font-size:.8rem; color:#aaa;">Charlie Hunnam · Vicepresidente que lucha por el control y futuro del club.</div>
+      </div>
+      <div style="background:#130f0a; padding:10px 14px; border-left:3px solid var(--chrome);">
+        <div style="font-family:'Bangers',cursive; color:var(--chrome); letter-spacing:1px;">GEMMA TELLER</div>
+        <div style="font-size:.8rem; color:#aaa;">Katey Sagal · Matriarca protectora y manipuladora del club y su familia.</div>
+      </div>
+      <div style="background:#130f0a; padding:10px 14px; border-left:3px solid var(--red);">
+        <div style="font-family:'Bangers',cursive; color:var(--red); letter-spacing:1px;">CLAY MORROW</div>
+        <div style="font-size:.8rem; color:#aaa;">Ron Perlman · Presidente del club con mano firme y secretos oscuros.</div>
+      </div>
+      <div style="background:#130f0a; padding:10px 14px; border-left:3px solid #f4c07a;">
+        <div style="font-family:'Bangers',cursive; color:#f4c07a; letter-spacing:1px;">TARA KNOWLES</div>
+        <div style="font-size:.8rem; color:#aaa;">Maggie Siff · Doctora y esposa de Jax, atrapada entre familia y leyes.</div>
+      </div>
+      <div style="background:#130f0a; padding:10px 14px; border-left:3px solid #8ab4f8;">
+        <div style="font-family:'Bangers',cursive; color:#8ab4f8; letter-spacing:1px;">CHIBS TELFORD</div>
+        <div style="font-size:.8rem; color:#aaa;">Tommy Flanagan · Miembro con fuertes valores y lealtad inquebrantable.</div>
+      </div>
+      <div style="background:#130f0a; padding:10px 14px; border-left:3px solid #ff8c69;">
+        <div style="font-family:'Bangers',cursive; color:#ff8c69; letter-spacing:1px;">TIG TRAGER</div>
+        <div style="font-size:.8rem; color:#aaa;">Kim Coates · Miembro violento y temperamental. El perro de presa del club.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 11: VEREDICTO FINAL -->
+<div class="veredicto">
+  <h2>⚡ VEREDICTO FINAL</h2>
+  <div class="nota-final">8.5</div>
+  <div class="nota-texto">sobre 10 · FX / Amazon Prime · 7 temporadas</div>
+  <p style="margin-top:16px; color:#c0a880; font-size:.9rem; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.6;">
+    Adrenalina pura con un protagonista que lo da todo. Los secundarios están de diez, en especial Ron Perlman. Algún bache a mitad de camino, pero el motor nunca para. El final podría ser más potente, pero nadie se queda tirado.
+  </p>
+</div>
+
+</div><!-- /book -->
+
+<!-- FOOTER -->
+<footer style="background:#040305; border-top:2px solid #1a1410; padding:28px; text-align:center;">
+  <a href="../../index.html" style="font-family:'Bangers',cursive; font-size:1.4rem; color:var(--orange); text-decoration:none; letter-spacing:2px;">← ZASKA Y ACCIÓN</a>
+  <p style="color:#333; font-size:.7rem; letter-spacing:2px; text-transform:uppercase; margin-top:8px;">Storybook Nº012 · Hijos de la Anarquía · 2026</p>
+</footer>
+
+</body>
+</html>

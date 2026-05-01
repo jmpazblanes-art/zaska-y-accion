@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breaking Bad — Zaska y Acción</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #050508;
+  --blue:   #00b4d8;
+  --yellow: #f5c400;
+  --green:  #2db82d;
+  --red:    #cc1500;
+  --grey:   #888;
+  --white:  #f0ece0;
+  --gap:    6px;
+}
+
+body {
+  background: var(--bg);
+  color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.hdr {
+  background: #030305;
+  border-bottom: 3px solid var(--blue);
+  padding: 12px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 200;
+}
+.hdr-logo { font-family:'Bangers',cursive; font-size:1.8rem; letter-spacing:2px; color:var(--blue); text-shadow:0 0 14px rgba(0,180,216,.6); text-decoration:none; }
+.hdr-logo span { color:var(--yellow); }
+.hdr-bc { font-size:.68rem; color:#555; letter-spacing:1px; text-transform:uppercase; }
+.hdr-bc a { color:var(--blue); text-decoration:none; }
+
+/* PORTADA */
+.cover {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:80px 24px;
+  background:radial-gradient(ellipse at 50% 30%,#00141a 0%,#050508 65%);
+  position:relative; overflow:hidden;
+}
+.cover::before {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,180,216,.02) 60px),
+             repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(0,180,216,.02) 60px);
+  pointer-events:none;
+}
+
+/* Átomo decorativo */
+.atom-deco {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:600px; height:600px; pointer-events:none; z-index:0; opacity:.035;
+}
+.atom-deco::before {
+  content:''; position:absolute; inset:0;
+  border-radius:50%; border:2px solid var(--blue);
+}
+.atom-deco::after {
+  content:''; position:absolute; inset:80px;
+  border-radius:50%; border:1px solid var(--yellow);
+  transform:rotate(60deg);
+}
+.atom-inner {
+  position:absolute; inset:160px; border-radius:50%; border:1px solid var(--green);
+  transform:rotate(120deg);
+}
+.formula-deco {
+  position:absolute; bottom:60px; right:60px;
+  font-family:'Bangers',cursive; font-size:2rem; letter-spacing:3px;
+  color:var(--blue); opacity:.08; pointer-events:none; z-index:0;
+}
+
+.c-badge {
+  font-family:'Bangers',cursive; font-size:.85rem; letter-spacing:5px;
+  color:var(--blue); opacity:.7; margin-bottom:18px; position:relative; z-index:1;
+}
+.c-eyebrow {
+  font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:8px;
+  color:#888; opacity:.6; margin-bottom:12px; position:relative; z-index:1;
+}
+.c-title {
+  font-family:'Bangers',cursive;
+  font-size:clamp(4rem,14vw,10rem);
+  letter-spacing:4px; line-height:.9;
+  color:var(--white); position:relative; z-index:1;
+  text-shadow:0 0 40px rgba(0,180,216,.5), 4px 4px 0 var(--blue), 8px 8px 0 rgba(245,196,0,.4);
+  margin-bottom:22px;
+}
+.c-title em { color:var(--blue); font-style:normal; }
+.c-sub {
+  font-family:'Bangers',cursive; font-size:1.1rem; letter-spacing:4px;
+  color:#888; opacity:.8; margin-bottom:10px; position:relative; z-index:1;
+}
+.c-series {
+  font-family:'Bangers',cursive; font-size:.8rem; letter-spacing:3px;
+  color:var(--yellow); opacity:.7; margin-bottom:32px; position:relative; z-index:1;
+}
+.c-by {
+  font-size:.8rem; letter-spacing:2px; text-transform:uppercase;
+  color:#555; position:relative; z-index:1;
+}
+.c-by span { color:var(--blue); }
+.c-scroll {
+  margin-top:48px; font-size:.75rem; letter-spacing:3px; text-transform:uppercase;
+  color:#444; animation:bob 2s ease-in-out infinite; position:relative; z-index:1;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+/* LIBRO */
+.book {
+  max-width:900px; margin:0 auto; padding:40px 20px 80px;
+}
+
+/* PANELES */
+.panel {
+  background:#0a0a10;
+  border:3px solid #14141e;
+  margin-bottom: var(--gap);
+  position:relative; overflow:hidden;
+  display:flex; gap:0;
+}
+.panel.wide { flex-direction:column; }
+
+.panel-img {
+  flex:0 0 260px;
+  min-height:220px;
+  background:#0d0d14;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bangers',cursive; font-size:1.1rem;
+  color:rgba(0,180,216,.35); letter-spacing:2px;
+  border-right:3px solid #14141e;
+  position:relative; overflow:hidden;
+}
+.panel-img::after {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(135deg,transparent,transparent 6px,rgba(0,180,216,.025) 7px);
+}
+
+.panel-txt {
+  flex:1; padding:22px 24px; display:flex; flex-direction:column; gap:14px;
+}
+
+/* BURBUJAS */
+.bubble {
+  background:#141420; border:2px solid var(--blue);
+  border-radius:12px; padding:12px 16px;
+  font-family:'Comic Neue',cursive; font-size:1rem; line-height:1.5;
+  color:#e8f4f8; position:relative;
+}
+.bubble::after {
+  content:''; position:absolute; left:22px; bottom:-11px;
+  width:0; height:0;
+  border-left:10px solid transparent; border-right:10px solid transparent;
+  border-top:11px solid var(--blue);
+}
+.bubble.right::after { left:auto; right:22px; }
+.bubble.top::after { display:none; }
+.bubble.top::before {
+  content:''; position:absolute; left:22px; top:-11px;
+  width:0; height:0;
+  border-left:10px solid transparent; border-right:10px solid transparent;
+  border-bottom:11px solid var(--blue);
+}
+
+/* Heisenberg — burbuja oscura con amarillo */
+.bubble-heisenberg {
+  background:#0a0800; border:2px solid var(--yellow);
+  color:#f5e070; border-radius:12px; padding:12px 16px;
+  font-family:'Comic Neue',cursive; font-size:1rem; line-height:1.5;
+  position:relative;
+}
+.bubble-heisenberg::after {
+  content:''; position:absolute; right:22px; bottom:-11px;
+  width:0; height:0;
+  border-left:10px solid transparent; border-right:10px solid transparent;
+  border-top:11px solid var(--yellow);
+}
+
+/* ETIQUETAS */
+.speaker {
+  font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:2px;
+  color:var(--blue); margin-bottom:4px; opacity:.8;
+}
+
+/* PANEL FX */
+.panel-fx {
+  min-height:160px; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#00101a,#050510);
+  border:3px solid var(--blue);
+  margin-bottom:var(--gap);
+  position:relative; overflow:hidden;
+}
+.panel-fx::before {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,180,216,.03) 9px);
+}
+.fx-word {
+  font-family:'Bangers',cursive;
+  font-size:clamp(2.5rem,9vw,5.5rem);
+  letter-spacing:4px;
+  color:var(--blue);
+  text-shadow:4px 4px 0 var(--yellow),8px 8px 0 #000,0 0 40px rgba(0,180,216,.6);
+  position:relative; z-index:1;
+  text-align:center;
+}
+.fx-word.yellow {
+  color:var(--yellow);
+  text-shadow:4px 4px 0 var(--green),8px 8px 0 #000,0 0 30px rgba(245,196,0,.5);
+}
+
+/* PANEL PERSONAJE */
+.panel-char {
+  background:linear-gradient(135deg,#00101a,#050510);
+  border:3px solid var(--blue);
+  padding:24px 28px; margin-bottom:var(--gap);
+  display:flex; gap:24px; align-items:flex-start;
+}
+.char-icon {
+  flex:0 0 70px; height:70px; border-radius:50%;
+  background:var(--blue); display:flex; align-items:center; justify-content:center;
+  font-family:'Bangers',cursive; font-size:1.8rem; color:#000;
+  border:3px solid var(--yellow); box-shadow:0 0 16px rgba(0,180,216,.5);
+}
+.char-info h4 {
+  font-family:'Bangers',cursive; font-size:1.4rem; letter-spacing:2px;
+  color:var(--blue); margin-bottom:6px;
+}
+.char-info p { font-size:.9rem; line-height:1.5; color:#ccc; }
+
+/* CURVA CALIDAD */
+.quality-curve {
+  background:#0a0a10; border:3px solid #14141e;
+  padding:28px; margin-bottom:var(--gap);
+}
+.quality-curve h3 {
+  font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:3px;
+  color:var(--blue); margin-bottom:20px;
+}
+.q-bars { display:flex; gap:10px; align-items:flex-end; height:120px; }
+.q-bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.q-bar {
+  width:100%; background:linear-gradient(to top,var(--blue),#48d8f8);
+  border-radius:3px 3px 0 0;
+  box-shadow:0 0 8px rgba(0,180,216,.3);
+}
+.q-bar.peak { background:linear-gradient(to top,var(--yellow),#ffe050); box-shadow:0 0 12px rgba(245,196,0,.5); }
+.q-bar.movie { background:linear-gradient(to top,var(--green),#50d050); box-shadow:0 0 8px rgba(45,184,45,.3); }
+.q-label { font-family:'Bangers',cursive; font-size:.75rem; color:#888; letter-spacing:1px; }
+.q-val { font-family:'Bangers',cursive; font-size:.85rem; color:var(--blue); }
+.q-val.peak { color:var(--yellow); }
+.q-val.movie { color:var(--green); }
+
+/* VEREDICTO */
+.veredicto {
+  background:linear-gradient(135deg,#00101a,#050510);
+  border:3px solid var(--blue);
+  padding:32px; margin-bottom:var(--gap); text-align:center;
+}
+.veredicto h2 {
+  font-family:'Bangers',cursive; font-size:2rem; letter-spacing:4px;
+  color:var(--blue); margin-bottom:8px;
+}
+.nota-final {
+  font-family:'Bangers',cursive; font-size:5rem; color:var(--blue);
+  text-shadow:4px 4px 0 var(--yellow),0 0 30px rgba(0,180,216,.6);
+  line-height:1;
+}
+.nota-texto { font-size:.85rem; color:#888; letter-spacing:2px; text-transform:uppercase; margin-top:8px; }
+
+/* ===== SECCIÓN CRÍTICAS ===== */
+<style id="criticas-css">
+.criticas-section {
+  background:#040408;
+  border-top:3px solid var(--blue);
+  padding:60px 0 80px;
+}
+.criticas-inner {
+  max-width:860px; margin:0 auto; padding:0 24px;
+}
+h2.criticas-titulo {
+  font-family:'Bangers',cursive; font-size:3rem; letter-spacing:4px;
+  color:var(--blue); margin-bottom:36px; text-align:center;
+  text-shadow:0 0 20px rgba(0,180,216,.4);
+}
+.ficha-tecnica {
+  background:#0a0a10; border:2px solid #18181e;
+  padding:20px 24px; margin-bottom:36px; border-radius:4px;
+}
+.ficha-tecnica table { width:100%; border-collapse:collapse; }
+.ficha-tecnica td {
+  padding:7px 10px; font-size:.9rem; border-bottom:1px solid #141420;
+  vertical-align:top;
+}
+.ficha-tecnica td:first-child { color:#aaa; font-weight:700; width:130px; text-transform:uppercase; font-size:.78rem; letter-spacing:1px; }
+.ficha-tecnica td:last-child { color:#e8dcc8; }
+.nota-grande { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--blue); }
+
+.critica-bloque {
+  margin-bottom:36px;
+  background:#0a0a10; border-left:4px solid var(--blue);
+  padding:22px 24px; border-radius:0 4px 4px 0;
+}
+.critica-bloque h3 {
+  font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:2px;
+  color:var(--blue); margin-bottom:14px;
+}
+.critica-bloque p {
+  font-size:.95rem; line-height:1.7; color:#d0dce8; margin-bottom:10px;
+}
+.critica-bloque p:last-child { margin-bottom:0; }
+.critica-canalla { border-left-color:#f4a261; }
+.critica-canalla h3 { color:#f4a261; }
+.critica-canalla p { color:#ddd; }
+.pachi-bloque { border-left-color:#aaa; }
+.pachi-bloque h3 { color:#aaa; }
+.pachi-canalla-bloque { border-left-color:#ff6b6b; }
+.pachi-canalla-bloque h3 { color:#ff6b6b; }
+.pachi-canalla-bloque p { color:#ddd; }
+</style>
+
+<section class="criticas-section">
+<div class="criticas-inner">
+<h2 class="criticas-titulo">Breaking Bad</h2>
+<div class="ficha-tecnica"><table>
+<tr><td>Tipo</td><td>Serie</td></tr>
+<tr><td>Año</td><td>2008</td></tr>
+<tr><td>Creador</td><td>Vince Gilligan</td></tr>
+<tr><td>Reparto</td><td>Bryan Cranston, Aaron Paul, Anna Gunn, Dean Norris, Bob Odenkirk, Giancarlo Esposito, Jonathan Banks</td></tr>
+<tr><td>Plataforma</td><td>Netflix / AMC</td></tr>
+<tr><td>Duración</td><td>5 temporadas · 62 ep. (2008–2013) + El Camino (2019)</td></tr>
+<tr><td>Nota</td><td><span class="nota-grande">9,5</span> / 10</td></tr>
+</table></div>
+
+<div class="critica-bloque">
+<h3>🎭 Crítica</h3>
+<p>Breaking Bad es una obra maestra absoluta del mundo de las series, una joya que cambió la televisión para siempre. Creada por Vince Gilligan, la serie sigue a Walter White, un profesor de química convertido en peligroso fabricante de metanfetamina, y a Jesse Pinkman, su socio problemático. Sus guiones inteligentes, personajes complejos y actuaciones increíbles (Bryan Cranston y Aaron Paul sobresalen) hacen que cada episodio se sienta como una minipelícula. La serie crece y se pone cada vez mejor, siendo un reflejo ácido y fascinante de la moral y la sociedad contemporánea, con un equilibrio perfecto entre drama, acción y momentos de humor negro.</p>
+<p>La película "El Camino" sirve como epílogo para Jesse Pinkman y es una extensión visual y narrativa muy correcta de la serie, con una fotografía impecable y un cierre emotivo para el personaje. No añade sorpresas radicales pero es un regalo para los fans, con la tensión y la atmósfera característica de Breaking Bad, aunque sin la carga explosiva que tenía la serie en sus mejores momentos. Es un buen cierre, aunque más accesorio que imprescindible.</p>
+</div>
+
+<div class="critica-bloque critica-canalla">
+<h3>🤘 La canalla (estilo 80/90)</h3>
+<p>Breaking Bad es como ese colega en la fiesta que empieza callado, pero poco a poco saca un arsenal de locuras químicas y dramas familiares que te dejan pensando si estás viendo Breaking News o un curso acelerado de "como volverte el malo de la película sin perder la cabeza... pero solo un poco". Walter White, el profe que un día dijo, "voy a cocinar cristal, pero sin ponerme un delantal de chef, que aquí el peligro va en serio", nos lleva de la mano por un camino que empieza con "yo solo quería hacer dinero para la familia" y termina en "te voy a reventar la cara con una escopeta si me miras mal".</p>
+<p>Y luego tienes a Jesse, que parece que no sabe si quiere ser el metalero con problemas o un genio del mal, pero al final es un combo de ambos con mucha mala suerte y unos cuantos golpes a la cabeza emocionales. La serie es como esos sábados de broncas, jamones y tequila, pero con un poco más de ciencia y pura locura.</p>
+<p>La película El Camino... pues es como ese spin-off que nadie pidió, pero que tiene su encanto porque te cuenta qué hizo el chaval antes de largarse a vivir su vida. No esperes explosiones a lo Michael Bay, sino una caminata de dos horas en modo "déjame que cierre terminemos este capítulo y nos vamos a casa". Perfecta si echas de menos a Jesse y las caras yustas de los que quedan.</p>
+</div>
+
+<div class="critica-bloque pachi-bloque">
+<h3>🎖️ Opinión de Pachi</h3>
+<p>Breaking Bad es una serie que, aunque comienza con un ritmo pausado, gradualmente construye una narrativa intensa y absorbente que atrapa al espectador episodio tras episodio. La evolución del protagonista, Walter White, sigue un arco de "héroe" atípico, donde el viaje moral es oscuro, complejo y profundamente humano. Los personajes secundarios no se quedan atrás, cada uno aportando matices esenciales a la trama con actuaciones sólidas y definidas que enriquecen la historia. El desenlace está a la altura de las expectativas, cerrando todo con un clímax memorable y satisfactorio para una serie que redefinió el género dramático televisivo.</p>
+</div>
+
+<div class="critica-bloque pachi-canalla-bloque">
+<h3>💥 Pachi (versión sin filtros)</h3>
+<p>Esta serie es como cuando empiezas a ver a un tipo normalito, y piensas "bueno, esto va para bueno, pero tranqui", y de repente se pone más intensa que una pelea de bar con metralletas. El protagonista hace su propio camino del héroe, pero aquí no hay capa ni espada, sino bata de laboratorio y malas decisiones. Y los demás, ni se diga, cada uno con su papel, ya sea de compañero de broncas o el típico que siempre acaba metido en líos, todos brillan. Y el final, ¡oh, el final! Ese sí que es un "no me mires, que voy con todo", cerrando la serie como si fuera el último capítulo de una saga de acción ochentera que te deja con ganas de gritar "¡Eso es todo amigo!"</p>
+</div>
+
+</div>
+</section>
+
+<!-- PORTADA -->
+<section class="cover">
+  <div class="atom-deco"><div class="atom-inner"></div></div>
+  <div class="formula-deco">CH₃ · C₁₀H₁₅N · H₂O₂</div>
+  <div class="c-badge">STORYBOOK Nº014</div>
+  <div class="c-eyebrow">ZASKA Y ACCIÓN PRESENTA</div>
+  <h1 class="c-title"><em>BREAKING</em><br>BAD</h1>
+  <div class="c-sub">DE PROFESOR A HEISENBERG · ALBUQUERQUE, NM</div>
+  <div class="c-series">DRAMA · THRILLER · AMC (2008–2013)</div>
+  <div class="c-by">Una crítica de <span>Rulo y Toni</span> — con la opinión de Pachi</div>
+  <div class="c-scroll">↓ I am the one who knocks ↓</div>
+</section>
+
+<!-- LIBRO -->
+<div class="book">
+
+<!-- PANEL 1: PITCH -->
+<div class="panel">
+  <div class="panel-img">ALBU-<br>QUERQUE<br>NM</div>
+  <div class="panel-txt">
+    <div class="speaker">RULO</div>
+    <div class="bubble">
+      Toni. Un profe de química con cáncer de pulmón decide ponerse a fabricar metanfetamina azul con un exalumno para dejar dinero a su familia. Eso es todo el pitch. Y a partir de ahí... la mejor serie que se ha hecho.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:#888; background:#0d0d18;">
+      Espera. ¿La mejor serie que se ha hecho? ¿No exageras un pelín?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      No. En absoluto. Y te lo voy a demostrar ahora mismo.
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 2: EL INICIO -->
+<div class="panel">
+  <div class="panel-txt">
+    <div class="speaker">RULO</div>
+    <div class="bubble">
+      Empieza despacio. Casi demasiado. Un hombre bueno, en una vida gris, tomando una decisión extrema por motivos que entiendes. Y de ahí... la pendiente. Cada temporada más oscura, más intensa, más brutal. La serie crece y se pone cada vez mejor.
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:#888; background:#0d0d18;">
+      ¿Cuándo te engancha de verdad?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      Tercera temporada. Ahí te das cuenta de lo que estás viendo. Y ya no puedes parar.
+    </div>
+  </div>
+  <div class="panel-img" style="border-left:3px solid #14141e; border-right:none;">T1:<br>SLOW<br>BURN<br>→<br>FUEGO</div>
+</div>
+
+<!-- PANEL 3: HEISENBERG -->
+<div class="panel-char">
+  <div class="char-icon" style="background:var(--yellow); border-color:var(--blue);">W</div>
+  <div class="char-info">
+    <h4>Walter White / Heisenberg</h4>
+    <p>Bryan Cranston en el papel de su vida. El viaje de Walter — de profesor enfermo a señor del crimen — es el arco de personaje más impresionante de la historia de la televisión. No es el héroe. Es el peligro. Y lo sabes desde el momento en que lo acepta él también.</p>
+  </div>
+</div>
+
+<!-- FX 1 -->
+<div class="panel-fx">
+  <div class="fx-word">¡SAY MY NAME!</div>
+</div>
+
+<!-- PANEL 4: JESSE -->
+<div class="panel">
+  <div class="panel-img">JESSE<br>PINKMAN<br>·<br>YO<br>BITCH</div>
+  <div class="panel-txt">
+    <div class="speaker">TONI</div>
+    <div class="bubble right" style="border-color:#888; background:#0d0d18;">
+      ¿Y Jesse? ¿Es solo el secundario gracioso?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble">
+      Aaron Paul ganó tres Emmys. Jesse parece que no sabe si quiere ser el metalero con problemas o un genio del mal, pero al final es un combo de ambos con mucha mala suerte y unos cuantos golpes a la cabeza emocionales. La evolución de Jesse te destroza por dentro.
+    </div>
+    <div class="speaker" style="margin-top:8px">HEISENBERG</div>
+    <div class="bubble-heisenberg">
+      "Yo soy el que llama a la puerta."
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 5: LA MAGIA -->
+<div class="panel">
+  <div class="panel-txt">
+    <div class="speaker">RULO</div>
+    <div class="bubble">
+      Cada episodio es una minipelícula. Hay capítulos — Ozymandias, Felina, el de la mosca — que son historia de la televisión. Los guiones inteligentes, los personajes complejos, el humor negro que te hace reír sintiéndote mal por reír...
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:#888; background:#0d0d18;">
+      ¿Y el final? Porque no sé si quiero saber...
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      El desenlace está a la altura. Cierra todo con un clímax memorable y satisfactorio. De los mejores finales de la historia.
+    </div>
+  </div>
+  <div class="panel-img" style="border-left:3px solid #14141e; border-right:none;">OBRA<br>MAESTRA<br>ABSOLUTA</div>
+</div>
+
+<!-- PANEL 6: EL CAMINO -->
+<div class="panel">
+  <div class="panel-img">EL<br>CAMINO<br>2019</div>
+  <div class="panel-txt">
+    <div class="speaker">TONI</div>
+    <div class="bubble right" style="border-color:#888; background:#0d0d18;">
+      ¿Y la película El Camino?
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble">
+      Epílogo para Jesse. Un regalo para los fans. Fotografía impecable, cierre emotivo. No añade sorpresas radicales — es como ese spin-off que nadie pidió pero que tiene su encanto. No esperes explosiones a lo Michael Bay, sino una caminata en modo "terminemos este capítulo".
+    </div>
+    <div class="speaker" style="margin-top:8px">TONI</div>
+    <div class="bubble right" style="border-color:#888; background:#0d0d18;">
+      O sea: si eres fan, la ves. Si no, no pasa nada.
+    </div>
+    <div class="speaker" style="margin-top:8px">RULO</div>
+    <div class="bubble top">
+      Exacto. Accesoria, pero buena.
+    </div>
+  </div>
+</div>
+
+<!-- FX 2 -->
+<div class="panel-fx">
+  <div class="fx-word yellow">¡YO, BITCH!</div>
+</div>
+
+<!-- PANEL 7: CURVA CALIDAD -->
+<div class="quality-curve">
+  <h3>📈 Curva de calidad · 5 temporadas + película</h3>
+  <div class="q-bars">
+    <div class="q-bar-wrap">
+      <div class="q-val">8.0</div>
+      <div class="q-bar" style="height:72%"></div>
+      <div class="q-label">T1</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">8.5</div>
+      <div class="q-bar" style="height:80%"></div>
+      <div class="q-label">T2</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val">9.5</div>
+      <div class="q-bar" style="height:92%"></div>
+      <div class="q-label">T3</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val peak">10</div>
+      <div class="q-bar peak" style="height:100%"></div>
+      <div class="q-label">T4</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val peak">10</div>
+      <div class="q-bar peak" style="height:100%"></div>
+      <div class="q-label">T5</div>
+    </div>
+    <div class="q-bar-wrap">
+      <div class="q-val movie">7.5</div>
+      <div class="q-bar movie" style="height:65%"></div>
+      <div class="q-label">FILM</div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 8: PERSONAJES -->
+<div class="panel wide">
+  <div class="panel-txt" style="padding:20px 24px;">
+    <div class="speaker" style="font-size:.9rem; margin-bottom:10px;">REPARTO — CADA UNO EN SU ROL</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div style="background:#0d0d18; padding:10px 14px; border-left:3px solid var(--blue);">
+        <div style="font-family:'Bangers',cursive; color:var(--blue); letter-spacing:1px;">WALTER WHITE</div>
+        <div style="font-size:.8rem; color:#aaa;">Bryan Cranston · El mejor arco de personaje de la historia. De profe a Heisenberg.</div>
+      </div>
+      <div style="background:#0d0d18; padding:10px 14px; border-left:3px solid var(--yellow);">
+        <div style="font-family:'Bangers',cursive; color:var(--yellow); letter-spacing:1px;">JESSE PINKMAN</div>
+        <div style="font-size:.8rem; color:#aaa;">Aaron Paul · El corazón de la serie. Tres Emmys. El personaje que te destroza por dentro.</div>
+      </div>
+      <div style="background:#0d0d18; padding:10px 14px; border-left:3px solid #60c060;">
+        <div style="font-family:'Bangers',cursive; color:#80e080; letter-spacing:1px;">GUSTAVO FRING</div>
+        <div style="font-size:.8rem; color:#aaa;">Giancarlo Esposito · El villano más elegante de la historia. Pollo Hermanos de fachada.</div>
+      </div>
+      <div style="background:#0d0d18; padding:10px 14px; border-left:3px solid #c080c0;">
+        <div style="font-family:'Bangers',cursive; color:#d0a0d0; letter-spacing:1px;">SAUL GOODMAN</div>
+        <div style="font-size:.8rem; color:#aaa;">Bob Odenkirk · El abogado más chungo del mundo. Tan bueno que tiene su propia serie.</div>
+      </div>
+      <div style="background:#0d0d18; padding:10px 14px; border-left:3px solid #aaa;">
+        <div style="font-family:'Bangers',cursive; color:#ccc; letter-spacing:1px;">MIKE EHRMANTRAUT</div>
+        <div style="font-size:.8rem; color:#aaa;">Jonathan Banks · Pocas palabras. Máxima eficacia. El profesional.</div>
+      </div>
+      <div style="background:#0d0d18; padding:10px 14px; border-left:3px solid #cc5500;">
+        <div style="font-family:'Bangers',cursive; color:#ee7730; letter-spacing:1px;">HANK SCHRADER</div>
+        <div style="font-size:.8rem; color:#aaa;">Dean Norris · El cuñado DEA. Más listo de lo que parece. Mucho más.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 9: VEREDICTO FINAL -->
+<div class="veredicto">
+  <h2>⚗️ VEREDICTO FINAL</h2>
+  <div class="nota-final">9.5</div>
+  <div class="nota-texto">sobre 10 · Netflix / AMC · 5 temporadas</div>
+  <p style="margin-top:16px; color:#a0d0e0; font-size:.9rem; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.6;">
+    Una obra maestra que cambió la televisión para siempre. Empieza lento, explota en la T3 y desde ahí no para. El mejor arco de personaje de la historia. El mejor villano. El mejor final. No hay debate.
+  </p>
+</div>
+
+</div><!-- /book -->
+
+<!-- FOOTER -->
+<footer style="background:#030305; border-top:2px solid #14141e; padding:28px; text-align:center;">
+  <a href="../../index.html" style="font-family:'Bangers',cursive; font-size:1.4rem; color:var(--blue); text-decoration:none; letter-spacing:2px;">← ZASKA Y ACCIÓN</a>
+  <p style="color:#333; font-size:.7rem; letter-spacing:2px; text-transform:uppercase; margin-top:8px;">Storybook Nº014 · Breaking Bad · 2026</p>
+</footer>
+
+</body>
+</html>

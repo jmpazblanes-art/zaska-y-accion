@@ -153,8 +153,14 @@ Propiedades (nombres exactos — respetar mayúsculas y tildes):
 | 007 | series | the-americans | The Americans | 9.5 |
 | 008 | series | ozark | Ozark | 8.0 |
 | 009 | series | westworld | Westworld | 8.5 |
+| 010 | series | 24 | 24 | 8.5 |
+| 011 | series | prison-break | Prison Break | 8.0 |
+| 012 | series | hijos-de-la-anarquia | Hijos de la Anarquía | 8.5 |
+| 013 | series | juego-de-tronos | Juego de Tronos | 8.5 |
+| 014 | series | breaking-bad | Breaking Bad | 9.5 |
+| 015 | series | a-dos-metros-bajo-tierra | A dos metros bajo tierra | 9.5 |
 
-El siguiente es el **Nº010**.
+El siguiente es el **Nº016**.
 
 ---
 

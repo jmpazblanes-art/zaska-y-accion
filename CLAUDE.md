@@ -132,8 +132,14 @@ Vercel despliega automáticamente en ~1 minuto tras el push.
 | 007 | series | the-americans | The Americans | 9.5 | Prime Video |
 | 008 | series | ozark | Ozark | 8.0 | Netflix |
 | 009 | series | westworld | Westworld | 8.5 | HBO Max |
+| 010 | series | 24 | 24 | 8.5 | FOX / Disney+ |
+| 011 | series | prison-break | Prison Break | 8.0 | FOX / Netflix |
+| 012 | series | hijos-de-la-anarquia | Hijos de la Anarquía | 8.5 | FX / Amazon Prime |
+| 013 | series | juego-de-tronos | Juego de Tronos | 8.5 | HBO Max |
+| 014 | series | breaking-bad | Breaking Bad | 9.5 | Netflix |
+| 015 | series | a-dos-metros-bajo-tierra | A dos metros bajo tierra | 9.5 | HBO Max |
 
-El siguiente es **Nº010**.
+El siguiente es **Nº016**.
 
 ---
 
