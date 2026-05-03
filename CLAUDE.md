@@ -138,8 +138,9 @@ Vercel despliega automáticamente en ~1 minuto tras el push.
 | 013 | series | juego-de-tronos | Juego de Tronos | 8.5 | HBO Max |
 | 014 | series | breaking-bad | Breaking Bad | 9.5 | Netflix |
 | 015 | series | a-dos-metros-bajo-tierra | A dos metros bajo tierra | 9.5 | HBO Max |
+| 016 | series | better-call-saul | Better Call Saul | 9.0 | Netflix |
 
-El siguiente es **Nº016**.
+El siguiente es **Nº017**.
 
 ---
 
