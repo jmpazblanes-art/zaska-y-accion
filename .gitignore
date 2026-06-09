@@ -26,3 +26,14 @@ desktop.ini
 portada the wire_files/
 
 .vercel
+
+.env.local
+.env
+
+# Config local de Claude / herramientas (NO al repo)
+.claude/
+.qa-reports/
+
+# Backups y handoffs locales (no son contenido web)
+**/_sofa_backup/
+zaska_handoff/
