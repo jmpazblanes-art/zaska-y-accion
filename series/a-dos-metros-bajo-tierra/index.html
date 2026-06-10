@@ -3,378 +3,362 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A dos metros bajo tierra — Zaska y Acción</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<title>Storybook Nº015 — A dos metros bajo tierra | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg:     #07050c;
-  --red:    #9b6fd4;
-  --blue:   #c8860a;
-  --pink:   #7c3aed;
-  --yellow: #f0ece0;
-  --gap:    6px;
-}
-
-body {
-  background: var(--bg);
-  color: #f0f0f0;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-}
-
-/* HEADER */
-.hdr {
-  background: #040308;
-  border-bottom: 3px solid var(--red);
-  padding: 12px 28px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 200;
-}
-.hdr-logo { font-family:'Bangers',cursive; font-size:1.8rem; letter-spacing:2px; color:var(--red); text-shadow:0 0 14px rgba(155,111,212,.6); text-decoration:none; }
-.hdr-logo span { color:var(--blue); }
-.hdr-bc { font-size:.68rem; color:#555; letter-spacing:1px; text-transform:uppercase; }
-.hdr-bc a { color:var(--red); text-decoration:none; }
-
-/* PORTADA */
-.cover {
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center;
-  padding:80px 24px;
-  background:radial-gradient(ellipse at 50% 35%,#160a2e 0%,#07050c 65%);
-  position:relative; overflow:hidden;
-}
-.cover::before {
-  content:''; position:absolute; inset:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(155,111,212,.03) 40px);
-  pointer-events:none;
-}
-.c-badge {
-  font-family:'Bangers',cursive; font-size:.8rem; letter-spacing:5px; color:var(--red);
-  border:2px solid var(--red); padding:5px 22px; margin-bottom:36px;
-  text-shadow:0 0 10px rgba(155,111,212,.7); box-shadow:0 0 24px rgba(155,111,212,.15);
-}
-.c-eyebrow { font-family:'Bangers',cursive; font-size:.95rem; letter-spacing:8px; color:var(--blue); margin-bottom:18px; text-shadow:0 0 16px rgba(200,134,10,.4); }
-.c-title {
-  font-family:'Bangers',cursive;
-  font-size:clamp(3.2rem,11vw,8.5rem); line-height:.87; letter-spacing:2px; color:#fff;
-  text-shadow:5px 5px 0 var(--red),10px 10px 0 rgba(155,111,212,.22),0 0 60px rgba(155,111,212,.3);
-  margin-bottom:14px;
-}
-.c-title em { font-style:normal; color:var(--blue); text-shadow:5px 5px 0 #5a3a00,0 0 40px rgba(200,134,10,.4); }
-.c-series { font-family:'Bangers',cursive; font-size:clamp(1.2rem,3vw,2rem); letter-spacing:4px; color:var(--red); text-shadow:0 0 20px rgba(155,111,212,.5); margin-bottom:52px; }
-.c-by { font-size:.72rem; letter-spacing:2px; color:#555; text-transform:uppercase; margin-bottom:72px; }
-.c-by span { color:var(--red); }
-.c-scroll { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:3px; color:var(--blue); text-transform:uppercase; animation:bob 1.6s ease-in-out infinite; }
-@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
-
-/* ════════════════════════════════
-   LIBRO — grid de tiras de cómic
-════════════════════════════════ */
-.book {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 8px 8px 120px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-}
-
-/* Tira horizontal — una fila */
-.row {
-  display: grid;
-  gap: var(--gap);
-}
-.r1   { grid-template-columns: 1fr; }
-.r2   { grid-template-columns: 1fr 1fr; }
-.r3   { grid-template-columns: 1fr 1fr 1fr; }
-.r64  { grid-template-columns: 6fr 4fr; }
-.r46  { grid-template-columns: 4fr 6fr; }
-.r53  { grid-template-columns: 5fr 3fr; }
-.r35  { grid-template-columns: 3fr 5fr; }
-
-/* ── PANEL con imagen + bocadillos encima ── */
-.panel {
-  position: relative;
-  background: #0a080f;
-  border: 3px solid #1c1a2e;
-  overflow: visible;
-  line-height: 0;
-}
-.panel img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  position: relative;
-  z-index: 1;
-}
-
-/* Colores de borde */
-.panel.b-red    { border-color:var(--red);    box-shadow:0 0 20px rgba(155,111,212,.3); }
-.panel.b-blue   { border-color:var(--blue);   box-shadow:0 0 20px rgba(200,134,10,.25); }
-.panel.b-pink   { border-color:var(--pink);   box-shadow:0 0 20px rgba(124,58,237,.25); }
-.panel.b-yellow { border-color:#e8dcc8;       box-shadow:0 0 20px rgba(240,236,224,.15); }
-
-/* Caption estilo cómic */
-.cap {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  z-index: 5;
-  background: rgba(4,3,8,0.90);
-  border-top: 2px solid rgba(155,111,212,0.12);
-  padding: 7px 14px;
-  font-size: .62rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #555;
-  line-height: 1.4;
-}
-
-/* ════════════════════════
-   BOCADILLOS DE CÓMIC
-════════════════════════ */
-.sb {
-  position: absolute;
-  z-index: 20;
-  background: #fff;
-  border: 3px solid #111;
-  border-radius: 18px;
-  padding: 12px 16px;
-  font-family: 'Comic Neue', 'Comic Sans MS', cursive;
-  font-weight: 700;
-  color: #111;
-  font-size: clamp(.95rem, 2vw, 1.15rem);
-  line-height: 1.5;
-  max-width: 46%;
-  filter: drop-shadow(2px 2px 5px rgba(0,0,0,.7));
-}
-
-.sb .tag {
-  display: block;
-  font-family: 'Bangers', cursive;
-  font-size: .85rem;
-  letter-spacing: 3px;
-  margin-bottom: 5px;
-  line-height: 1;
-}
-.sb.rulo .tag { color: #6b21c4; }
-.sb.toni .tag { color: #8a5a00; }
-.sb.narr .tag { display:none; }
-
-.sb.narr {
-  background: #fffde7;
-  border-color: #b8970a;
-  border-radius: 4px;
-  max-width: 70%;
-  font-style: italic;
-  font-size: .92rem;
-}
-
-/* ── Posiciones ── */
-.sb.tl { top: 10px; left: 10px; }
-.sb.tr { top: 10px; right: 10px; }
-.sb.bl { bottom: 36px; left: 10px; }
-.sb.br { bottom: 36px; right: 10px; }
-.sb.tc { top: 10px; left: 50%; transform: translateX(-50%); max-width: 65%; }
-.sb.bc { bottom: 36px; left: 50%; transform: translateX(-50%); max-width: 65%; }
-.sb.ml { top: 50%; left: 10px; transform: translateY(-50%); }
-.sb.mr { top: 50%; right: 10px; transform: translateY(-50%); }
-
-/* ── COLAS ── */
-.sb.tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
-.sb.tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; border-top-color:#fff; }
-.sb.tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
-.sb.tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; border-top-color:#fff; }
-.sb.tail-ul::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
-.sb.tail-ul::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; border-bottom-color:#fff; }
-.sb.tail-ur::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
-.sb.tail-ur::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; border-bottom-color:#fff; }
-.sb.tail-l::before { content:''; position:absolute; top:50%; left:-16px; transform:translateY(-50%); border:9px solid transparent; border-right-color:#111; }
-.sb.tail-l::after  { content:''; position:absolute; top:50%; left:-12px; transform:translateY(-50%); border:7px solid transparent; border-right-color:#fff; }
-.sb.tail-r::before { content:''; position:absolute; top:50%; right:-16px; transform:translateY(-50%); border:9px solid transparent; border-left-color:#111; }
-.sb.tail-r::after  { content:''; position:absolute; top:50%; right:-12px; transform:translateY(-50%); border:7px solid transparent; border-left-color:#fff; }
-.sb.narr::before, .sb.narr::after { display:none; }
-
-/* ── FX texto ── */
-.fx-row { display:flex; align-items:center; justify-content:center; padding:12px 0 4px; gap:12px; }
-.fx { font-family:'Bangers',cursive; font-size:clamp(1.8rem,4vw,3rem); letter-spacing:2px; display:inline-block; line-height:1; }
-.fx.crack { color:var(--red);    text-shadow:3px 3px 0 #3a1870; transform:rotate(2deg); }
-.fx.woah  { color:var(--blue);   text-shadow:3px 3px 0 #5a3a00; transform:rotate(-1deg); }
-.fx.boom  { color:#e8dcc8;       text-shadow:3px 3px 0 #5a4a2a; transform:rotate(-2deg); }
-.fx.pow   { color:var(--pink);   text-shadow:3px 3px 0 #3a1870; transform:rotate(3deg); }
-
-/* ── CITA GRANDE ── */
-.bigq {
-  margin: 8px 0;
-  padding: 36px 44px;
-  border-left: 6px solid var(--red);
-  background: linear-gradient(90deg,rgba(155,111,212,.07),transparent);
-  position: relative;
-}
-.bigq::before {
-  content:'"'; font-family:'Bangers',cursive; font-size:8rem;
-  color:rgba(155,111,212,.1); position:absolute; top:-18px; left:16px; line-height:1; pointer-events:none;
-}
-.bigq p { font-family:'Bangers',cursive; font-size:clamp(1.5rem,3vw,2.2rem); line-height:1.2; color:#fff; position:relative; z-index:1; }
-.bigq cite { display:block; margin-top:10px; font-size:.68rem; letter-spacing:4px; color:var(--red); text-transform:uppercase; font-style:normal; }
-
-/* ── CURVA DE CALIDAD ── */
-.quality-section {
-  margin: 8px 0;
-  padding: 32px 40px;
-  background: #0a080f;
-  border: 3px solid #1c1a2e;
-  border-left: 6px solid var(--red);
-}
-.quality-section h3 {
-  font-family:'Bangers',cursive; font-size:1.2rem; letter-spacing:3px;
-  color:var(--red); margin-bottom:24px; text-align:center;
-}
-.q-bars {
-  display:flex; align-items:flex-end; justify-content:center; gap:20px; height:140px;
-}
-.q-bar-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; }
-.q-val { font-family:'Bangers',cursive; font-size:.85rem; color:var(--red); letter-spacing:1px; }
-.q-val.peak { color:var(--blue); }
-.q-val.low  { color:#664; }
-.q-bar { width:44px; background:var(--red); border-radius:3px 3px 0 0; border-top:2px solid rgba(155,111,212,.5); }
-.q-bar.peak { background:var(--blue); border-top-color:rgba(200,134,10,.7); }
-.q-bar.low  { background:#443; }
-.q-label { font-family:'Bangers',cursive; font-size:.78rem; color:#555; letter-spacing:1px; }
-
-/* ── FINALE ── */
-.finale {
-  margin-top: 20px;
-  padding: 60px 40px;
-  text-align: center;
-  border: 3px solid var(--red);
-  background: radial-gradient(ellipse at center,rgba(155,111,212,.13) 0%,transparent 70%);
-  box-shadow: 0 0 60px rgba(155,111,212,.12);
-}
-.fin-tag  { font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:6px; color:var(--red); margin-bottom:24px; display:block; }
-.fin-v    { font-family:'Bangers',cursive; font-size:clamp(2.5rem,7vw,5rem); line-height:1; letter-spacing:2px; color:#fff; text-shadow:4px 4px 0 var(--red),0 0 40px rgba(155,111,212,.3); margin-bottom:30px; }
-.fin-s    { font-family:'Bangers',cursive; font-size:6rem; color:var(--blue); line-height:1; text-shadow:4px 4px 0 #5a3a00,0 0 40px rgba(200,134,10,.5); display:block; margin-bottom:10px; }
-.fin-sub  { font-size:.68rem; letter-spacing:5px; color:#555; text-transform:uppercase; }
-
-.back {
-  display:inline-flex; align-items:center; gap:8px; margin-top:60px;
-  font-family:'Bangers',cursive; font-size:1.1rem; letter-spacing:4px;
-  color:var(--red); text-decoration:none; text-transform:uppercase;
-  border:2px solid var(--red); padding:10px 32px; transition:all .2s;
-}
-.back:hover { background:var(--red); color:#fff; box-shadow:0 0 30px rgba(155,111,212,.4); }
-
-@media(max-width:640px){
-  .r2,.r3,.r64,.r46,.r53,.r35{ grid-template-columns:1fr; }
-  .sb { max-width:55%; font-size:.72rem; }
-}
+  :root {
+    --bg:    #0D0F1A;
+    --red:   #FF1A1A;
+    --blue:  #00C4FF;
+    --pink:  #FF2D9B;
+    --yellow:#FFD600;
+    --white: #F0F0F0;
+    --gold:  #C9963A;
+    --gold2: #f0c060;
+    --panel-border: #2a1a00;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #1c1f33;
+    background: rgba(13,15,26,.95);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--red); letter-spacing:2px; text-decoration:none; }
+  .nav-back { font-size:.85rem; color:var(--gold); text-decoration:none; border:1px solid var(--gold); padding:.3rem .9rem; border-radius:4px; }
+  .nav-back:hover { background:var(--gold); color:#000; }
+  .cover {
+    position: relative;
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    background: linear-gradient(180deg, #1a0d00 0%, var(--bg) 100%);
+    border-bottom: 4px solid var(--gold);
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '⚰️';
+    position: absolute; top: 20px; right: 40px;
+    font-size: 5rem; opacity: .08;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #0d0800;
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    padding: .4rem 1.2rem;
+    border-radius: 4px;
+    margin-bottom: 1.2rem;
+  }
+  .cover-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
+    line-height: .95;
+    letter-spacing: 3px;
+    color: var(--gold2);
+    text-shadow: 4px 4px 0 #5a3800, 8px 8px 0 rgba(0,0,0,.5);
+    margin-bottom: .5rem;
+  }
+  .cover-subtitle {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .cover-meta {
+    font-size: .85rem;
+    color: #888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .cover-scroll {
+    margin-top: 2.5rem;
+    font-size: .8rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 1.5s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+  .strip {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .panel {
+    position: relative;
+    border: 3px solid var(--panel-border);
+    overflow: visible;
+    background: #111;
+    margin-bottom: 6px;
+  }
+  .panel img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .sb {
+    position: absolute;
+    z-index: 20;
+    background: #fff;
+    border: 3px solid #111;
+    border-radius: 18px;
+    padding: 10px 14px;
+    font-family: 'Comic Neue', cursive;
+    font-weight: 700;
+    color: #111;
+    font-size: clamp(.95rem, 2.2vw, 1.15rem);
+    line-height: 1.35;
+    max-width: 46%;
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8));
+  }
+  .sb .tag {
+    display: block;
+    font-size: .65rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: .7;
+  }
+  .sb.rulo { background: #fff8e6; border-color: var(--gold); }
+  .sb.rulo .tag { color: #8a5a00; }
+  .sb.toni { background: #fff; border-color: #333; }
+  .sb.toni .tag { color: #333; }
+  .tl { top: 5%; left: 3%; }
+  .tr { top: 5%; right: 3%; }
+  .bl { bottom: 8%; left: 3%; }
+  .br { bottom: 8%; right: 3%; }
+  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-br::after { border-top-color:#fff8e6; }
+  .toni.tail-br::after { border-top-color:#fff; }
+  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-bl::after { border-top-color:#fff8e6; }
+  .toni.tail-bl::after { border-top-color:#fff; }
+  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-tr::after { border-bottom-color:#fff8e6; }
+  .toni.tail-tr::after { border-bottom-color:#fff; }
+  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-tl::after { border-bottom-color:#fff8e6; }
+  .toni.tail-tl::after { border-bottom-color:#fff; }
+  .cap {
+    position: absolute;
+    z-index: 20;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.82);
+    color: var(--gold2);
+    font-family: 'Comic Neue', cursive;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(.8rem, 1.7vw, .95rem);
+    padding: 7px 14px;
+    text-align: center;
+    border-top: 2px solid var(--gold);
+  }
+  .cap-top {
+    position: absolute;
+    z-index: 20;
+    top: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.82);
+    color: var(--gold2);
+    font-family: 'Comic Neue', cursive;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(.8rem, 1.7vw, .95rem);
+    padding: 7px 14px;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+  }
+  .fx {
+    background: var(--bg);
+    border: 3px solid var(--gold);
+    text-align: center;
+    padding: 2rem 1rem;
+    margin: 2px 0;
+  }
+  .fx-text {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    letter-spacing: 3px;
+    color: var(--gold2);
+    text-shadow: 4px 4px 0 #5a3800, 8px 8px 0 rgba(0,0,0,.5);
+    line-height: 1;
+    display: block;
+  }
+  .fx-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: .75rem;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: .4rem;
+  }
+  .quote-box {
+    border-left: 6px solid var(--gold);
+    background: rgba(201,150,58,.08);
+    padding: 1.8rem 2rem;
+    margin: 4px 0;
+    text-align: center;
+  }
+  .quote-text {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--gold2);
+    letter-spacing: 2px;
+    line-height: 1.2;
+  }
+  .quote-attr {
+    font-size: .8rem;
+    color: #777;
+    margin-top: .6rem;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+  .scene-label {
+    background: var(--gold);
+    color: #0d0800;
+    font-family: 'Bangers', cursive;
+    font-size: .9rem;
+    letter-spacing: 3px;
+    padding: .4rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .verdict {
+    background: linear-gradient(135deg, #1a0d00, #0d0f1a);
+    border: 4px solid var(--gold);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-top: 6px;
+  }
+  .verdict-label {
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .verdict-score {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(5rem, 18vw, 9rem);
+    color: var(--gold2);
+    line-height: .9;
+    text-shadow: 5px 5px 0 #5a3800;
+    letter-spacing: -2px;
+  }
+  .verdict-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-top: .8rem;
+  }
+  .verdict-body {
+    max-width: 520px;
+    margin: 1.2rem auto 0;
+    font-size: .9rem;
+    color: #aaa;
+    line-height: 1.6;
+  }
+  .verdict-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .verdict-tags span {
+    background: rgba(201,150,58,.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: .3rem .9rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .curva-section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 1rem 1rem;
+  }
+  .curva-section h3 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    letter-spacing: 2px;
+    color: var(--gold2);
+    margin: 2rem 0 1rem;
+    text-align: center;
+  }
+  .curva-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .curva-table th, .curva-table td { padding: .6rem .8rem; border-bottom: 1px solid #222; text-align: left; }
+  .curva-table th { color: var(--gold); text-transform: uppercase; font-size: .72rem; letter-spacing: 1px; }
+  .curva-table td:last-child { font-family: 'Bangers', cursive; color: var(--gold2); font-size: 1.2rem; text-align: center; width: 70px; }
+  .curva-table td:first-child { font-weight: 700; color: #fff; width: 50px; }
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 2px solid #1c1f33;
+    color: #444;
+    font-size: .8rem;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  @media (max-width: 600px) {
+    .sb { max-width: 50%; font-size: .82rem; padding: 7px 10px; }
+    .sb .tag { font-size: .58rem; }
+    .cover-title { font-size: clamp(2rem, 9vw, 3.2rem); }
+  }
 </style>
 </head>
 <body>
 
-<header class="hdr">
-  <a href="../../index.html" class="hdr-logo">ZASKA <span>&amp;</span> ACCIÓN</a>
-  <div class="hdr-bc"><a href="../../index.html">Inicio</a> / <a href="../../index.html#series">Series</a> / A dos metros bajo tierra</div>
-</header>
-
+<nav class="nav">
+  <a class="nav-logo" href="../../index.html">ZASKA Y ACCIÓN</a>
+  <a class="nav-back" href="../../index.html">← Volver</a>
+</nav>
 
 <style id="criticas-css">
-.criticas-section {
-  background: #050408;
-  color: #e8e8e8;
-  padding: 60px 20px 80px;
-  font-family: 'Inter', -apple-system, sans-serif;
-}
-.criticas-inner {
-  max-width: 820px;
-  margin: 0 auto;
-}
-.criticas-section h2.criticas-titulo {
-  font-family: 'Bangers', cursive;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  letter-spacing: 2px;
-  color: #fff;
-  margin: 0 0 40px;
-  border-bottom: 3px solid var(--red);
-  padding-bottom: 16px;
-}
-.ficha-tecnica {
-  background: #0d0b16;
-  border: 1px solid #1c1a2e;
-  border-radius: 8px;
-  padding: 24px 28px;
-  margin-bottom: 40px;
-}
-.ficha-tecnica table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.ficha-tecnica td {
-  padding: 6px 0;
-  vertical-align: top;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.ficha-tecnica td:first-child {
-  color: #888;
-  width: 130px;
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-right: 16px;
-}
-.ficha-tecnica .nota-grande {
-  font-family: 'Bangers', cursive;
-  font-size: 2.2rem;
-  color: var(--red);
-  letter-spacing: 2px;
-  line-height: 1;
-}
-.critica-bloque {
-  margin-bottom: 44px;
-}
-.critica-bloque h3 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--red);
-  margin: 0 0 14px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-}
-.critica-bloque p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #ccc;
-  margin: 0 0 1em;
-}
+.criticas-section { background: #0a0a0a; color: #e8e8e8; padding: 60px 20px 80px; font-family: 'Inter', -apple-system, sans-serif; }
+.criticas-inner { max-width: 820px; margin: 0 auto; }
+.criticas-section h2.criticas-titulo { font-family: 'Bangers', cursive; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 2px; color: #fff; margin: 0 0 40px; border-bottom: 3px solid #e63946; padding-bottom: 16px; }
+.ficha-tecnica { background: #111; border: 1px solid #222; border-radius: 8px; padding: 24px 28px; margin-bottom: 40px; }
+.ficha-tecnica table { width: 100%; border-collapse: collapse; }
+.ficha-tecnica td { padding: 6px 0; vertical-align: top; font-size: 0.95rem; line-height: 1.5; }
+.ficha-tecnica td:first-child { color: #888; width: 130px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px; padding-right: 16px; }
+.ficha-tecnica .nota-grande { font-family: 'Bangers', cursive; font-size: 2.2rem; color: #e63946; letter-spacing: 2px; line-height: 1; }
+.critica-bloque { margin-bottom: 44px; }
+.critica-bloque h3 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 3px; color: #e63946; margin: 0 0 14px; font-family: 'Inter', sans-serif; font-weight: 700; }
+.critica-bloque p { font-size: 1rem; line-height: 1.8; color: #ccc; margin: 0 0 1em; }
 .critica-bloque p:last-child { margin-bottom: 0; }
-.critica-canalla {
-  background: #0d0b16;
-  border-left: 4px solid var(--blue);
-  padding: 24px 28px;
-  border-radius: 0 8px 8px 0;
-}
-.critica-canalla h3 { color: var(--blue); }
+.critica-canalla { background: #111; border-left: 4px solid #f4a261; padding: 24px 28px; border-radius: 0 8px 8px 0; }
+.critica-canalla h3 { color: #f4a261; }
 .critica-canalla p { color: #ddd; }
-.pachi-bloque {
-  background: #0d0b16;
-  border: 1px solid #1c1a2e;
-  border-radius: 8px;
-  padding: 24px 28px;
-}
-.pachi-bloque h3 { color: var(--red); }
-.pachi-canalla-bloque {
-  background: #0e0b18;
-  border: 1px solid #2a1a40;
-  border-radius: 8px;
-  padding: 24px 28px;
-}
-.pachi-canalla-bloque h3 { color: var(--blue); }
+.pachi-bloque { background: #0d1117; border: 1px solid #1a2540; border-radius: 8px; padding: 24px 28px; margin-bottom: 24px; }
+.pachi-bloque h3 { color: #4fc3f7; }
+.pachi-canalla-bloque { background: #110d0d; border: 1px solid #2a1515; border-radius: 8px; padding: 24px 28px; }
+.pachi-canalla-bloque h3 { color: #ff6b6b; }
 </style>
-
 <section class="criticas-section">
 <div class="criticas-inner">
 <h2 class="criticas-titulo">A dos metros bajo tierra</h2>
@@ -382,246 +366,273 @@ body {
 <tr><td>Tipo</td><td>Serie</td></tr>
 <tr><td>Año</td><td>2001–2005</td></tr>
 <tr><td>Creador</td><td>Alan Ball</td></tr>
-<tr><td>Reparto</td><td>Peter Krause, Michael C. Hall, Frances Conroy, Rachel Griffiths, Lauren Ambrose, Freddy Rodríguez</td></tr>
+<tr><td>Reparto</td><td>Peter Krause, Michael C. Hall, Frances Conroy, Lauren Ambrose, Freddy Rodríguez, Rachel Griffiths</td></tr>
 <tr><td>Plataforma</td><td>HBO Max</td></tr>
-<tr><td>Duración</td><td>5 temporadas · 63 ep. (2001–2005)</td></tr>
+<tr><td>Duración</td><td>63 episodios · 5 temporadas (2001–2005)</td></tr>
 <tr><td>Nota</td><td><span class="nota-grande">9,5</span> / 10</td></tr>
 </table></div>
-
 <div class="critica-bloque">
 <h3>Sinopsis</h3>
-<p>Los Ángeles. La familia Fisher lleva una funeraria. El patriarca, Nathaniel Fisher Sr., muere en el primer episodio atropellado por un autobús mientras conduce el coche fúnebre en Nochebuena. A partir de ahí, cinco temporadas que exploran la vida, la muerte, la sexualidad, los sueños aplazados, la hipocresía social y la autenticidad como única salvación posible. Cada episodio comienza con una muerte diferente. Y la familia Fisher tiene que sobrevivir a las suyas propias.</p>
+<p>La familia Fisher dirige una funeraria en Los Ángeles. El patriarca muere atropellado en el primer episodio y los suyos —dos hijos, una hija, la madre y el empleado— tienen que seguir adelante rodeados de muerte mientras son incapaces de hablar de la suya propia. Comedia negra y drama devastador a partes iguales.</p>
 </div>
-
 <div class="critica-bloque">
 <h3>📰 Qué dice la prensa</h3>
-<p>Considerada una de las mejores series de la historia de la televisión por una mayoría de críticos especializados. Las críticas destacan su originalidad, oscuridad, atrevimiento y balance entre comedia negra y drama profundo. La serie aborda la muerte no solo como final sino como forma de traer reflexión y fuerza vital a los personajes. Algunos señalan que la cuarta temporada fue un poco más irregular, pero la quinta cerró de manera espléndida. La banda sonora y la ejecución técnica también son altamente valoradas. Para muchos, es una lección de vida que mezcla crudeza y sensibilidad, e invita a cuestionar las hipocresías de la sociedad.</p>
+<p>Obra de Alan Ball (American Beauty). FilmAffinity: 8,6 · IMDb: 8,7. Múltiples Emmy incluidos Mejor Drama y Mejor Actor. Su episodio final está considerado de forma casi unánime el mejor final televisivo de la historia.</p>
 </div>
-
 <div class="critica-bloque">
-<h3>🎭 Crítica</h3>
-<p>Hay obras que no entretienen. Que no pretenden entretener. Que hacen algo mucho más incómodo: te obligan a mirarte.</p>
-<p>A dos metros bajo tierra es una de esas obras.</p>
-<p>Creada por Alan Ball —el mismo de American Beauty—, la serie navega con maestría única entre la comedia negra más ácida y el drama más devastador. La premisa es sencilla y genial: una familia que dirige una funeraria en Los Ángeles. Pero el lienzo que se abre en esos cinco años es inmenso: la vida, la muerte, la sexualidad, los sueños aplazados, la hipocresía social y la autenticidad como única salvación posible.</p>
-<p>Sus personajes —la familia Fisher al completo— son construidos con una profundidad y autenticidad raras veces vistas en televisión: cada uno con sus contradicciones, sus deseos reprimidos, sus miedos y sus momentos de gracia inesperada. Los diálogos son excepcionales, capaces de pasar en segundos del absurdo cómico a la emoción más cruda. No tienen ese ritmo adictivo de muchas series, pero enganchan la trama que tienen. Hay mucho drama del bueno. Seguramente hay que estar bien mentalmente para verla, porque te hace pensar mucho.</p>
-<p>La cuarta temporada acusa cierta irregularidad. Pero la quinta cierra la serie con el que muchos consideran —y con razón— el mejor final televisivo de la historia. Una lección sobre cómo vivir, disfrazada de historia sobre cómo morimos.</p>
-<p>Valoración: 9,5 / 10</p>
+<h3>🎭 Crítica seria</h3>
+<p>A dos metros bajo tierra (HBO, 2001–2005) es la obra de Alan Ball — el mismo de American Beauty — y navega con maestría única entre la comedia negra más ácida y el drama más devastador. La premisa es sencilla y genial: una familia que dirige una funeraria en Los Ángeles.</p>
+<p>Sus personajes — la familia Fisher al completo — son construidos con una profundidad y autenticidad raras veces vistas en televisión. Los diálogos son excepcionales, capaces de pasar en segundos del absurdo cómico a la emoción más cruda. Cada episodio comienza con una muerte diferente, recurso narrativo que se convierte en el más brillante de la serie: la muerte ajena como espejo de la vida propia.</p>
+<p>La cuarta temporada acusa cierta irregularidad. Pero la quinta cierra la serie con lo que muchos consideran — con razón — el mejor final televisivo de la historia. Una lección sobre cómo vivir disfrazada de historia sobre cómo morimos.</p>
+<p>FilmAffinity: 8,6 · IMDb: 8,7. Múltiples Emmy incluidos Mejor Drama y Mejor Actor.</p>
 </div>
-
 <div class="critica-bloque critica-canalla">
 <h3>🤘 La canalla (estilo 80/90)</h3>
-<p>Imagínate una familia que dirige una funeraria, donde cada día literalmente están preparando el "menú del día" muerto o casi, y encima tienen que lidiar con sus propios dramas de telenovela, traiciones, secretos bien raros y una madre que manda más que un comandante de la CIA. Nate, el hijo mayor, es el típico mujeriego que cree que la vida es corta, pero con el sarcasmo fino de un humorista de stand-up en los 80. David es ese hermano que tiene su armario, pero más que guardar ropa ahí guarda más rollos de confesión que el cura del barrio. Y claro, Claire, la adolescente problemática que si tuviera un lema sería "Yo hago lo que quiero, y con drogas incluido".</p>
-<p>Todo esto con un humor negro que te hace reír para no llorar porque, cariño, la muerte está a dos metros, pero la locura familiar te alcanza en un segundo. Esa mezcla de drama y humor oscuro que parecía sacado del cerebro de John McClane en su peor resaca o del T-800 con síndrome de crisis existencial. Y el final, bueno, que hasta los fantasmas en la funeraria se quedaron boquiabiertos.</p>
+<p>Imagínate que entras a un videoclub — de los de verdad, de los que olían a plástico y alfombra húmeda — y coges una caja que dice "drama familiar en una funeraria". Normal que la dejes en la estantería y te vayas a por algo con explosiones. Eso es lo que pasó con A dos metros bajo tierra cuando llegó a HBO en 2001. Y los que le dieron esa oportunidad no volvieron a ser los mismos.</p>
+<p>Alan Ball. El mismo que escribió American Beauty — esa película donde hay algo podrido debajo del césped perfecto. Mismo tema, cinco temporadas para desarrollarlo. El primer episodio empieza en Nochebuena. Nathaniel Fisher conduce el coche fúnebre. Lo atropella un autobús. Muerto. En el primer episodio. Como cuando en Psicosis Hitchcock mata a la protagonista en el primer acto y todo el mundo pensó que se habían equivocado de sala. Ball dice desde el minuto uno que aquí las reglas son otras.</p>
+<p>Nate (Peter Krause), el hijo que huyó y vuelve por unos días que duran cinco temporadas. David (Michael C. Hall), el que se quedó, el que calla, una máster class de actuación contenida. Ruth (Frances Conroy), la madre que tras treinta años descubre que no sabe quién es. Claire (Lauren Ambrose), la hija que creció en una funeraria buscando la vida. Y Federico (Freddy Rodríguez), el empleado al que Ball no dejó sin historia propia.</p>
+<p>Los muertos hablan con los vivos a lo largo de toda la serie. En manos de otro habría sido un truco barato. Ball lo convierte en lo más honesto: los muertos nos acompañan, los llevamos con nosotros. No tiene cliffhangers ni persecuciones. Engancha de otra manera — te importa lo que les pasa como te importa alguien que conoces de verdad.</p>
+<p>Y luego está la temporada 5. Los últimos veinte minutos. No voy a decir qué pasa. No hay palabras que hagan justicia. Necesitabas cinco temporadas para llegar ahí. Diez minutos sin poder hablar. Eso es lo que te deja. <strong>Everybody dies. But not everybody lives.</strong></p>
 </div>
-
-<div class="critica-bloque">
+<div class="pachi-bloque">
+<h3>🎙️ Opinión Pachi — Seria</h3>
+<p>A dos metros bajo tierra es seguramente la mejor serie de la historia. Los personajes principales están todos de 10, sin excepción. Los diálogos son excepcionales — tratan los problemas más cotidianos y la muerte con un sentido del humor negro que no hace casi ninguna otra serie. No tiene ese ritmo adictivo de muchas series, pero la trama engancha de otra manera, más profunda. Hay mucho drama del bueno. Seguramente hay que estar bien mentalmente para verla porque te hace pensar mucho. Y tiene el mejor final televisivo de la historia. Sin debate. <strong>9,5 / 10.</strong></p>
+</div>
+<div class="pachi-canalla-bloque">
+<h3>💥 Opinión Pachi — Macarra</h3>
+<p>Mira. Yo he visto muchas series. Muchas. Y si me preguntas cuál es la mejor de la historia me callo dos segundos, pienso, y digo esta. Los personajes están todos de 10 — todos, no hay uno que falle. Los diálogos son una pasada, hablan de la muerte y de lo más cotidiano con un humor negro que te hace reír sintiéndote mal por reír. No va a mil por hora pero te importa todo lo que pasa. De verdad. Eso sí, hay que estar bien mentalmente para verla, porque te hace pensar, y pensar a veces duele. Y el final. Ese final. Diez minutos sin poder decir nada. La mejor manera de cerrar una serie que ha existido nunca. <strong>9,5. Y me quedo corto.</strong></p>
+</div>
+<div class="critica-bloque" style="margin-top:44px">
 <h3>👥 Qué dice la gente</h3>
-<p>En FilmAffinity tiene una de las notas más altas de series de drama. El patrón se repite: la primera temporada engancha de forma distinta, sin persecuciones ni cliffhangers de manual. En algún punto de la segunda o tercera temporada algo cambia y ya no puedes salir. Frases más repetidas: "Los personajes están todos de 10", "Los diálogos son excepcionales", "El mejor final televisivo de la historia", "Hay que estar bien mentalmente para verla porque te hace pensar mucho". Las voces discordantes señalan que el ritmo pausado no es para todos, y que la cuarta temporada pierde algo de fuerza.</p>
+<p>Serie de culto absoluto. IMDb: 8,7/10. La gente destaca lo honesto de sus personajes, el humor negro y, por encima de todo, un final que dejó a millones de espectadores sin palabras durante minutos. Repetidamente votado el mejor final de la historia de la televisión.</p>
 </div>
+</div></section>
 
-<div class="critica-bloque pachi-bloque">
-<h3>🎖️ Opinión de Pachi</h3>
-<p>A dos metros bajo tierra se ubica como una de las mejores series de la historia televisiva gracias a su excelsa construcción de personajes, diálogos profundos y auténticos, y su habilidad para tratar temas universales con un equilibrio perfecto entre drama intenso y humor negro. La serie no se conforma con un ritmo frenético y superficial, sino que invita a una reflexión pausada sobre la vida y la muerte, conectando con el espectador en un nivel emocional muy alto. Su manejo del drama cotidiano y la muerte, así como un guion tan cuidadosamente elaborado, culmina en un final que sigue siendo citado como el punto más alto de la narrativa en televisión.</p>
-</div>
+<header class="cover">
+  <div class="cover-badge">📺 STORYBOOK Nº015 — SERIE</div>
+  <h1 class="cover-title">EVERYBODY DIES</h1>
+  <p class="cover-subtitle">A dos metros bajo tierra visto por Rulo y Toni</p>
+  <p class="cover-meta">HBO MAX · 2001–2005 · 63 episodios · 5 temporadas</p>
+  <p class="cover-scroll">↓ desplázate ↓</p>
+</header>
 
-<div class="critica-bloque pachi-canalla-bloque">
-<h3>💥 Pachi (versión sin filtros)</h3>
-<p>Si A dos metros bajo tierra fuera una persona, estaría contando sus problemas en un bar con un cigarro colgando de la boca y una cerveza en la mano, todo mientras te suelta diálogos que son joyas negras dignas de Martin Riggs en modo filósofo. Los personajes están tan bien escritos que podrían enseñarle a John McClane cómo ser duro pero con sentimientos, y ni hablar del ritmo, que no es para los que necesitan acción cada cinco segundos, sino para los que disfrutan masticar el drama como si fuera un buen chiste de Joe Hallenbeck. Y ese final... crudo, real y que te hace apretar los dientes y decir "esa sí que fue una patada en la humanidad".</p>
-</div>
+<main class="strip">
 
-</div>
+  <div class="scene-label">Escena 1 — Una funeraria</div>
+  <div class="panel">
+    <img src="image1.png" alt="Fachada de Fisher & Sons Funeral Home de noche, Rulo y Toni en la acera mirando el letrero">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Rulo. Es una funeraria. ¿Vamos a ver una serie que pasa en una funeraria?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:52%;">
+      <span class="tag">RULO</span>
+      "Una familia que lleva una funeraria en LA. El patriarca muere en el primer episodio atropellado por un autobús mientras conduce el coche fúnebre en Nochebuena. — ... — Eso es solo el principio."
+    </div>
+    <div class="cap">Los Ángeles. Fisher & Sons. Noche.</div>
+  </div>
+
+  <div class="scene-label">Escena 2 — Nate, el que huyó</div>
+  <div class="panel">
+    <img src="image2.png" alt="Sala de embalsamamiento, Nate Fisher mirando el cuerpo de su padre, Rulo y Toni en la puerta">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Peter Krause. Nate. El hijo que huyó y tuvo que volver."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "El que escapó de la familia y descubre que la familia le alcanza igual. Solo que aquí el pasado es literalmente un cadáver. — Exacto."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 3 — David, el que se quedó</div>
+  <div class="panel">
+    <img src="image3.png" alt="Despacho, David Fisher impecable gestionando el negocio, Rulo y Toni observando desde la puerta">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Michael C. Hall. David. El hermano que se quedó."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "El que lleva todo el peso. El que tiene más secretos que el archivo de la CIA. Y cuando deja de guardárselos, la serie da un salto enorme."
+    </div>
+  </div>
+
+  <div class="fx">
+    <span class="fx-text">EVERYBODY DIES</span>
+    <p class="fx-sub">cada episodio empieza con una muerte</p>
+  </div>
+
+  <div class="scene-label">Escena 4 — Ruth, la madre</div>
+  <div class="panel">
+    <img src="image4.png" alt="Cocina de la casa Fisher, Ruth preparando el desayuno, Rulo y Toni sentados a la mesa">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Frances Conroy. Ruth Fisher. La madre."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:52%;">
+      <span class="tag">RULO</span>
+      "Treinta años siendo exactamente lo que se suponía que debía ser. Y cuando muere su marido descubre que no sabe quién es. — Eso duele. — Pero no es oscuro. Es verdadero."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 5 — Federico</div>
+  <div class="panel">
+    <img src="image5.png" alt="Garaje de Fisher & Sons, Federico preparando un cuerpo concentrado, Rulo y Toni mirando con respeto">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Freddy Rodríguez. Federico. El empleado."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:52%;">
+      <span class="tag">RULO</span>
+      "El personaje más infravalorado. Su propio arco, sus sueños, su tragedia. No es el secundario gracioso: es una persona completa. Alan Ball no dejó a nadie sin historia."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 6 — Claire</div>
+  <div class="panel">
+    <img src="image6.png" alt="Habitación de Claire Fisher llena de arte, Claire mirando por la ventana, Rulo y Toni entre los cuadros">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Lauren Ambrose. Claire. La hija pequeña."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "La que creció dentro de una funeraria e intenta entender qué significa eso. La serie entera es la respuesta. Y cuando lo entiende, ese momento vale toda la serie."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 7 — El velatorio</div>
+  <div class="panel">
+    <img src="image7.png" alt="Sala de velatorio con un ataúd abierto, la familia Fisher reunida, Rulo y Toni entre los asistentes">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "¿Por qué cada episodio empieza con alguien muriendo?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Porque la serie no es sobre la muerte. Es sobre cómo la muerte te obliga a mirar tu propia vida. Funciona de una manera que no funciona casi ninguna otra serie."
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p class="quote-text">"Los muertos nunca se van<br>del todo. Los llevamos<br>con nosotros."</p>
+    <p class="quote-attr">— A dos metros bajo tierra</p>
+  </div>
+
+  <div class="scene-label">Escena 8 — Los muertos hablan</div>
+  <div class="panel">
+    <img src="image8.png" alt="Jardín trasero de noche, Nate sentado con el fantasma de su padre, Rulo y Toni observando de lejos">
+    <div class="cap-top">El jardín trasero. Noche. Uno de los muertos se sienta a su lado.</div>
+    <div class="sb toni tl tail-br" style="max-width:46%; top:18%;">
+      <span class="tag">TONI</span>
+      "Los muertos hablan. ¿Eso es realismo mágico?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Es Alan Ball diciendo que los muertos nunca se van del todo. Al principio es raro. Después es lo más natural del mundo."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 9 — La familia</div>
+  <div class="panel">
+    <img src="image9.png" alt="Sala de estar Fisher, cena familiar caótica, Rulo y Toni en la mesa siguiendo la conversación">
+    <div class="sb toni tl tail-br" style="max-width:50%;">
+      <span class="tag">TONI</span>
+      "¿Cómo puede ser que una familia tan disfuncional me caiga tan bien?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "Porque son honestos en su disfunción. Solo intentan sobrevivir juntos. — Como todas las familias. — Como todas las familias."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 10 — La temporada 4</div>
+  <div class="panel">
+    <img src="image10.png" alt="Rulo y Toni en el sofá viendo la temporada 4, cara de que algo no está tan bien">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Rulo. Esta temporada... ¿Merece la pena aguantar?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Es más irregular, lo sé. Porque Ball estaba pensando en el final, y el camino a veces cuesta. La temporada 5 es la respuesta."
+    </div>
+  </div>
+
+  <div class="fx">
+    <span class="fx-text">CERRADO POR DUELO</span>
+    <p class="fx-sub">Fisher &amp; Sons</p>
+  </div>
+
+  <div class="scene-label">Escena 11 — El último episodio</div>
+  <div class="panel">
+    <img src="image11.png" alt="Jardín de la casa Fisher, la familia reunida, último episodio, Rulo y Toni de pie al fondo">
+    <div class="sb toni tl tail-br" style="max-width:44%;">
+      <span class="tag">TONI</span>
+      "Rulo. No me digas cómo acaba."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:52%;">
+      <span class="tag">RULO</span>
+      "No hace falta. — ¿Es tan bueno? — Es el mejor final televisivo de la historia. No hay debate."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 12 — El remate</div>
+  <div class="panel">
+    <img src="image12.png" alt="Fachada de Fisher & Sons de día, cerrada, un letrero: CERRADO POR DUELO, Rulo y Toni solos">
+    <div class="sb toni tl tail-br" style="max-width:50%;">
+      <span class="tag">TONI</span>
+      "Diez minutos. No he podido hablar diez minutos después de verlo."
+    </div>
+    <div class="sb rulo tr tail-bl" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "Nadie puede."
+    </div>
+    <div class="sb toni bl tail-tr" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "El mejor final de la historia. — El mejor final de la historia."
+    </div>
+    <div class="cap">Everybody dies. But not everybody lives. 9,5.</div>
+  </div>
+
+  <div class="verdict">
+    <p class="verdict-label">⭐ Veredicto de Rulo y Toni ⭐</p>
+    <div class="verdict-score">9.5</div>
+    <h2 class="verdict-title">LA SERIE QUE TE ENSEÑA A VIVIR</h2>
+    <p class="verdict-body">
+      Una familia que lleva una funeraria y cinco temporadas explorando todo lo que los vivos no se atreven a decirse. Los personajes más honestos de la televisión americana. El humor más negro. Y el mejor final televisivo de la historia, sin debate. Alan Ball hizo algo que no debería ser posible: una serie sobre la muerte que te enseña a vivir. Me dijeron funeraria. Me encontré con la serie más viva que he visto en mi vida.
+    </p>
+    <div class="verdict-tags">
+      <span>📺 HBO Max</span>
+      <span>2001–2005</span>
+      <span>63 episodios</span>
+      <span>5 temporadas</span>
+      <span>Alan Ball</span>
+      <span>Peter Krause</span>
+      <span>Michael C. Hall</span>
+      <span>Frances Conroy</span>
+    </div>
+  </div>
+
+</main>
+
+<section class="curva-section">
+  <h3>📈 Curva de temporadas</h3>
+  <table class="curva-table">
+    <tr><th>Temp.</th><th>Tema</th><th>Nota</th></tr>
+    <tr><td>T1</td><td>Los cimientos. La familia se rompe y se recompone.</td><td>9,0</td></tr>
+    <tr><td>T2</td><td>Los personajes se expanden. Todo se complica.</td><td>9,0</td></tr>
+    <tr><td>T3</td><td>El drama se intensifica. Los límites se cruzan.</td><td>9,0</td></tr>
+    <tr><td>T4</td><td>Irregular. Ball pensando en el final.</td><td>8,0</td></tr>
+    <tr><td>T5</td><td>El mejor final televisivo de la historia.</td><td>10</td></tr>
+  </table>
 </section>
 
-<!-- PORTADA -->
-<section class="cover">
-  <div class="c-badge">Storybook · Rulo &amp; Toni · Nº 015</div>
-  <div class="c-eyebrow">HBO · 2001 — 2005</div>
-  <h1 class="c-title">A DOS<br><em>METROS</em><br>BAJO TIERRA</h1>
-  <p class="c-series">Fisher &amp; Sons · Los Ángeles · Everybody dies</p>
-  <p class="c-by">Con <span>Rulo</span> y <span>Toni</span> — Zaska y Acción</p>
-  <div class="c-scroll">▼ pasa la página ▼</div>
-</section>
-
-<!-- ══ LIBRO ══ -->
-<div class="book">
-
-  <!-- ── PANEL 1: El pitch ── -->
-  <div class="row r1">
-    <div class="panel b-red">
-      <img src="image1.png" alt="Rulo y Toni en el sofá">
-      <div class="sb toni tl tail-br">
-        <span class="tag">TONI</span>
-        "¿Una funeraria? ¿Me estás poniendo una serie que transcurre en una funeraria?"
-      </div>
-      <div class="sb rulo tr tail-bl">
-        <span class="tag">RULO</span>
-        "Una familia que lleva una funeraria en Los Ángeles. El patriarca muere en el primer episodio. Y a partir de ahí... la cosa más oscura, más divertida y más profunda que ha dado jamás la televisión."
-      </div>
-      <div class="cap">Los Ángeles. Una tarde cualquiera. El sofá de siempre.</div>
-    </div>
-  </div>
-
-  <!-- ── PANEL 2: La reacción inicial ── -->
-  <div class="row r2">
-    <div class="panel b-blue">
-      <img src="image3.png" alt="Ambos tranquilos">
-      <div class="sb toni tc tail-br">
-        <span class="tag">TONI</span>
-        "Venga, la pongo. Pero como sea un coñazo existencial te juro que te cobro el tiempo."
-      </div>
-    </div>
-    <div class="panel b-red">
-      <img src="image2.png" alt="Rulo pensativo">
-      <div class="sb rulo tc tail-bl">
-        <span class="tag">RULO</span>
-        "Cada episodio empieza con una muerte diferente. Alguien distinto. De maneras distintas. Y eso que parece oscuro se vuelve el mejor recurso narrativo que he visto nunca."
-      </div>
-    </div>
-  </div>
-
-  <div class="fx-row">
-    <span class="fx crack">¡¡FISHER &amp; SONS!!</span>
-    <span class="fx boom">⚰</span>
-    <span class="fx woah">¡¡FUNERAL HOME!!</span>
-  </div>
-
-  <!-- ── PANEL 3: Toni enganchado ── -->
-  <div class="row r1">
-    <div class="panel b-pink">
-      <img src="image5.png" alt="Toni pensativo, enganchado">
-      <div class="sb toni tl tail-br" style="max-width:52%">
-        <span class="tag">TONI</span>
-        "El hijo mayor, Nate... el típico que huyó de la familia y vuelve obligado. Y el hermano, David... ¿cómo puede estar tan bien escrito un personaje que se odia a sí mismo y encima me cae tan bien?"
-      </div>
-      <div class="cap">Y entonces la familia Fisher empezó a hacer su magia.</div>
-    </div>
-  </div>
-
-  <!-- ── PANEL 4: Los personajes ── -->
-  <div class="row r46">
-    <div class="panel b-blue">
-      <img src="image9.png" alt="Rulo explicando">
-      <div class="sb rulo tc tail-bl" style="max-width:75%">
-        <span class="tag">RULO</span>
-        "Los personajes principales están todos de 10. Todos. Sin excepción. Peter Krause, Michael C. Hall, Frances Conroy... Ruth Fisher sola justifica la serie. Y Lauren Ambrose como Claire es una revelación absoluta."
-      </div>
-    </div>
-    <div class="panel b-red">
-      <img src="image7.png" alt="Toni enganchado a la tele">
-      <div class="sb toni ml tail-r" style="max-width:80%">
-        <span class="tag">TONI</span>
-        "No puedo parar. No tiene ese ritmo adictivo de otras series pero la trama engancha diferente. Te importa lo que les pasa. Te importa de verdad."
-      </div>
-    </div>
-  </div>
-
-  <div class="fx-row">
-    <span class="fx crack">¡¡A DOS METROS!!</span>
-  </div>
-
-  <!-- ── PANEL 5: El humor negro ── -->
-  <div class="row r1">
-    <div class="panel b-yellow">
-      <img src="image6.png" alt="Ambos serios mirando">
-      <div class="sb rulo tr tail-bl" style="max-width:52%">
-        <span class="tag">RULO</span>
-        "Hay mucho drama del bueno. Y hay que estar bien mentalmente para verla porque te hace pensar mucho. Pero tiene un humor negro que te hace reír para no llorar. Y los diálogos... excepcionales. Pasan en segundos del absurdo más cómico a la emoción más cruda."
-      </div>
-      <div class="sb toni tl tail-br" style="max-width:40%">
-        <span class="tag">TONI</span>
-        "Es como una bofetada de realidad con guante de terciopelo."
-      </div>
-      <div class="cap">La muerte está a dos metros. La locura familiar, a menos.</div>
-    </div>
-  </div>
-
-  <!-- ── PANEL 6: La cuarta temporada ── -->
-  <div class="row r2">
-    <div class="panel b-red">
-      <img src="image4.png" alt="Rulo emocionado">
-      <div class="sb rulo tc tail-br">
-        <span class="tag">RULO</span>
-        "La cuarta temporada pierde algo. Es más irregular. Lo reconozco. Pero la quinta... la quinta es historia pura de la televisión."
-      </div>
-    </div>
-    <div class="panel b-pink">
-      <img src="image8.png" alt="Toni reaccionando fuerte">
-      <div class="sb toni tc tail-bl">
-        <span class="tag">TONI</span>
-        "¿El final? ¿El FINAL? Eso no es un final, eso es una patada en el alma con amor. No he podido hablar diez minutos después de verlo."
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CITA GRANDE ── -->
-  <div class="bigq">
-    <p>"Si A dos metros bajo tierra fuera una persona, estaría contando sus problemas en un bar con un cigarro colgando de la boca y una cerveza en la mano, todo mientras te suelta diálogos que son joyas negras dignas de Martin Riggs en modo filósofo."</p>
-    <cite>— Pachi, versión sin filtros</cite>
-  </div>
-
-  <!-- ── CURVA DE CALIDAD ── -->
-  <div class="quality-section">
-    <h3>📈 Curva de calidad · 5 temporadas</h3>
-    <div class="q-bars">
-      <div class="q-bar-wrap">
-        <div class="q-val">9.0</div>
-        <div class="q-bar" style="height:82%"></div>
-        <div class="q-label">T1</div>
-      </div>
-      <div class="q-bar-wrap">
-        <div class="q-val">9.0</div>
-        <div class="q-bar" style="height:82%"></div>
-        <div class="q-label">T2</div>
-      </div>
-      <div class="q-bar-wrap">
-        <div class="q-val">9.0</div>
-        <div class="q-bar" style="height:82%"></div>
-        <div class="q-label">T3</div>
-      </div>
-      <div class="q-bar-wrap">
-        <div class="q-val low">8.0</div>
-        <div class="q-bar low" style="height:68%"></div>
-        <div class="q-label">T4</div>
-      </div>
-      <div class="q-bar-wrap">
-        <div class="q-val peak">10 ★</div>
-        <div class="q-bar peak" style="height:100%"></div>
-        <div class="q-label">T5</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── PANEL 7: El veredicto ── -->
-  <div class="row r1">
-    <div class="panel b-red">
-      <img src="image11.png" alt="Ambos brindando — veredicto final">
-      <div class="sb toni tl tail-br">
-        <span class="tag">TONI</span>
-        "Vale. Nueve y medio. Y eso siendo generoso con mi corazón destrozado."
-      </div>
-      <div class="sb rulo tr tail-bl">
-        <span class="tag">RULO</span>
-        "Seguramente la mejor serie de la historia. Los personajes de 10, los diálogos excepcionales, el humor negro perfecto. Y el mejor final televisivo que se ha hecho. No hay duda."
-      </div>
-      <div class="cap">Fisher &amp; Sons. Cerramos por duelo. Nuestro.</div>
-    </div>
-  </div>
-
-  <!-- ── FINALE ── -->
-  <div class="finale">
-    <span class="fin-tag">⚰ veredicto final · zaska y acción</span>
-    <div class="fin-v">A DOS METROS BAJO TIERRA</div>
-    <span class="fin-s">9,5</span>
-    <div class="fin-sub">
-      HBO Max · 5 temporadas · 63 episodios · 2001–2005<br>
-      Creador: Alan Ball<br>
-      Peter Krause · Michael C. Hall · Frances Conroy · Rachel Griffiths · Lauren Ambrose · Freddy Rodríguez<br><br>
-      El mejor final televisivo de la historia. Punto.
-    </div>
-    <a href="../../index.html" class="back">← Volver al blog</a>
-  </div>
-
-</div><!-- /book -->
+<footer>
+  <p>Storybook Nº015 — <strong>A dos metros bajo tierra</strong> · <a href="../../index.html">Zaska y Acción</a></p>
+  <p style="margin-top:.5rem">Rulo y Toni siempre vuelven con otra serie. La próxima te la contamos pronto.</p>
+</footer>
 
 </body>
 </html>
