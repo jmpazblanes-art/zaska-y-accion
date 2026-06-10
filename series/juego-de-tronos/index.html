@@ -3,606 +3,378 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Juego de Tronos — Zaska y Acción</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<title>Storybook Nº013 — Juego de Tronos | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg:      #06060a;
-  --gold:    #c8a000;
-  --crimson: #cc1500;
-  --grey:    #888;
-  --white:   #f0ece0;
-  --gap:     6px;
-}
-
-body {
-  background: var(--bg);
-  color: #f0f0f0;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-}
-
-/* HEADER */
-.hdr {
-  background: #040408;
-  border-bottom: 3px solid var(--gold);
-  padding: 12px 28px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 200;
-}
-.hdr-logo { font-family:'Bangers',cursive; font-size:1.8rem; letter-spacing:2px; color:var(--gold); text-shadow:0 0 14px rgba(200,160,0,.6); text-decoration:none; }
-.hdr-logo span { color:var(--crimson); }
-.hdr-bc { font-size:.68rem; color:#555; letter-spacing:1px; text-transform:uppercase; }
-.hdr-bc a { color:var(--gold); text-decoration:none; }
-
-/* PORTADA */
-.cover {
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center;
-  padding:80px 24px;
-  background:radial-gradient(ellipse at 50% 30%,#1a0a00 0%,#06060a 60%);
-  position:relative; overflow:hidden;
-}
-.cover::before {
-  content:''; position:absolute; inset:0;
-  background:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(200,160,0,.018) 60px),
-             repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(200,160,0,.018) 60px);
-  pointer-events:none;
-}
-
-/* Corona decorativa */
-.crown-deco {
-  position:absolute; top:-60px; left:50%; transform:translateX(-50%);
-  width:300px; height:200px; pointer-events:none; z-index:0;
-  opacity:.06;
-}
-.crown-deco::before {
-  content:'♛';
-  font-size:180px; line-height:1;
-  color:var(--gold);
-  position:absolute; left:50%; transform:translateX(-50%);
-}
-.dragon-deco {
-  position:absolute; bottom:40px; right:40px;
-  font-size:120px; opacity:.04; pointer-events:none; z-index:0;
-  transform:scaleX(-1);
-}
-
-.c-badge {
-  font-family:'Bangers',cursive; font-size:.85rem; letter-spacing:5px;
-  color:var(--gold); opacity:.7; margin-bottom:18px; position:relative; z-index:1;
-}
-.c-eyebrow {
-  font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:8px;
-  color:#888; opacity:.6; margin-bottom:12px; position:relative; z-index:1;
-}
-.c-title {
-  font-family:'Bangers',cursive;
-  font-size:clamp(4rem,14vw,10rem);
-  letter-spacing:4px; line-height:.9;
-  color:var(--white); position:relative; z-index:1;
-  text-shadow:0 0 40px rgba(200,160,0,.5), 4px 4px 0 var(--gold), 8px 8px 0 rgba(204,21,0,.4);
-  margin-bottom:22px;
-}
-.c-title em { color:var(--gold); font-style:normal; }
-.c-sub {
-  font-family:'Bangers',cursive; font-size:1.1rem; letter-spacing:4px;
-  color:#888; opacity:.8; margin-bottom:10px; position:relative; z-index:1;
-}
-.c-series {
-  font-family:'Bangers',cursive; font-size:.8rem; letter-spacing:3px;
-  color:var(--crimson); opacity:.7; margin-bottom:32px; position:relative; z-index:1;
-}
-.c-by {
-  font-size:.8rem; letter-spacing:2px; text-transform:uppercase;
-  color:#555; position:relative; z-index:1;
-}
-.c-by span { color:var(--gold); }
-.c-scroll {
-  margin-top:48px; font-size:.75rem; letter-spacing:3px; text-transform:uppercase;
-  color:#444; animation:bob 2s ease-in-out infinite; position:relative; z-index:1;
-}
-@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
-
-/* LIBRO */
-.book {
-  max-width:900px; margin:0 auto; padding:40px 20px 80px;
-}
-
-/* PANELES */
-.panel {
-  background:#0c0c10;
-  border:3px solid #1e1a10;
-  margin-bottom: var(--gap);
-  position:relative; overflow:hidden;
-  display:flex; gap:0;
-}
-.panel.wide { flex-direction:column; }
-
-.panel-img {
-  flex:0 0 260px;
-  min-height:220px;
-  background:#141210;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Bangers',cursive; font-size:1.1rem;
-  color:rgba(200,160,0,.35); letter-spacing:2px;
-  border-right:3px solid #1e1a10;
-  position:relative; overflow:hidden;
-}
-.panel-img::after {
-  content:''; position:absolute; inset:0;
-  background:repeating-linear-gradient(135deg,transparent,transparent 6px,rgba(200,160,0,.025) 7px);
-}
-
-.panel-txt {
-  flex:1; padding:22px 24px; display:flex; flex-direction:column; gap:14px;
-}
-
-/* BURBUJAS */
-.bubble {
-  background:#181614; border:2px solid var(--gold);
-  border-radius:12px; padding:12px 16px;
-  font-family:'Comic Neue',cursive; font-size:1rem; line-height:1.5;
-  color:#f0e8d0; position:relative;
-}
-.bubble::after {
-  content:''; position:absolute; left:22px; bottom:-11px;
-  width:0; height:0;
-  border-left:10px solid transparent; border-right:10px solid transparent;
-  border-top:11px solid var(--gold);
-}
-.bubble.right::after { left:auto; right:22px; }
-.bubble.top::after { display:none; }
-.bubble.top::before {
-  content:''; position:absolute; left:22px; top:-11px;
-  width:0; height:0;
-  border-left:10px solid transparent; border-right:10px solid transparent;
-  border-bottom:11px solid var(--gold);
-}
-
-/* Tyrion — burbuja especial vino */
-.bubble-tyrion {
-  background:#0e0810; border:2px solid #8b3a8b;
-  color:#d4a8e0; border-radius:12px; padding:12px 16px;
-  font-family:'Comic Neue',cursive; font-size:1rem; line-height:1.5;
-  position:relative;
-}
-.bubble-tyrion::after {
-  content:''; position:absolute; right:22px; bottom:-11px;
-  width:0; height:0;
-  border-left:10px solid transparent; border-right:10px solid transparent;
-  border-top:11px solid #8b3a8b;
-}
-
-/* ETIQUETAS */
-.speaker {
-  font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:2px;
-  color:var(--gold); margin-bottom:4px; opacity:.8;
-}
-.speaker.chr { color:#888; }
-
-/* PANEL FX */
-.panel-fx {
-  min-height:160px; display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(135deg,#140a00,#08060e);
-  border:3px solid var(--gold);
-  margin-bottom:var(--gap);
-  position:relative; overflow:hidden;
-}
-.panel-fx::before {
-  content:''; position:absolute; inset:0;
-  background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(200,160,0,.03) 9px);
-}
-.fx-word {
-  font-family:'Bangers',cursive;
-  font-size:clamp(3rem,11vw,6rem);
-  letter-spacing:6px;
-  color:var(--gold);
-  text-shadow:4px 4px 0 var(--crimson),8px 8px 0 #000,0 0 40px rgba(200,160,0,.6);
-  position:relative; z-index:1;
-}
-.fx-word.blood {
-  color:var(--crimson);
-  text-shadow:4px 4px 0 #5a0000,8px 8px 0 #000,0 0 30px rgba(204,21,0,.5);
-}
-
-/* PANEL PERSONAJE */
-.panel-char {
-  background:linear-gradient(135deg,#100c00,#080610);
-  border:3px solid var(--gold);
-  padding:24px 28px; margin-bottom:var(--gap);
-  display:flex; gap:24px; align-items:flex-start;
-}
-.char-icon {
-  flex:0 0 70px; height:70px; border-radius:50%;
-  background:var(--gold); display:flex; align-items:center; justify-content:center;
-  font-family:'Bangers',cursive; font-size:1.8rem; color:#000;
-  border:3px solid var(--crimson); box-shadow:0 0 16px rgba(200,160,0,.5);
-}
-.char-info h4 {
-  font-family:'Bangers',cursive; font-size:1.4rem; letter-spacing:2px;
-  color:var(--gold); margin-bottom:6px;
-}
-.char-info p { font-size:.9rem; line-height:1.5; color:#ccc; }
-
-/* CURVA CALIDAD */
-.quality-curve {
-  background:#0c0c10; border:3px solid #1e1a10;
-  padding:28px; margin-bottom:var(--gap);
-}
-.quality-curve h3 {
-  font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:3px;
-  color:var(--gold); margin-bottom:20px;
-}
-.q-bars { display:flex; gap:10px; align-items:flex-end; height:120px; }
-.q-bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
-.q-bar {
-  width:100%; background:linear-gradient(to top,var(--gold),#f0d040);
-  border-radius:3px 3px 0 0;
-  box-shadow:0 0 8px rgba(200,160,0,.3);
-}
-.q-bar.low { background:linear-gradient(to top,var(--crimson),#ff5544); box-shadow:0 0 8px rgba(204,21,0,.3); }
-.q-label { font-family:'Bangers',cursive; font-size:.75rem; color:#888; letter-spacing:1px; }
-.q-val { font-family:'Bangers',cursive; font-size:.85rem; color:var(--gold); }
-.q-val.low { color:var(--crimson); }
-
-/* VEREDICTO */
-.veredicto {
-  background:linear-gradient(135deg,#140a00,#080610);
-  border:3px solid var(--gold);
-  padding:32px; margin-bottom:var(--gap); text-align:center;
-}
-.veredicto h2 {
-  font-family:'Bangers',cursive; font-size:2rem; letter-spacing:4px;
-  color:var(--gold); margin-bottom:8px;
-}
-.nota-final {
-  font-family:'Bangers',cursive; font-size:5rem; color:var(--gold);
-  text-shadow:4px 4px 0 var(--crimson),0 0 30px rgba(200,160,0,.6);
-  line-height:1;
-}
-.nota-texto { font-size:.85rem; color:#888; letter-spacing:2px; text-transform:uppercase; margin-top:8px; }
-
-/* ===== SECCIÓN CRÍTICAS ===== */
-<style id="criticas-css">
-.criticas-section {
-  background:#060608;
-  border-top:3px solid var(--gold);
-  padding:60px 0 80px;
-}
-.criticas-inner {
-  max-width:860px; margin:0 auto; padding:0 24px;
-}
-h2.criticas-titulo {
-  font-family:'Bangers',cursive; font-size:3rem; letter-spacing:4px;
-  color:var(--gold); margin-bottom:36px; text-align:center;
-  text-shadow:0 0 20px rgba(200,160,0,.4);
-}
-.ficha-tecnica {
-  background:#0c0c10; border:2px solid #201c10;
-  padding:20px 24px; margin-bottom:36px; border-radius:4px;
-}
-.ficha-tecnica table { width:100%; border-collapse:collapse; }
-.ficha-tecnica td {
-  padding:7px 10px; font-size:.9rem; border-bottom:1px solid #181410;
-  vertical-align:top;
-}
-.ficha-tecnica td:first-child { color:#aaa; font-weight:700; width:130px; text-transform:uppercase; font-size:.78rem; letter-spacing:1px; }
-.ficha-tecnica td:last-child { color:#e8dcc8; }
-.nota-grande { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--gold); }
-
-.critica-bloque {
-  margin-bottom:36px;
-  background:#0c0c10; border-left:4px solid var(--gold);
-  padding:22px 24px; border-radius:0 4px 4px 0;
-}
-.critica-bloque h3 {
-  font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:2px;
-  color:var(--gold); margin-bottom:14px;
-}
-.critica-bloque p {
-  font-size:.95rem; line-height:1.7; color:#d8ccc0; margin-bottom:10px;
-}
-.critica-bloque p:last-child { margin-bottom:0; }
-.critica-canalla { border-left-color:#f4a261; }
-.critica-canalla h3 { color:#f4a261; }
-.critica-canalla p { color:#ddd; }
-.pachi-bloque { border-left-color:#aaa; }
-.pachi-bloque h3 { color:#aaa; }
-.pachi-canalla-bloque { border-left-color:#ff6b6b; }
-.pachi-canalla-bloque h3 { color:#ff6b6b; }
-.pachi-canalla-bloque p { color:#ddd; }
+  :root {
+    --bg:    #0D0F1A;
+    --red:   #FF1A1A;
+    --blue:  #00C4FF;
+    --pink:  #FF2D9B;
+    --yellow:#FFD600;
+    --white: #F0F0F0;
+    --gold:  #C9963A;
+    --gold2: #f0c060;
+    --panel-border: #2a1a00;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; min-height: 100vh; }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 2px solid #1c1f33; background: rgba(13,15,26,.95); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--red); letter-spacing:2px; text-decoration:none; }
+  .nav-back { font-size:.85rem; color:var(--gold); text-decoration:none; border:1px solid var(--gold); padding:.3rem .9rem; border-radius:4px; }
+  .nav-back:hover { background:var(--gold); color:#000; }
+  .cover { position: relative; text-align: center; padding: 5rem 2rem 4rem; background: linear-gradient(180deg, #1a0d00 0%, var(--bg) 100%); border-bottom: 4px solid var(--gold); overflow: hidden; }
+  .cover::before { content: '🐉'; position: absolute; top: 20px; right: 40px; font-size: 5rem; opacity: .08; }
+  .cover-badge { display: inline-block; background: var(--gold); color: #0d0800; font-family: 'Bangers', cursive; font-size: 1rem; letter-spacing: 3px; padding: .4rem 1.2rem; border-radius: 4px; margin-bottom: 1.2rem; }
+  .cover-title { font-family: 'Bangers', cursive; font-size: clamp(2.6rem, 8vw, 5rem); line-height: .95; letter-spacing: 3px; color: var(--gold2); text-shadow: 4px 4px 0 #5a3800, 8px 8px 0 rgba(0,0,0,.5); margin-bottom: .5rem; }
+  .cover-subtitle { font-family: 'Bangers', cursive; font-size: clamp(1.4rem, 3.5vw, 2.2rem); color: var(--white); letter-spacing: 2px; margin-bottom: 1.5rem; }
+  .cover-meta { font-size: .85rem; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+  .cover-scroll { margin-top: 2.5rem; font-size: .8rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; animation: bounce 1.5s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+  .strip { max-width: 820px; margin: 0 auto; padding: 2.5rem 1rem 4rem; display: flex; flex-direction: column; gap: 0; }
+  .panel { position: relative; border: 3px solid var(--panel-border); overflow: visible; background: #111; margin-bottom: 6px; }
+  .panel img { width: 100%; height: auto; display: block; object-fit: contain; }
+  .sb { position: absolute; z-index: 20; background: #fff; border: 3px solid #111; border-radius: 18px; padding: 10px 14px; font-family: 'Comic Neue', cursive; font-weight: 700; color: #111; font-size: clamp(.95rem, 2.2vw, 1.15rem); line-height: 1.35; max-width: 46%; filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8)); }
+  .sb .tag { display: block; font-size: .65rem; font-family: 'Inter', sans-serif; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; opacity: .7; }
+  .sb.rulo { background: #fff8e6; border-color: var(--gold); }
+  .sb.rulo .tag { color: #8a5a00; }
+  .sb.toni { background: #fff; border-color: #333; }
+  .sb.toni .tag { color: #333; }
+  .tl { top: 5%; left: 3%; }
+  .tr { top: 5%; right: 3%; }
+  .bl { bottom: 8%; left: 3%; }
+  .br { bottom: 8%; right: 3%; }
+  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-br::after { border-top-color:#fff8e6; }
+  .toni.tail-br::after { border-top-color:#fff; }
+  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-bl::after { border-top-color:#fff8e6; }
+  .toni.tail-bl::after { border-top-color:#fff; }
+  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-tr::after { border-bottom-color:#fff8e6; }
+  .toni.tail-tr::after { border-bottom-color:#fff; }
+  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-tl::after { border-bottom-color:#fff8e6; }
+  .toni.tail-tl::after { border-bottom-color:#fff; }
+  .cap { position: absolute; z-index: 20; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,.82); color: var(--gold2); font-family: 'Comic Neue', cursive; font-style: italic; font-weight: 700; font-size: clamp(.8rem, 1.7vw, .95rem); padding: 7px 14px; text-align: center; border-top: 2px solid var(--gold); }
+  .cap-top { position: absolute; z-index: 20; top: 0; left: 0; right: 0; background: rgba(0,0,0,.82); color: var(--gold2); font-family: 'Comic Neue', cursive; font-style: italic; font-weight: 700; font-size: clamp(.8rem, 1.7vw, .95rem); padding: 7px 14px; text-align: center; border-bottom: 2px solid var(--gold); }
+  .fx { background: var(--bg); border: 3px solid var(--gold); text-align: center; padding: 2rem 1rem; margin: 2px 0; }
+  .fx-text { font-family: 'Bangers', cursive; font-size: clamp(2.6rem, 9vw, 5.5rem); letter-spacing: 3px; color: var(--gold2); text-shadow: 4px 4px 0 #5a3800, 8px 8px 0 rgba(0,0,0,.5); line-height: 1; display: block; }
+  .fx-sub { font-family: 'Inter', sans-serif; font-size: .75rem; color: #666; letter-spacing: 3px; text-transform: uppercase; margin-top: .4rem; }
+  .quote-box { border-left: 6px solid var(--gold); background: rgba(201,150,58,.08); padding: 1.8rem 2rem; margin: 4px 0; text-align: center; }
+  .quote-text { font-family: 'Bangers', cursive; font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--gold2); letter-spacing: 2px; line-height: 1.2; }
+  .quote-attr { font-size: .8rem; color: #777; margin-top: .6rem; font-style: italic; letter-spacing: 1px; }
+  .scene-label { background: var(--gold); color: #0d0800; font-family: 'Bangers', cursive; font-size: .9rem; letter-spacing: 3px; padding: .4rem 1rem; text-align: center; text-transform: uppercase; margin-bottom: 2px; }
+  .verdict { background: linear-gradient(135deg, #1a0d00, #0d0f1a); border: 4px solid var(--gold); padding: 3rem 2rem; text-align: center; margin-top: 6px; }
+  .verdict-label { font-family: 'Bangers', cursive; font-size: 1rem; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .verdict-score { font-family: 'Bangers', cursive; font-size: clamp(5rem, 18vw, 9rem); color: var(--gold2); line-height: .9; text-shadow: 5px 5px 0 #5a3800; letter-spacing: -2px; }
+  .verdict-title { font-family: 'Bangers', cursive; font-size: clamp(1.6rem, 4.5vw, 2.6rem); color: var(--white); letter-spacing: 3px; margin-top: .8rem; }
+  .verdict-body { max-width: 520px; margin: 1.2rem auto 0; font-size: .9rem; color: #aaa; line-height: 1.6; }
+  .verdict-tags { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.5rem; }
+  .verdict-tags span { background: rgba(201,150,58,.15); border: 1px solid var(--gold); color: var(--gold2); padding: .3rem .9rem; border-radius: 999px; font-size: .75rem; font-weight: 600; letter-spacing: 1px; }
+  .curva-section { max-width: 820px; margin: 0 auto; padding: 0 1rem 1rem; }
+  .curva-section h3 { font-family: 'Bangers', cursive; font-size: clamp(1.4rem, 4vw, 2rem); letter-spacing: 2px; color: var(--gold2); margin: 2rem 0 1rem; text-align: center; }
+  .curva-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .curva-table th, .curva-table td { padding: .6rem .8rem; border-bottom: 1px solid #222; text-align: left; }
+  .curva-table th { color: var(--gold); text-transform: uppercase; font-size: .72rem; letter-spacing: 1px; }
+  .curva-table td:last-child { font-family: 'Bangers', cursive; color: var(--gold2); font-size: 1.2rem; text-align: center; width: 70px; }
+  .curva-table td:first-child { font-weight: 700; color: #fff; width: 50px; }
+  footer { text-align: center; padding: 3rem 2rem; border-top: 2px solid #1c1f33; color: #444; font-size: .8rem; }
+  footer a { color: var(--gold); text-decoration: none; }
+  @media (max-width: 600px) { .sb { max-width: 50%; font-size: .82rem; padding: 7px 10px; } .sb .tag { font-size: .58rem; } .cover-title { font-size: clamp(2.1rem, 9vw, 3.3rem); } }
 </style>
+</head>
+<body>
 
+<nav class="nav">
+  <a class="nav-logo" href="../../index.html">ZASKA Y ACCIÓN</a>
+  <a class="nav-back" href="../../index.html">← Volver</a>
+</nav>
+
+<style id="criticas-css">
+.criticas-section { background: #0a0a0a; color: #e8e8e8; padding: 60px 20px 80px; font-family: 'Inter', -apple-system, sans-serif; }
+.criticas-inner { max-width: 820px; margin: 0 auto; }
+.criticas-section h2.criticas-titulo { font-family: 'Bangers', cursive; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: 2px; color: #fff; margin: 0 0 40px; border-bottom: 3px solid #e63946; padding-bottom: 16px; }
+.ficha-tecnica { background: #111; border: 1px solid #222; border-radius: 8px; padding: 24px 28px; margin-bottom: 40px; }
+.ficha-tecnica table { width: 100%; border-collapse: collapse; }
+.ficha-tecnica td { padding: 6px 0; vertical-align: top; font-size: 0.95rem; line-height: 1.5; }
+.ficha-tecnica td:first-child { color: #888; width: 130px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px; padding-right: 16px; }
+.ficha-tecnica .nota-grande { font-family: 'Bangers', cursive; font-size: 2.2rem; color: #e63946; letter-spacing: 2px; line-height: 1; }
+.critica-bloque { margin-bottom: 44px; }
+.critica-bloque h3 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 3px; color: #e63946; margin: 0 0 14px; font-family: 'Inter', sans-serif; font-weight: 700; }
+.critica-bloque p { font-size: 1rem; line-height: 1.8; color: #ccc; margin: 0 0 1em; }
+.critica-bloque p:last-child { margin-bottom: 0; }
+.critica-canalla { background: #111; border-left: 4px solid #f4a261; padding: 24px 28px; border-radius: 0 8px 8px 0; }
+.critica-canalla h3 { color: #f4a261; }
+.critica-canalla p { color: #ddd; }
+.pachi-bloque { background: #0d1117; border: 1px solid #1a2540; border-radius: 8px; padding: 24px 28px; margin-bottom: 24px; }
+.pachi-bloque h3 { color: #4fc3f7; }
+.pachi-canalla-bloque { background: #110d0d; border: 1px solid #2a1515; border-radius: 8px; padding: 24px 28px; }
+.pachi-canalla-bloque h3 { color: #ff6b6b; }
+</style>
 <section class="criticas-section">
 <div class="criticas-inner">
 <h2 class="criticas-titulo">Juego de Tronos</h2>
 <div class="ficha-tecnica"><table>
 <tr><td>Tipo</td><td>Serie</td></tr>
-<tr><td>Año</td><td>2011</td></tr>
-<tr><td>Creador</td><td>David Benioff &amp; D.B. Weiss (basada en George R.R. Martin)</td></tr>
-<tr><td>Reparto</td><td>Emilia Clarke, Kit Harington, Peter Dinklage, Lena Headey, Nikolaj Coster-Waldau, Sophie Turner, Maisie Williams</td></tr>
+<tr><td>Año</td><td>2011–2019</td></tr>
+<tr><td>Creadores</td><td>David Benioff, D.B. Weiss (sobre la obra de George R.R. Martin)</td></tr>
+<tr><td>Reparto</td><td>Peter Dinklage, Emilia Clarke, Kit Harington, Lena Headey, Nikolaj Coster-Waldau, Sophie Turner, Maisie Williams, Sean Bean</td></tr>
 <tr><td>Plataforma</td><td>HBO Max</td></tr>
-<tr><td>Duración</td><td>8 temporadas · 73 ep. (2011–2019)</td></tr>
+<tr><td>Duración</td><td>73 episodios · 8 temporadas (2011–2019)</td></tr>
 <tr><td>Nota</td><td><span class="nota-grande">8,5</span> / 10</td></tr>
 </table></div>
-
 <div class="critica-bloque">
-<h3>🎭 Crítica</h3>
-<p>"Juego de Tronos" es una serie épica que combina drama, fantasía y política en el vasto mundo de Westeros. La serie fue alabada inicialmente por su complejidad narrativa, personajes profundos y producción innovadora, aunque su última temporada recibió críticas controversiales por aceleración en el ritmo y desarrollo de personajes abruptos. A lo largo de la serie, se construye una atmósfera cargada de intriga, luchas por el poder, traiciones y un despliegue visual y sonoro impresionante que mantuvo a millones de espectadores al borde de sus asientos.</p>
-<p>La historia transcurre a partir de líneas argumentales entre familias poderosas, con un crecimiento y evolución de personajes muy marcado, aunque el final dejó un sabor agridulce para muchos fans por la rapidez con la que se resolvieron conflictos que se habían ido construyendo durante años.</p>
+<h3>Sinopsis</h3>
+<p>Siete reinos se disputan el Trono de Hierro mientras una amenaza ancestral despierta en el norte y la última heredera Targaryen cría dragones al otro lado del mar. Traiciones, batallas y muertes sin previo aviso: en Westeros cualquiera puede morir en cualquier momento.</p>
 </div>
-
+<div class="critica-bloque">
+<h3>📰 Qué dice la prensa</h3>
+<p>La serie visualmente más ambiciosa de la historia de la televisión. IMDb: 9,2 · FilmAffinity: 8,7. Hasta 40 millones de dólares por episodio en las últimas temporadas. La petición para rehacer la temporada 8 superó el millón de firmas.</p>
+</div>
+<div class="critica-bloque">
+<h3>🎭 Crítica seria</h3>
+<p>Juego de Tronos (HBO, 2011–2019) es la serie visualmente más ambiciosa de la historia de la televisión. David Benioff y D.B. Weiss adaptaron los libros de George R.R. Martin durante seis temporadas con una calidad que elevó el género fantástico a cotas que el cine rara vez alcanza.</p>
+<p>La serie fue alabada por su complejidad narrativa, la profundidad de sus personajes — especialmente Tyrion Lannister, interpretado por Peter Dinklage en el papel de su vida — y por su disposición a matar protagonistas sin aviso. La Boda Roja, la Batalla de los Bastardos, la Montaña y la Víbora — episodios que son historia de la televisión.</p>
+<p>A partir de la temporada 7, sin los libros de Martin como guía, el ritmo se acelera artificialmente y los arcos de personaje se deterioran. La temporada 8 resolvió en seis episodios conflictos construidos durante años.</p>
+<p>IMDb: 9,2. FilmAffinity: 8,7. La petición para rehacer la T8 superó el millón de firmas.</p>
+</div>
 <div class="critica-bloque critica-canalla">
 <h3>🤘 La canalla (estilo 80/90)</h3>
-<p>Mira, 'Juego de Tronos' es como ese colega que empieza el partido jugando como una estrella, moviéndose lento y calculando cada jugada, y de repente en la última temporada se le acaba el guion y corre desesperado como si le persiguiera un dragón con la factura del agua. Los héroes son más volátiles que la serie semanal de un amigo que cambia de novia cada mes, y las decisiones parecen sacadas de un episodio de '¿Qué demonios estoy haciendo aquí?'. Los malos mueren como si fueran cameos y los que antes parecían listos ahora actúan como si el Rey del Norte se hubiera olvidado la mente en la taberna.</p>
-<p>Por no hablar del rey que nadie quería y que apareció más perdido que yo tratando de entender el final de una película complicadísima. Pero, oye, la serie tiene dragones, peleas épicas, traiciones de infarto y traumas familiares que no paran, así que vale la pena... aunque lo que pasa en la última temporada es como cuando tu videojuego favorito se queda sin pila justo en la batalla final.</p>
+<p>Hay series que cambian la televisión. Y hay series que cambian la cultura popular entera. Juego de Tronos hizo las dos cosas. Antes de 2011, la fantasía épica en televisión era un género de segunda: elfos con presupuesto de videoclub, dragones de plástico. El género era para el cine — El Señor de los Anillos, Conan el Bárbaro. En televisión no había dinero. Y entonces llegó HBO y cambió las reglas.</p>
+<p>Cuarenta millones de dólares por episodio. Veinte días de rodaje solo para la Batalla de los Bastardos. Más dinero por episodio que lo que costó hacer Conan el Bárbaro entera. Y se nota. Dios mío que se nota.</p>
+<p>En el episodio nueve de la primera temporada matan al protagonista. Ned Stark. Sean Bean. Muerto. Sin previo aviso. El mundo llevaba décadas viendo series donde el protagonista no muere. Juego de Tronos mató ese convenio en el minuto cuarenta y no miró atrás.</p>
+<p>Tyrion Lannister. Peter Dinklage. El mejor personaje de la televisión del siglo XXI. En un mundo donde el poder es fuerza, tamaño y sangre noble, él no tiene ninguna de las tres. Y gana igual. Con la cabeza. La Boda Roja es el momento más impactante desde que dispararon a J.R. en Dallas. La Batalla de los Bastardos, el mejor episodio de acción de la historia de la televisión.</p>
+<p>Y luego llegó la temporada 7. Los guionistas se quedaron solos: Martin lleva quince años sin terminar el siguiente libro. La petición para rehacer la temporada 8 superó el millón de firmas. Eso no es fans cabreados — es gente de luto. Pero las seis primeras temporadas siguen siendo lo que fueron. <strong>Seis temporadas de obra maestra y dos de lección aprendida. Valar Morghulis.</strong></p>
 </div>
+<div class="pachi-bloque">
+<h3>🎙️ Opinión Pachi — Seria</h3>
+<p>Juego de Tronos empieza lenta. Tan lenta que al principio cuesta arrancar — mucho mundo, muchos nombres, muchas familias. Y justo cuando empiezas a situarte, matan al protagonista. En el episodio nueve. Y a partir de ahí ya no hay red de seguridad: ves el resto con el miedo constante de que pueda morir cualquiera. Tyrion se convierte en el personaje más importante; Daenerys es la puta jefa con dragones; Arya mola un huevo. Hay capítulos mejores que películas — la Boda Roja te destroza, la Batalla de los Bastardos es el mejor episodio de acción de la historia. Las dos últimas temporadas son apresuradas, pero el viaje lo justifica todo. <strong>8,5 / 10.</strong></p>
+</div>
+<div class="pachi-canalla-bloque">
+<h3>💥 Opinión Pachi — Macarra</h3>
+<p>Mira. Esta serie empieza lenta. Hasta difícil. Casi la dejas en el tercer episodio. Y entonces te va comiendo. Coges cariño a los Stark — los buenos, los honestos. Y de repente matan al protagonista. Al de los carteles. Y tú ahí con el mando diciendo: ¿esto qué coño es? Y a partir de ahí lo ves todo con el culo apretado, porque ya sabes que nadie está a salvo. Y te das cuenta de que el puto enano — el que parecía el gracioso — es en realidad el sheriff John de toda la peli: el más listo, el que cada vez mola más. Daenerys es la puta jefa con dragones. Arya tiene su propia historia que da gusto. La Boda Roja te destroza sin aviso. La Batalla de los Bastardos es el mejor episodio de acción de la historia. ¿Las dos últimas? Apresuradas, sí. Pero el viaje lo justifica todo. <strong>8,5. Y el puto enano es el sheriff John.</strong></p>
+</div>
+<div class="critica-bloque" style="margin-top:44px">
+<h3>👥 Qué dice la gente</h3>
+<p>Fenómeno cultural global. IMDb: 9,2/10. La gente recuerda dónde estaba al ver la Boda Roja. Consenso: seis temporadas perfectas y un final que decepcionó a millones — pero que casi nadie se arrepiente de haber visto. El viaje lo justifica.</p>
+</div>
+</div></section>
 
-<div class="critica-bloque pachi-bloque">
-<h3>🎖️ Opinión de Pachi</h3>
-<p>"Juego de Tronos representa, sin duda, la serie visualmente más ambiciosa y grandiosa jamás realizada en televisión. Hasta la temporada seis, el guion, desarrollo de personajes e historia brillan con una coherencia e intensidad que la convierten en un referente total para la narrativa televisiva. Personajes como Tyrion Lannister emergen como figuras potentes y complejas en la historia de la ficción. Sin embargo, a partir de ese punto, la serie acelera su ritmo de manera considerable, lo que resulta en una pérdida clara de la calidad narrativa. El final, aunque celebrado por algunos, se siente regulero y no alcanza a estar a la altura del legado épico construido previamente. No obstante, numerosos episodios se han consolidado como verdaderas piezas maestras, tan cinematográficas que rozan la categoría de películas y forman parte ya de la historia de la televisión."</p>
-</div>
+<header class="cover">
+  <div class="cover-badge">📺 STORYBOOK Nº013 — SERIE</div>
+  <h1 class="cover-title">WINTER IS COMING</h1>
+  <p class="cover-subtitle">Juego de Tronos visto por Rulo y Toni</p>
+  <p class="cover-meta">HBO MAX · 2011–2019 · 73 episodios · 8 temporadas</p>
+  <p class="cover-scroll">↓ desplázate ↓</p>
+</header>
 
-<div class="critica-bloque pachi-canalla-bloque">
-<h3>💥 Pachi (versión sin filtros)</h3>
-<p>Mira, esta serie es como un Ferrari de dos puertas: hasta que llegas a la sexta temporada, todo es puro motor, turbo y adrenalina; el guion y los personajes son de esos que hacen que se te quede la mandíbula abajo. Tyrion Lannister es el tipo que se roba el show, el verdadero jefe en esta jungla de tronos y dragones. Pero luego, ¡zas! La serie de repente pisa el acelerador como si fuera una persecución de película y se le va la olla. Se vuelve todo un poco 'ni pa' qué', como cuando quieres hacer malabares con tres hielos y terminas con dos en el suelo y uno menos en la copa. El final, pues... déjalo en que es como cuando haces un "plot twist" y nadie te entiende, excepto el tipo que estaba dormido todo el rato. Eso sí, los capítulos top son tan épicos que parecen trailers de película, no es broma.</p>
-</div>
+<main class="strip">
 
-</div>
+  <div class="scene-label">Escena 1 — Bienvenido a Westeros</div>
+  <div class="panel">
+    <img src="image1.png" alt="Puertas de Desembarco del Rey, Rulo y Toni con armaduras que no les quedan bien">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Rulo. ¿Por qué llevamos armaduras?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:52%;">
+      <span class="tag">RULO</span>
+      "Porque estamos en Westeros. Aquí cualquiera puede morir en cualquier momento, sin previo aviso. — ¿Hay taberna? — Hay taberna. Y dragones. Y familias que se traicionan con más ganas que un culebrón."
+    </div>
+    <div class="cap">Desembarco del Rey. Las puertas de la ciudad.</div>
+  </div>
+
+  <div class="scene-label">Escena 2 — El Trono de Hierro</div>
+  <div class="panel">
+    <img src="image2.png" alt="Sala del Trono de Hierro, Rulo y Toni mirándolo desde abajo">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "¿Todo esto es por ese trono? Pero si se ve a legua que pincha."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Siete reinos. Décadas de guerra. Miles de muertos. Eso es la metáfora: el poder nunca es cómodo. — O los herreros de Westeros son muy malos."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 3 — Ned Stark</div>
+  <div class="panel">
+    <img src="image3.png" alt="Patio de Invernalia, Ned Stark honrado, Rulo y Toni intercambiando miradas">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Este tío. Ned Stark. El protagonista, ¿no? Tiene pinta de sobrevivir toda la serie."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "Sí. — Rulo. — Disfrútalo mientras dura."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 4 — Tyrion Lannister</div>
+  <div class="panel">
+    <img src="image4.png" alt="Taberna medieval, Tyrion Lannister con copa, Rulo y Toni escuchando con admiración">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Peter Dinklage. Tyrion Lannister. ¿Por qué es el mejor?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Porque en un mundo donde el poder es fuerza, tamaño y sangre noble, él no tiene ninguna de las tres. Y gana igual. Con la cabeza. Y con la copa. En ese orden."
+    </div>
+  </div>
+
+  <div class="fx">
+    <span class="fx-text">VALAR MORGHULIS</span>
+    <p class="fx-sub">todos los hombres deben morir</p>
+  </div>
+
+  <div class="scene-label">Escena 5 — Cersei</div>
+  <div class="panel">
+    <img src="image5.png" alt="Sala del trono, Cersei sentada fría, Rulo y Toni intimidados ante ella">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Lena Headey. Cersei. ¿Tiene razones?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:52%;">
+      <span class="tag">RULO</span>
+      "La reina más despiadada de la televisión desde que Alexis arruinaba familias en Dinastía. Siempre tiene razones. Eso es lo que la hace terrorífica."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 6 — La Boda Roja</div>
+  <div class="panel">
+    <img src="image6.png" alt="Banquete de la Boda Roja, la música cambia, Rulo y Toni con terror creciente">
+    <div class="cap-top">El banquete. La música cambia. Algo muy malo está a punto de pasar.</div>
+    <div class="sb toni tl tail-br" style="max-width:46%; top:18%;">
+      <span class="tag">TONI</span>
+      "Rulo. Esta música no me gusta. RULO—"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Ya te dije que nadie estaba a salvo. — Hijo de puta, George R.R. Martin."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 7 — Daenerys</div>
+  <div class="panel">
+    <img src="image8.png" alt="Daenerys montada en Drogon en el cielo, Rulo y Toni mirando desde abajo">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Emilia Clarke. Daenerys. El mejor arco hasta la T6. ¿Y después?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:44%;">
+      <span class="tag">RULO</span>
+      "De princesa perseguida a conquistadora con dragones. Después los guionistas se quedaron sin los libros de Martin. Y se nota."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 8 — Sin libros</div>
+  <div class="panel">
+    <img src="image9.png" alt="Temporada 7, Rulo confuso, Toni señalando la pantalla sin entender">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Rulo. ¿Por qué ese personaje ha hecho eso? ¿Y Martin no les ayuda?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Porque los guionistas van solos desde que se acabaron los libros. Martin lleva quince años sin terminar el siguiente. Nadie sabe qué pasa. Y se nota."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 9 — La temporada 8</div>
+  <div class="panel">
+    <img src="image10.png" alt="Temporada 8, Toni mirando al techo, Rulo con la cabeza entre las manos">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "¿Jaime ha hecho eso? ¿Y Daenerys? ¿Y el Rey de la Noche?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Sí. Sí. En un episodio. — Me voy a la cama."
+    </div>
+  </div>
+
+  <div class="fx">
+    <span class="fx-text">SEIS PERFECTAS</span>
+    <p class="fx-sub">dos de lección aprendida</p>
+  </div>
+
+  <div class="scene-label">Escena 10 — Las cenizas</div>
+  <div class="panel">
+    <img src="image11.png" alt="El Trono de Hierro fundido, Rulo y Toni mirando las cenizas en silencio">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "¿Cómo puede ser tan buena y tan mala a la vez?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Porque son dos series: la que tenía los libros de Martin y la que no. Ocho y medio. Seis temporadas perfectas merecen generosidad."
+    </div>
+  </div>
+
+  <div class="scene-label">Escena 11 — El remate</div>
+  <div class="panel">
+    <img src="image12.png" alt="Las puertas de la ciudad de noche, Rulo y Toni saliendo con las armaduras abolladas">
+    <div class="sb toni tl tail-br" style="max-width:44%;">
+      <span class="tag">TONI</span>
+      "¿La recomendamos? ¿Aunque el final—?"
+    </div>
+    <div class="sb rulo tr tail-bl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Sin dudarlo. La Boda Roja sola la justifica. La Batalla de los Bastardos sola la justifica. Tyrion solo la justifica."
+    </div>
+    <div class="sb toni bl tail-tr" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Valar Morghulis. — Valar Dohaeris."
+    </div>
+    <div class="cap">Seis temporadas de obra maestra. Dos de lección aprendida. 8,5.</div>
+  </div>
+
+  <div class="verdict">
+    <p class="verdict-label">⭐ Veredicto de Rulo y Toni ⭐</p>
+    <div class="verdict-score">8.5</div>
+    <h2 class="verdict-title">SEIS TEMPORADAS PERFECTAS</h2>
+    <p class="verdict-body">
+      Visualmente la serie más ambiciosa que se ha hecho nunca. Seis temporadas donde la televisión alcanzó algo que el cine difícilmente puede igualar. Tyrion Lannister es el personaje más inteligente de la historia de la ficción televisiva. El final decepciona — pero lo que queda antes lo justifica absolutamente todo. No ver Juego de Tronos es un error.
+    </p>
+    <div class="verdict-tags">
+      <span>📺 HBO Max</span>
+      <span>2011–2019</span>
+      <span>73 episodios</span>
+      <span>8 temporadas</span>
+      <span>Peter Dinklage</span>
+      <span>Emilia Clarke</span>
+      <span>Boda Roja</span>
+      <span>Batalla de los Bastardos</span>
+    </div>
+  </div>
+
+</main>
+
+<section class="curva-section">
+  <h3>📈 Curva de temporadas</h3>
+  <table class="curva-table">
+    <tr><th>Temp.</th><th>Tema</th><th>Nota</th></tr>
+    <tr><td>T1</td><td>Los Stark. El Trono. Las reglas del juego.</td><td>9,5</td></tr>
+    <tr><td>T2</td><td>La guerra de los cinco reyes.</td><td>9,0</td></tr>
+    <tr><td>T3</td><td>La Boda Roja. El punto de no retorno.</td><td>9,5</td></tr>
+    <tr><td>T4</td><td>La Montaña y la Víbora. Tyrion juzgado.</td><td>9,5</td></tr>
+    <tr><td>T5</td><td>Hardhome. Los muertos llegan.</td><td>8,5</td></tr>
+    <tr><td>T6</td><td>La Batalla de los Bastardos. La cima.</td><td>9,0</td></tr>
+    <tr><td>T7</td><td>Sin libros. El Ferrari pierde los frenos.</td><td>7,0</td></tr>
+    <tr><td>T8</td><td>El final que nadie esperaba. Así.</td><td>5,5</td></tr>
+  </table>
 </section>
 
-<!-- PORTADA -->
-<section class="cover">
-  <div class="crown-deco"></div>
-  <div class="dragon-deco">🐉</div>
-  <div class="c-badge">STORYBOOK Nº013</div>
-  <div class="c-eyebrow">ZASKA Y ACCIÓN PRESENTA</div>
-  <h1 class="c-title"><em>JUEGO</em><br>DE<br>TRONOS</h1>
-  <div class="c-sub">WESTEROS · EL TRONO DE HIERRO · WINTER IS COMING</div>
-  <div class="c-series">FANTASÍA · DRAMA · HBO (2011–2019)</div>
-  <div class="c-by">Una crítica de <span>Rulo y Toni</span> — con la opinión de Pachi</div>
-  <div class="c-scroll">↓ El juego empieza aquí ↓</div>
-</section>
-
-<!-- LIBRO -->
-<div class="book">
-
-<!-- PANEL 1: PITCH -->
-<div class="panel">
-  <div class="panel-img">WESTEROS<br>·<br>ESSOS</div>
-  <div class="panel-txt">
-    <div class="speaker">RULO</div>
-    <div class="bubble">
-      Toni, imagínate un continente entero donde siete reinos se pelean por el mismo trono. Dragones, magos, ejércitos de muertos, y en el centro... familias que se traicionan entre ellas con más ganas que cualquier culebrón.
-    </div>
-    <div class="speaker" style="margin-top:8px" class="chr">TONI</div>
-    <div class="bubble right" style="border-color:#888; background:#100e14;">
-      Espera. ¿Dragones y política medieval al mismo tiempo?
-    </div>
-    <div class="speaker" style="margin-top:8px">RULO</div>
-    <div class="bubble top">
-      Exacto. Y nadie está a salvo. Nadie.
-    </div>
-  </div>
-</div>
-
-<!-- PANEL 2: LA SERIE -->
-<div class="panel">
-  <div class="panel-txt">
-    <div class="speaker">RULO</div>
-    <div class="bubble">
-      Visualmente es la serie más grande que se haya hecho. Hasta la temporada seis, el guion, la historia y los personajes son increíbles. Una atmósfera de intriga, luchas por el poder, traiciones y un despliegue visual y sonoro impresionante.
-    </div>
-    <div class="speaker" style="margin-top:8px">TONI</div>
-    <div class="bubble right" style="border-color:#888; background:#100e14;">
-      ¿Y qué la diferencia de cualquier otra fantasía épica?
-    </div>
-    <div class="speaker" style="margin-top:8px">RULO</div>
-    <div class="bubble top">
-      Que matan a los protagonistas. Sin previo aviso. Cualquiera. En cualquier momento.
-    </div>
-  </div>
-  <div class="panel-img" style="border-left:3px solid #1e1a10; border-right:none;">TRONO<br>DE<br>HIERRO</div>
-</div>
-
-<!-- PANEL 3: TYRION -->
-<div class="panel-char">
-  <div class="char-icon">T</div>
-  <div class="char-info">
-    <h4>Tyrion Lannister</h4>
-    <p>Peter Dinklage en el papel de su vida. Inteligente, sarcástico, estratégico — el tipo que se roba el show en cada escena. Para Pachi, el personaje más potente de la historia de la televisión. El verdadero jefe en esta jungla de tronos y dragones.</p>
-  </div>
-</div>
-
-<!-- FX 1 -->
-<div class="panel-fx">
-  <div class="fx-word">¡DRACARYS!</div>
-</div>
-
-<!-- PANEL 4: LOS LANNISTER -->
-<div class="panel">
-  <div class="panel-img">LANNISTER<br>·<br>STARK<br>·<br>TARGARYEN</div>
-  <div class="panel-txt">
-    <div class="speaker">TONI</div>
-    <div class="bubble right" style="border-color:#888; background:#100e14;">
-      ¿Y hay buenos y malos claros?
-    </div>
-    <div class="speaker" style="margin-top:8px">RULO</div>
-    <div class="bubble">
-      Eso es lo mejor: nadie es del todo bueno ni del todo malo. Cersei Lannister es despiadada pero tiene sus razones. Jaime empieza como el villano y acaba siendo uno de los más humanos. La serie fue alabada por su complejidad narrativa y personajes profundos.
-    </div>
-    <div class="speaker" style="margin-top:8px">TYRION LANNISTER</div>
-    <div class="bubble-tyrion">
-      "Soy culpable de ser enano. Lo he sido toda mi vida."
-    </div>
-  </div>
-</div>
-
-<!-- PANEL 5: TEMPORADAS DE ORO -->
-<div class="panel">
-  <div class="panel-txt">
-    <div class="speaker">RULO</div>
-    <div class="bubble">
-      Las primeras seis temporadas son historia de la televisión. Capítulos que más que una serie parecen películas. La Boda Roja. La Batalla de los Bastardos. El Aguanieve. Cada temporada sube el listón hasta rozar la perfección.
-    </div>
-    <div class="speaker" style="margin-top:8px">TONI</div>
-    <div class="bubble right" style="border-color:#888; background:#100e14;">
-      Entonces, ¿cuándo se tuerce?
-    </div>
-    <div class="speaker" style="margin-top:8px">RULO</div>
-    <div class="bubble top">
-      A partir de la séptima. Cuando se acaban los libros de Martin y los guionistas van solos. Ahí el Ferrari pierde los frenos.
-    </div>
-  </div>
-  <div class="panel-img" style="border-left:3px solid #1e1a10; border-right:none;">T1-T6<br>OBRA<br>MAESTRA</div>
-</div>
-
-<!-- PANEL 6: LA CAÍDA -->
-<div class="panel">
-  <div class="panel-img">T7-T8<br>¿QUÉ<br>FUE<br>ESO?</div>
-  <div class="panel-txt">
-    <div class="speaker">TONI</div>
-    <div class="bubble right" style="border-color:#888; background:#100e14;">
-      ¿Tan malo es el final?
-    </div>
-    <div class="speaker" style="margin-top:8px">RULO</div>
-    <div class="bubble">
-      A partir de la séptima, la serie pisa el acelerador como si fuera una persecución de película y se le va la olla. Decisiones de personajes que no tienen sentido. Arcos de años resueltos en minutos. El final se siente regulero y no alcanza a estar a la altura del legado épico construido.
-    </div>
-    <div class="speaker" style="margin-top:8px">TONI</div>
-    <div class="bubble right" style="border-color:#888; background:#100e14;">
-      Como cuando tu videojuego favorito se queda sin pila justo en la batalla final.
-    </div>
-    <div class="speaker" style="margin-top:8px">RULO</div>
-    <div class="bubble top">
-      Exactamente eso. Toni, exactamente eso.
-    </div>
-  </div>
-</div>
-
-<!-- FX 2 -->
-<div class="panel-fx">
-  <div class="fx-word blood">¡VALAR MORGHULIS!</div>
-</div>
-
-<!-- PANEL 7: CURVA CALIDAD -->
-<div class="quality-curve">
-  <h3>📈 Curva de calidad · 8 temporadas</h3>
-  <div class="q-bars">
-    <div class="q-bar-wrap">
-      <div class="q-val">9.5</div>
-      <div class="q-bar" style="height:95%"></div>
-      <div class="q-label">T1</div>
-    </div>
-    <div class="q-bar-wrap">
-      <div class="q-val">9.0</div>
-      <div class="q-bar" style="height:88%"></div>
-      <div class="q-label">T2</div>
-    </div>
-    <div class="q-bar-wrap">
-      <div class="q-val">9.5</div>
-      <div class="q-bar" style="height:95%"></div>
-      <div class="q-label">T3</div>
-    </div>
-    <div class="q-bar-wrap">
-      <div class="q-val">9.5</div>
-      <div class="q-bar" style="height:95%"></div>
-      <div class="q-label">T4</div>
-    </div>
-    <div class="q-bar-wrap">
-      <div class="q-val">8.5</div>
-      <div class="q-bar" style="height:80%"></div>
-      <div class="q-label">T5</div>
-    </div>
-    <div class="q-bar-wrap">
-      <div class="q-val">9.0</div>
-      <div class="q-bar" style="height:88%"></div>
-      <div class="q-label">T6</div>
-    </div>
-    <div class="q-bar-wrap">
-      <div class="q-val low">7.0</div>
-      <div class="q-bar low" style="height:60%"></div>
-      <div class="q-label">T7</div>
-    </div>
-    <div class="q-bar-wrap">
-      <div class="q-val low">5.5</div>
-      <div class="q-bar low" style="height:42%"></div>
-      <div class="q-label">T8</div>
-    </div>
-  </div>
-</div>
-
-<!-- PANEL 8: PERSONAJES -->
-<div class="panel wide">
-  <div class="panel-txt" style="padding:20px 24px;">
-    <div class="speaker" style="font-size:.9rem; margin-bottom:10px;">WESTEROS — PERSONAJES CLAVE</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <div style="background:#120e08; padding:10px 14px; border-left:3px solid var(--gold);">
-        <div style="font-family:'Bangers',cursive; color:var(--gold); letter-spacing:1px;">TYRION LANNISTER</div>
-        <div style="font-size:.8rem; color:#aaa;">Peter Dinklage · El más inteligente. El más sarcástico. El más humano. El mejor.</div>
-      </div>
-      <div style="background:#120e08; padding:10px 14px; border-left:3px solid #8b3a8b;">
-        <div style="font-family:'Bangers',cursive; color:#c080d0; letter-spacing:1px;">DAENERYS TARGARYEN</div>
-        <div style="font-size:.8rem; color:#aaa;">Emilia Clarke · De princesa perseguida a Madre de Dragones a... lo que fue al final.</div>
-      </div>
-      <div style="background:#120e08; padding:10px 14px; border-left:3px solid #888;">
-        <div style="font-family:'Bangers',cursive; color:#aaa; letter-spacing:1px;">JON SNOW</div>
-        <div style="font-size:.8rem; color:#aaa;">Kit Harington · No sabe nada. Y aun así es el elegido. La paradoja de Westeros.</div>
-      </div>
-      <div style="background:#120e08; padding:10px 14px; border-left:3px solid var(--crimson);">
-        <div style="font-family:'Bangers',cursive; color:var(--crimson); letter-spacing:1px;">CERSEI LANNISTER</div>
-        <div style="font-size:.8rem; color:#aaa;">Lena Headey · Ambiciosa, despiadada, aterradora. La reina del puño de hierro.</div>
-      </div>
-      <div style="background:#120e08; padding:10px 14px; border-left:3px solid #6090c0;">
-        <div style="font-family:'Bangers',cursive; color:#8ab0e0; letter-spacing:1px;">JAIME LANNISTER</div>
-        <div style="font-size:.8rem; color:#aaa;">Nikolaj Coster-Waldau · El arco de villano a héroe más largo de la serie. Hasta la T7.</div>
-      </div>
-      <div style="background:#120e08; padding:10px 14px; border-left:3px solid #c08050;">
-        <div style="font-family:'Bangers',cursive; color:#d0a070; letter-spacing:1px;">SANSA STARK</div>
-        <div style="font-size:.8rem; color:#aaa;">Sophie Turner · De ingenua a Reina del Norte. La evolución más silenciosa y sólida.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PANEL 9: VEREDICTO -->
-<div class="panel">
-  <div class="panel-txt">
-    <div class="speaker">RULO</div>
-    <div class="bubble">
-      Esta serie es como un Ferrari de dos puertas: hasta la sexta, todo es puro motor, turbo y adrenalina. El guion y los personajes te dejan la mandíbula abajo. Capítulos que son historia de la televisión.
-    </div>
-    <div class="speaker" style="margin-top:8px">TONI</div>
-    <div class="bubble right" style="border-color:#888; background:#100e14;">
-      ¿La recomendamos aunque el final decepcione?
-    </div>
-    <div class="speaker" style="margin-top:8px">RULO</div>
-    <div class="bubble top">
-      Sin dudarlo. Seis temporadas perfectas justifican todo. No ver Juego de Tronos es un error.
-    </div>
-  </div>
-  <div class="panel-img" style="border-left:3px solid #1e1a10; border-right:none;">IRON<br>THRONE<br>APPROVED</div>
-</div>
-
-<!-- PANEL 10: VEREDICTO FINAL -->
-<div class="veredicto">
-  <h2>⚔️ VEREDICTO FINAL</h2>
-  <div class="nota-final">8.5</div>
-  <div class="nota-texto">sobre 10 · HBO Max · 8 temporadas</div>
-  <p style="margin-top:16px; color:#c0a870; font-size:.9rem; max-width:500px; margin-left:auto; margin-right:auto; line-height:1.6;">
-    Visualmente la serie más grande de la historia. Seis temporadas de obra maestra absoluta. Tyrion Lannister como el personaje más potente de la televisión. El final decepciona, sí — pero lo que queda antes lo justifica todo.
-  </p>
-</div>
-
-</div><!-- /book -->
-
-<!-- FOOTER -->
-<footer style="background:#040408; border-top:2px solid #1a1610; padding:28px; text-align:center;">
-  <a href="../../index.html" style="font-family:'Bangers',cursive; font-size:1.4rem; color:var(--gold); text-decoration:none; letter-spacing:2px;">← ZASKA Y ACCIÓN</a>
-  <p style="color:#333; font-size:.7rem; letter-spacing:2px; text-transform:uppercase; margin-top:8px;">Storybook Nº013 · Juego de Tronos · 2026</p>
+<footer>
+  <p>Storybook Nº013 — <strong>Juego de Tronos</strong> · <a href="../../index.html">Zaska y Acción</a></p>
+  <p style="margin-top:.5rem">Rulo y Toni siempre vuelven con otra serie. La próxima te la contamos pronto.</p>
 </footer>
 
 </body>
