@@ -3,426 +3,799 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Better Call Saul — Zaska y Acción</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<title>Storybook Nº016 — Better Call Saul | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:    #06050b;
-  --gold:  #e8b84b;
-  --blue:  #3a7fc4;
-  --red:   #c84040;
-  --green: #1ea050;
-  --cream: #f0ece0;
-  --gap:   6px;
-}
-body { background:var(--bg); color:#f0f0f0; font-family:'Inter',sans-serif; overflow-x:hidden; }
+  :root {
+    --bg:    #0D0F1A;
+    --red:   #FF1A1A;
+    --blue:  #00C4FF;
+    --pink:  #FF2D9B;
+    --yellow:#FFD600;
+    --white: #F0F0F0;
+    --gold:  #C9963A;
+    --gold2: #f0c060;
+    --panel-border: #2a1a00;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
 
-/* HEADER */
-.hdr { background:#040309; border-bottom:3px solid var(--gold); padding:12px 28px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:200; }
-.hdr-logo { font-family:'Bangers',cursive; font-size:1.8rem; letter-spacing:2px; color:var(--gold); text-shadow:0 0 14px rgba(232,184,75,.6); text-decoration:none; }
-.hdr-logo span { color:var(--blue); }
-.hdr-bc { font-size:.68rem; color:#555; letter-spacing:1px; text-transform:uppercase; }
-.hdr-bc a { color:var(--gold); text-decoration:none; }
+  /* ── NAV ── */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #1c1f33;
+    background: rgba(13,15,26,.95);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--red); letter-spacing:2px; text-decoration:none; }
+  .nav-back { font-size:.85rem; color:var(--gold); text-decoration:none; border:1px solid var(--gold); padding:.3rem .9rem; border-radius:4px; }
+  .nav-back:hover { background:var(--gold); color:#000; }
 
-/* PORTADA */
-.cover { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:80px 24px; background:radial-gradient(ellipse at 50% 35%,#120e00 0%,#06050b 65%); position:relative; overflow:hidden; }
-.cover::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(232,184,75,.025) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(58,127,196,.02) 60px); pointer-events:none; }
-.c-badge { font-family:'Bangers',cursive; font-size:.8rem; letter-spacing:5px; color:var(--gold); border:2px solid var(--gold); padding:5px 22px; margin-bottom:36px; text-shadow:0 0 10px rgba(232,184,75,.7); box-shadow:0 0 24px rgba(232,184,75,.15); position:relative; z-index:1; }
-.c-eyebrow { font-family:'Bangers',cursive; font-size:.95rem; letter-spacing:8px; color:var(--blue); margin-bottom:18px; text-shadow:0 0 16px rgba(58,127,196,.5); position:relative; z-index:1; }
-.c-title { font-family:'Bangers',cursive; font-size:clamp(2.8rem,10vw,8rem); line-height:.87; letter-spacing:2px; color:#fff; text-shadow:5px 5px 0 var(--gold),10px 10px 0 rgba(232,184,75,.2),0 0 60px rgba(232,184,75,.3); margin-bottom:14px; position:relative; z-index:1; }
-.c-title em { font-style:normal; color:var(--gold); }
-.c-series { font-family:'Bangers',cursive; font-size:clamp(1.1rem,2.5vw,1.8rem); letter-spacing:4px; color:var(--blue); text-shadow:0 0 20px rgba(58,127,196,.5); margin-bottom:52px; position:relative; z-index:1; }
-.c-by { font-size:.72rem; letter-spacing:2px; color:#555; text-transform:uppercase; margin-bottom:72px; position:relative; z-index:1; }
-.c-by span { color:var(--gold); }
-.c-scroll { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:3px; color:var(--blue); text-transform:uppercase; animation:bob 1.6s ease-in-out infinite; position:relative; z-index:1; }
-@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+  /* ── COVER ── */
+  .cover {
+    position: relative;
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    background: linear-gradient(180deg, #1a0d00 0%, var(--bg) 100%);
+    border-bottom: 4px solid var(--gold);
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '⚖️';
+    position: absolute; top: 20px; right: 40px;
+    font-size: 5rem; opacity: .08;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: #0d0800;
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    padding: .4rem 1.2rem;
+    border-radius: 4px;
+    margin-bottom: 1.2rem;
+  }
+  .cover-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    line-height: .95;
+    letter-spacing: 3px;
+    color: var(--gold2);
+    text-shadow: 4px 4px 0 #5a3800, 8px 8px 0 rgba(0,0,0,.5);
+    margin-bottom: .5rem;
+  }
+  .cover-subtitle {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .cover-meta {
+    font-size: .85rem;
+    color: #888;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .cover-scroll {
+    margin-top: 2.5rem;
+    font-size: .8rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: bounce 1.5s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
-/* LIBRO */
-.book { max-width:960px; margin:0 auto; padding:8px 8px 120px; display:flex; flex-direction:column; gap:var(--gap); }
-.row { display:grid; gap:var(--gap); }
-.r1  { grid-template-columns:1fr; }
-.r2  { grid-template-columns:1fr 1fr; }
-.r46 { grid-template-columns:4fr 6fr; }
-.r64 { grid-template-columns:6fr 4fr; }
+  /* ── STRIP (comic flow) ── */
+  .strip {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
 
-/* PANEL */
-.panel { position:relative; background:#0a080f; border:3px solid #1a1520; overflow:visible; line-height:0; }
-.panel img { width:100%; height:auto; display:block; object-fit:contain; position:relative; z-index:1; }
-.panel.b-gold  { border-color:var(--gold);  box-shadow:0 0 20px rgba(232,184,75,.25); }
-.panel.b-blue  { border-color:var(--blue);  box-shadow:0 0 20px rgba(58,127,196,.25); }
-.panel.b-red   { border-color:var(--red);   box-shadow:0 0 20px rgba(200,64,64,.25); }
-.panel.b-green { border-color:var(--green); box-shadow:0 0 20px rgba(30,160,80,.2); }
-.panel.b-cream { border-color:#e8dcc8;      box-shadow:0 0 20px rgba(240,236,224,.1); }
+  /* ── PANEL ── */
+  .panel {
+    position: relative;
+    border: 3px solid var(--panel-border);
+    overflow: visible;
+    background: #111;
+    margin-bottom: 6px;
+  }
+  .panel img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
 
-.cap { position:absolute; bottom:0; left:0; right:0; z-index:5; background:rgba(4,3,9,.90); border-top:2px solid rgba(232,184,75,.1); padding:7px 14px; font-size:.62rem; letter-spacing:3px; text-transform:uppercase; color:#555; line-height:1.4; }
+  /* ── SPEECH BUBBLES ── */
+  .sb {
+    position: absolute;
+    z-index: 20;
+    background: #fff;
+    border: 3px solid #111;
+    border-radius: 18px;
+    padding: 10px 14px;
+    font-family: 'Comic Neue', cursive;
+    font-weight: 700;
+    color: #111;
+    font-size: clamp(.95rem, 2.2vw, 1.15rem);
+    line-height: 1.35;
+    max-width: 46%;
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8));
+  }
+  .sb .tag {
+    display: block;
+    font-size: .65rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: .7;
+  }
 
-/* BOCADILLOS */
-.sb { position:absolute; z-index:20; background:#fff; border:3px solid #111; border-radius:18px; padding:12px 16px; font-family:'Comic Neue','Comic Sans MS',cursive; font-weight:700; color:#111; font-size:clamp(.9rem,2vw,1.1rem); line-height:1.5; max-width:46%; filter:drop-shadow(2px 2px 5px rgba(0,0,0,.7)); }
-.sb .tag { display:block; font-family:'Bangers',cursive; font-size:.85rem; letter-spacing:3px; margin-bottom:5px; line-height:1; }
-.sb.rulo .tag { color:#9a6a00; }
-.sb.toni .tag { color:#1a5a9a; }
-.sb.kim  .tag { color:#0a6040; }
-.sb.narr { background:#fffde7; border-color:#b8970a; border-radius:4px; max-width:70%; font-style:italic; font-size:.92rem; }
-.sb.narr .tag { display:none; }
+  /* Rulo — dorado */
+  .sb.rulo { background: #fff8e6; border-color: var(--gold); }
+  .sb.rulo .tag { color: #8a5a00; }
 
-.sb.tl { top:10px; left:10px; }
-.sb.tr { top:10px; right:10px; }
-.sb.bl { bottom:36px; left:10px; }
-.sb.br { bottom:36px; right:10px; }
-.sb.tc { top:10px; left:50%; transform:translateX(-50%); max-width:65%; }
-.sb.bc { bottom:36px; left:50%; transform:translateX(-50%); max-width:65%; }
-.sb.ml { top:50%; left:10px; transform:translateY(-50%); }
-.sb.mr { top:50%; right:10px; transform:translateY(-50%); }
+  /* Toni — blanco */
+  .sb.toni { background: #fff; border-color: #333; }
+  .sb.toni .tag { color: #333; }
 
-.sb.tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
-.sb.tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; border-top-color:#fff; }
-.sb.tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
-.sb.tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; border-top-color:#fff; }
-.sb.tail-ul::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
-.sb.tail-ul::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; border-bottom-color:#fff; }
-.sb.tail-ur::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
-.sb.tail-ur::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; border-bottom-color:#fff; }
-.sb.tail-l::before { content:''; position:absolute; top:50%; left:-16px; transform:translateY(-50%); border:9px solid transparent; border-right-color:#111; }
-.sb.tail-l::after  { content:''; position:absolute; top:50%; left:-12px; transform:translateY(-50%); border:7px solid transparent; border-right-color:#fff; }
-.sb.tail-r::before { content:''; position:absolute; top:50%; right:-16px; transform:translateY(-50%); border:9px solid transparent; border-left-color:#111; }
-.sb.tail-r::after  { content:''; position:absolute; top:50%; right:-12px; transform:translateY(-50%); border:7px solid transparent; border-left-color:#fff; }
-.sb.narr::before,.sb.narr::after { display:none; }
+  /* Posiciones */
+  .tl { top: 5%; left: 3%; }
+  .tr { top: 5%; right: 3%; }
+  .cl { top: 38%; left: 3%; }
+  .cr { top: 38%; right: 3%; }
+  .bl { bottom: 8%; left: 3%; }
+  .br { bottom: 8%; right: 3%; }
 
-/* FX */
-.fx-row { display:flex; align-items:center; justify-content:center; padding:12px 0 4px; gap:12px; }
-.fx { font-family:'Bangers',cursive; font-size:clamp(1.8rem,4vw,3rem); letter-spacing:2px; display:inline-block; line-height:1; }
-.fx.gold  { color:var(--gold);  text-shadow:3px 3px 0 #6a3a00; transform:rotate(-2deg); }
-.fx.blue  { color:var(--blue);  text-shadow:3px 3px 0 #0a2a50; transform:rotate(1deg); }
-.fx.red   { color:var(--red);   text-shadow:3px 3px 0 #5a0000; transform:rotate(2deg); }
-.fx.green { color:var(--green); text-shadow:3px 3px 0 #003a18; transform:rotate(-1deg); }
+  /* Tail: abajo-derecha */
+  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-br::after { border-top-color:#fff8e6; }
+  .toni.tail-br::after { border-top-color:#fff; }
 
-/* CITA */
-.bigq { margin:8px 0; padding:36px 44px; border-left:6px solid var(--gold); background:linear-gradient(90deg,rgba(232,184,75,.07),transparent); position:relative; }
-.bigq::before { content:'"'; font-family:'Bangers',cursive; font-size:8rem; color:rgba(232,184,75,.1); position:absolute; top:-18px; left:16px; line-height:1; pointer-events:none; }
-.bigq p { font-family:'Bangers',cursive; font-size:clamp(1.4rem,2.8vw,2rem); line-height:1.25; color:#fff; position:relative; z-index:1; }
-.bigq cite { display:block; margin-top:10px; font-size:.68rem; letter-spacing:4px; color:var(--gold); text-transform:uppercase; font-style:normal; }
+  /* Tail: abajo-izquierda */
+  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
+  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-bl::after { border-top-color:#fff8e6; }
+  .toni.tail-bl::after { border-top-color:#fff; }
 
-/* CURVA CALIDAD */
-.quality-section { margin:8px 0; padding:32px 40px; background:#0a080f; border:3px solid #1a1520; border-left:6px solid var(--gold); }
-.quality-section h3 { font-family:'Bangers',cursive; font-size:1.2rem; letter-spacing:3px; color:var(--gold); margin-bottom:24px; text-align:center; }
-.q-bars { display:flex; align-items:flex-end; justify-content:center; gap:20px; height:140px; }
-.q-bar-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; }
-.q-val { font-family:'Bangers',cursive; font-size:.85rem; color:var(--gold); letter-spacing:1px; }
-.q-val.peak { color:var(--blue); }
-.q-bar { width:44px; background:var(--gold); border-radius:3px 3px 0 0; border-top:2px solid rgba(232,184,75,.5); }
-.q-bar.peak { background:var(--blue); border-top-color:rgba(58,127,196,.7); }
-.q-label { font-family:'Bangers',cursive; font-size:.78rem; color:#555; letter-spacing:1px; }
+  /* Tail: arriba-derecha */
+  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
+  .rulo.tail-tr::after { border-bottom-color:#fff8e6; }
+  .toni.tail-tr::after { border-bottom-color:#fff; }
 
-/* FINALE */
-.finale { margin-top:20px; padding:60px 40px; text-align:center; border:3px solid var(--gold); background:radial-gradient(ellipse at center,rgba(232,184,75,.12) 0%,transparent 70%); box-shadow:0 0 60px rgba(232,184,75,.1); }
-.fin-tag { font-family:'Bangers',cursive; font-size:.75rem; letter-spacing:6px; color:var(--gold); margin-bottom:24px; display:block; }
-.fin-v   { font-family:'Bangers',cursive; font-size:clamp(2.2rem,6vw,4.5rem); line-height:1; letter-spacing:2px; color:#fff; text-shadow:4px 4px 0 var(--gold),0 0 40px rgba(232,184,75,.3); margin-bottom:30px; }
-.fin-s   { font-family:'Bangers',cursive; font-size:6rem; color:var(--blue); line-height:1; text-shadow:4px 4px 0 #0a2a50,0 0 40px rgba(58,127,196,.5); display:block; margin-bottom:10px; }
-.fin-sub { font-size:.68rem; letter-spacing:5px; color:#555; text-transform:uppercase; line-height:2; }
-.back { display:inline-flex; align-items:center; gap:8px; margin-top:60px; font-family:'Bangers',cursive; font-size:1.1rem; letter-spacing:4px; color:var(--gold); text-decoration:none; text-transform:uppercase; border:2px solid var(--gold); padding:10px 32px; transition:all .2s; }
-.back:hover { background:var(--gold); color:#000; box-shadow:0 0 30px rgba(232,184,75,.4); }
+  /* Tail: arriba-izquierda */
+  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
+  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
+  .rulo.tail-tl::after { border-bottom-color:#fff8e6; }
+  .toni.tail-tl::after { border-bottom-color:#fff; }
 
-/* CRÍTICAS */
-.criticas-section { background:#040308; border-top:3px solid var(--gold); padding:60px 0 80px; }
-.criticas-inner { max-width:860px; margin:0 auto; padding:0 24px; }
-h2.criticas-titulo { font-family:'Bangers',cursive; font-size:3rem; letter-spacing:4px; color:var(--gold); margin-bottom:36px; text-align:center; text-shadow:0 0 20px rgba(232,184,75,.4); }
-.ficha-tecnica { background:#0a080f; border:2px solid #1a1520; padding:20px 24px; margin-bottom:36px; border-radius:4px; }
-.ficha-tecnica table { width:100%; border-collapse:collapse; }
-.ficha-tecnica td { padding:7px 10px; font-size:.9rem; border-bottom:1px solid #141220; vertical-align:top; }
-.ficha-tecnica td:first-child { color:#aaa; font-weight:700; width:130px; text-transform:uppercase; font-size:.78rem; letter-spacing:1px; }
-.ficha-tecnica td:last-child { color:#e8dcc8; }
-.nota-grande { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--gold); }
-.critica-bloque { margin-bottom:36px; background:#0a080f; border-left:4px solid var(--gold); padding:22px 24px; border-radius:0 4px 4px 0; }
-.critica-bloque h3 { font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:2px; color:var(--gold); margin-bottom:14px; }
-.critica-bloque p { font-size:.95rem; line-height:1.7; color:#d0dce8; margin-bottom:10px; }
-.critica-bloque p:last-child { margin-bottom:0; }
-.critica-usuarios { border-left-color:var(--blue); }
-.critica-usuarios h3 { color:var(--blue); }
-.critica-canalla { border-left-color:#f4a261; }
-.critica-canalla h3 { color:#f4a261; }
-.critica-canalla p { color:#ddd; }
-.pachi-bloque { border-left-color:#aaa; }
-.pachi-bloque h3 { color:#aaa; }
-.pachi-canalla-bloque { border-left-color:#ff6b6b; }
-.pachi-canalla-bloque h3 { color:#ff6b6b; }
-.pachi-canalla-bloque p { color:#ddd; }
+  /* Caption narrador */
+  .cap {
+    position: absolute;
+    z-index: 20;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.82);
+    color: var(--gold2);
+    font-family: 'Comic Neue', cursive;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(.8rem, 1.7vw, .95rem);
+    padding: 7px 14px;
+    text-align: center;
+    border-top: 2px solid var(--gold);
+  }
+  .cap-top {
+    position: absolute;
+    z-index: 20;
+    top: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.82);
+    color: var(--gold2);
+    font-family: 'Comic Neue', cursive;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(.8rem, 1.7vw, .95rem);
+    padding: 7px 14px;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+  }
 
-@media(max-width:640px){
-  .r2,.r46,.r64 { grid-template-columns:1fr; }
-  .sb { max-width:55%; font-size:.72rem; }
-}
+  /* ── FX PANELS ── */
+  .fx {
+    background: var(--bg);
+    border: 3px solid var(--gold);
+    text-align: center;
+    padding: 2rem 1rem;
+    margin: 2px 0;
+  }
+  .fx-text {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    letter-spacing: 3px;
+    color: var(--gold2);
+    text-shadow: 4px 4px 0 #5a3800, 8px 8px 0 rgba(0,0,0,.5);
+    line-height: 1;
+    display: block;
+  }
+  .fx-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: .75rem;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: .4rem;
+  }
+
+  /* ── QUOTE BOX ── */
+  .quote-box {
+    border-left: 6px solid var(--gold);
+    background: rgba(201,150,58,.08);
+    padding: 1.8rem 2rem;
+    margin: 4px 0;
+    text-align: center;
+  }
+  .quote-text {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--gold2);
+    letter-spacing: 2px;
+    line-height: 1.2;
+  }
+  .quote-attr {
+    font-size: .8rem;
+    color: #777;
+    margin-top: .6rem;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+
+  /* ── SCENE LABEL ── */
+  .scene-label {
+    background: var(--gold);
+    color: #0d0800;
+    font-family: 'Bangers', cursive;
+    font-size: .9rem;
+    letter-spacing: 3px;
+    padding: .4rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, #1a0d00, #0d0f1a);
+    border: 4px solid var(--gold);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-top: 6px;
+  }
+  .verdict-label {
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .verdict-score {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(5rem, 18vw, 9rem);
+    color: var(--gold2);
+    line-height: .9;
+    text-shadow: 5px 5px 0 #5a3800;
+    letter-spacing: -2px;
+  }
+  .verdict-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-top: .8rem;
+  }
+  .verdict-body {
+    max-width: 520px;
+    margin: 1.2rem auto 0;
+    font-size: .9rem;
+    color: #aaa;
+    line-height: 1.6;
+  }
+  .verdict-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .verdict-tags span {
+    background: rgba(201,150,58,.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: .3rem .9rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* ── CURVA TEMPORADAS ── */
+  .curva-section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 1rem 1rem;
+  }
+  .curva-section h3 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    letter-spacing: 2px;
+    color: var(--gold2);
+    margin: 2rem 0 1rem;
+    text-align: center;
+  }
+  .curva-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+  }
+  .curva-table th, .curva-table td {
+    padding: .6rem .8rem;
+    border-bottom: 1px solid #222;
+    text-align: left;
+  }
+  .curva-table th {
+    color: var(--gold);
+    text-transform: uppercase;
+    font-size: .72rem;
+    letter-spacing: 1px;
+  }
+  .curva-table td:last-child {
+    font-family: 'Bangers', cursive;
+    color: var(--gold2);
+    font-size: 1.2rem;
+    text-align: center;
+    width: 70px;
+  }
+  .curva-table td:first-child {
+    font-weight: 700;
+    color: #fff;
+    width: 50px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 2px solid #1c1f33;
+    color: #444;
+    font-size: .8rem;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .sb { max-width: 50%; font-size: .82rem; padding: 7px 10px; }
+    .sb .tag { font-size: .58rem; }
+    .cover-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+  }
 </style>
 </head>
 <body>
 
-<header class="hdr">
-  <a href="../../index.html" class="hdr-logo">ZASKA <span>&</span> ACCIÓN</a>
-  <span class="hdr-bc"><a href="../../index.html">Inicio</a> / Series / Better Call Saul</span>
-</header>
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="../../index.html">ZASKA Y ACCIÓN</a>
+  <a class="nav-back" href="../../index.html">← Volver</a>
+</nav>
 
-<!-- PORTADA -->
-<section class="cover">
-  <div class="c-badge">STORYBOOK Nº016</div>
-  <div class="c-eyebrow">ZASKA Y ACCIÓN PRESENTA</div>
-  <h1 class="c-title"><em>BETTER</em><br>CALL<br>SAUL</h1>
-  <div class="c-series">THRILLER · DRAMA LEGAL · AMC (2015–2022)</div>
-  <div class="c-by">Una crítica de <span>Rulo y Toni</span> — con la opinión de Pachi</div>
-  <div class="c-scroll">↓ It's all good, man ↓</div>
-</section>
-
-<!-- LIBRO -->
-<div class="book">
-
-<!-- PANEL 1: El pitch -->
-<div class="row r1">
-  <div class="panel b-gold">
-    <img src="image1.png" alt="Rulo y Toni en el sofá">
-    <div class="sb toni tl tail-br">
-      <span class="tag">TONI</span>
-      "¿La precuela de Breaking Bad? ¿El abogado de los trajes de colorines? ¿Eso merece una serie entera?"
-    </div>
-    <div class="sb rulo tr tail-bl">
-      <span class="tag">RULO</span>
-      "Jimmy McGill. Un abogado de pacotilla sobreviviendo en Albuquerque. De lo que parece una comedia... sale la historia más trágica del universo Breaking Bad."
-    </div>
-    <div class="cap">Albuquerque, Nuevo México. El sofá de siempre. La pregunta del millón.</div>
-  </div>
-</div>
-
-<!-- PANELES 2+3: El slow burn -->
-<div class="row r2">
-  <div class="panel b-blue">
-    <img src="image2.png" alt="Rulo pensativo">
-    <div class="sb rulo tc tail-bl" style="max-width:72%">
-      <span class="tag">RULO</span>
-      "Empieza muy despacio. Jimmy chapuceando casos de mierda, viviendo en el almacén de una sala de manicuras. No hay explosiones. No hay cartel. Solo un tipo que quiere ser alguien y no puede."
-    </div>
-    <div class="cap">El slow burn más calculado de la historia reciente de la tele.</div>
-  </div>
-  <div class="panel b-gold">
-    <img src="image3.png" alt="Ambos tranquilos en el sofá">
-    <div class="sb toni tc tail-br" style="max-width:68%">
-      <span class="tag">TONI</span>
-      "¿Cuándo empieza a ponerse buena de verdad?"
-    </div>
-    <div class="sb rulo bc tail-ul" style="max-width:72%">
-      <span class="tag">RULO</span>
-      "Cuando te das cuenta de que no estás viendo un spin-off. Estás viendo una tragedia griega con traje amarillo."
-    </div>
-  </div>
-</div>
-
-<!-- FX 1 -->
-<div class="fx-row">
-  <span class="fx gold">¡BETTER CALL SAUL!!</span>
-  <span class="fx blue">¡S'ALL GOOD MAN!!</span>
-</div>
-
-<!-- PANEL 4: Kim Wexler -->
-<div class="row r1">
-  <div class="panel b-blue">
-    <img src="image5.png" alt="Toni reflexivo, enganchado">
-    <div class="sb rulo tr tail-bl" style="max-width:48%">
-      <span class="tag">RULO</span>
-      "Los protagonistas se salen. Pero hay una que se come la serie con cuchillo y tenedor y pide postre."
-    </div>
-    <div class="sb toni tl tail-br" style="max-width:38%">
-      <span class="tag">TONI</span>
-      "Kim Wexler."
-    </div>
-    <div class="sb kim bc tail-ul" style="max-width:65%">
-      <span class="tag">KIM</span>
-      "Kim no era el plan original. Apareció en la T1. Y se quedó con todo."
-    </div>
-    <div class="cap">Rhea Seehorn. El gran descubrimiento de la televisión de la última década.</div>
-  </div>
-</div>
-
-<!-- PANELES 5+6: Los secundarios -->
-<div class="row r46">
-  <div class="panel b-green">
-    <img src="image9.png" alt="Rulo explicando">
-    <div class="sb rulo tc tail-bl" style="max-width:80%">
-      <span class="tag">RULO</span>
-      "Mike: pocas palabras, máxima eficacia. Gus Fring construye su red con la frialdad de un ajedrecista. Y luego está Lalo Salamanca..."
-    </div>
-    <div class="cap">Los secundarios a veces superan a los protagonistas. Pocas series pueden decir eso.</div>
-  </div>
-  <div class="panel b-red">
-    <img src="image7.png" alt="Toni enganchado a la tele">
-    <div class="sb toni tl tail-br" style="max-width:70%">
-      <span class="tag">TONI</span>
-      "¿Qué pasa con Lalo?"
-    </div>
-    <div class="sb rulo br tail-ul" style="max-width:72%">
-      <span class="tag">RULO</span>
-      "El mejor villano que ha parido este universo. Gus da miedo porque es frío. Lalo da miedo porque disfruta. Eso es infinitamente peor."
-    </div>
-  </div>
-</div>
-
-<!-- FX 2 -->
-<div class="fx-row">
-  <span class="fx red">¡LALO!!</span>
-  <span class="fx gold">¡SALAMANCA!!</span>
-</div>
-
-<!-- PANEL 7: La pregunta -->
-<div class="row r1">
-  <div class="panel b-cream">
-    <img src="image6.png" alt="Ambos serios mirando">
-    <div class="sb rulo tr tail-bl" style="max-width:50%">
-      <span class="tag">RULO</span>
-      "El guion es casi inmejorable. Cada plano tiene un propósito. Episodios en blanco y negro, en 4:3... esto no es tele normal. Es cine de autor con presupuesto de cable."
-    </div>
-    <div class="sb toni tl tail-br" style="max-width:42%">
-      <span class="tag">TONI</span>
-      "Entonces... ¿supera a Breaking Bad o no?"
-    </div>
-    <div class="cap">La pregunta que todo el mundo hace. Y que nadie quiere responder.</div>
-  </div>
-</div>
-
-<!-- PANELES 8+9: Temporada 6 -->
-<div class="row r2">
-  <div class="panel b-gold">
-    <img src="image4.png" alt="Rulo emocionado">
-    <div class="sb rulo tc tail-bl" style="max-width:75%">
-      <span class="tag">RULO</span>
-      "Para mí, no. Breaking Bad es Breaking Bad. Pero que se le acerque tanto ya dice todo. Y la temporada 6..."
-    </div>
-    <div class="cap">Pausa dramática. Necesaria.</div>
-  </div>
-  <div class="panel b-blue">
-    <img src="image8.png" alt="Toni reaccionando fuerte">
-    <div class="sb toni tc tail-bl" style="max-width:70%">
-      <span class="tag">TONI</span>
-      "¿QUÉ PASA CON LA TEMPORADA 6?"
-    </div>
-    <div class="sb rulo br tail-ul" style="max-width:68%">
-      <span class="tag">RULO</span>
-      "Es perfecta. El mejor final que se ha hecho en este universo. Mejor que el de Breaking Bad."
-    </div>
-  </div>
-</div>
-
-<!-- FX 3 -->
-<div class="fx-row">
-  <span class="fx blue">¡KIM!!</span>
-</div>
-
-<!-- CITA PACHI -->
-<div class="bigq">
-  <p>"Mira, cuando Breaking Bad termina así, te quedas pensando que eso no lo iguala nadie. Y tienen la cara dura de sacar una precuela. Lo normal sería una cagada monumental. Pues no, joder. Kim Wexler se come la serie con cuchillo y tenedor y pide postre."</p>
-  <cite>— Pachi, versión sin filtros</cite>
-</div>
-
-<!-- CURVA DE CALIDAD -->
-<div class="quality-section">
-  <h3>📈 Curva de calidad · 6 temporadas · siempre hacia arriba</h3>
-  <div class="q-bars">
-    <div class="q-bar-wrap"><div class="q-val">7,5</div><div class="q-bar" style="height:55%"></div><div class="q-label">T1</div></div>
-    <div class="q-bar-wrap"><div class="q-val">8,0</div><div class="q-bar" style="height:65%"></div><div class="q-label">T2</div></div>
-    <div class="q-bar-wrap"><div class="q-val">8,5</div><div class="q-bar" style="height:76%"></div><div class="q-label">T3</div></div>
-    <div class="q-bar-wrap"><div class="q-val">9,0</div><div class="q-bar" style="height:86%"></div><div class="q-label">T4</div></div>
-    <div class="q-bar-wrap"><div class="q-val">9,5</div><div class="q-bar" style="height:93%"></div><div class="q-label">T5</div></div>
-    <div class="q-bar-wrap"><div class="q-val peak">10</div><div class="q-bar peak" style="height:100%"></div><div class="q-label">T6</div></div>
-  </div>
-</div>
-
-<!-- PANELES 10+11: Debate final + Veredicto -->
-<div class="row r2">
-  <div class="panel b-gold">
-    <img src="image10.png" alt="Ambos cara a cara">
-    <div class="sb toni tl tail-br" style="max-width:72%">
-      <span class="tag">TONI</span>
-      "Yo que venía pensando que iba a ser el abogado gracioso haciendo el imbécil... ¿cómo lo has hecho?"
-    </div>
-    <div class="sb rulo br tail-ul" style="max-width:68%">
-      <span class="tag">RULO</span>
-      "Bienvenido al club. Todos empezamos igual. Nadie sale igual."
-    </div>
-    <div class="cap">El abogado gracioso resultó ser el personaje más trágico del universo.</div>
-  </div>
-  <div class="panel b-blue">
-    <img src="image11.png" alt="Ambos brindando">
-    <div class="sb toni tl tail-br" style="max-width:52%">
-      <span class="tag">TONI</span>
-      "Nota. Ahora mismo."
-    </div>
-    <div class="sb rulo tr tail-bl" style="max-width:52%">
-      <span class="tag">RULO</span>
-      "Nueve. La precuela perfecta. No supera a Breaking Bad. Pero la iguala en lo que importa."
-    </div>
-    <div class="cap">S'all good, man.</div>
-  </div>
-</div>
-
-<!-- FINALE -->
-<div class="finale">
-  <span class="fin-tag">★ veredicto final · zaska y acción ★</span>
-  <div class="fin-v">BETTER CALL SAUL</div>
-  <span class="fin-s">9,0</span>
-  <div class="fin-sub">
-    Netflix / AMC · 6 temporadas · 63 episodios · 2015–2022<br>
-    Creadores: Vince Gilligan y Peter Gould<br>
-    Bob Odenkirk · Rhea Seehorn · Jonathan Banks · Michael McKean · Giancarlo Esposito · Tony Dalton<br><br>
-    La precuela que nadie esperaba. El final que nadie olvidará.
-  </div>
-  <a href="../../index.html" class="back">← Volver al blog</a>
-</div>
-
-</div><!-- /book -->
-
-<!-- SECCIÓN CRÍTICAS -->
+<!-- CRÍTICAS -->
+<style id="criticas-css">
+.criticas-section {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  padding: 60px 20px 80px;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+.criticas-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.criticas-section h2.criticas-titulo {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0 0 40px;
+  border-bottom: 3px solid #e63946;
+  padding-bottom: 16px;
+}
+.ficha-tecnica {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+}
+.ficha-tecnica table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ficha-tecnica td {
+  padding: 6px 0;
+  vertical-align: top;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.ficha-tecnica td:first-child {
+  color: #888;
+  width: 130px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-right: 16px;
+}
+.ficha-tecnica .nota-grande {
+  font-family: 'Bangers', cursive;
+  font-size: 2.2rem;
+  color: #e63946;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.critica-bloque {
+  margin-bottom: 44px;
+}
+.critica-bloque h3 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #e63946;
+  margin: 0 0 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+.critica-bloque p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0 0 1em;
+}
+.critica-bloque p:last-child { margin-bottom: 0; }
+.critica-canalla {
+  background: #111;
+  border-left: 4px solid #f4a261;
+  padding: 24px 28px;
+  border-radius: 0 8px 8px 0;
+}
+.critica-canalla h3 { color: #f4a261; }
+.critica-canalla p { color: #ddd; }
+.pachi-bloque {
+  background: #0d1117;
+  border: 1px solid #1a2540;
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+.pachi-bloque h3 { color: #4fc3f7; }
+.pachi-canalla-bloque {
+  background: #110d0d;
+  border: 1px solid #2a1515;
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+.pachi-canalla-bloque h3 { color: #ff6b6b; }
+</style>
 <section class="criticas-section">
 <div class="criticas-inner">
 <h2 class="criticas-titulo">Better Call Saul</h2>
-
 <div class="ficha-tecnica"><table>
 <tr><td>Tipo</td><td>Serie</td></tr>
 <tr><td>Año</td><td>2015–2022</td></tr>
-<tr><td>Creadores</td><td>Vince Gilligan y Peter Gould</td></tr>
-<tr><td>Reparto</td><td>Bob Odenkirk, Rhea Seehorn, Jonathan Banks, Michael McKean, Giancarlo Esposito, Tony Dalton, Patrick Fabian, Michael Mando</td></tr>
+<tr><td>Creadores</td><td>Vince Gilligan, Peter Gould</td></tr>
+<tr><td>Reparto</td><td>Bob Odenkirk, Rhea Seehorn, Jonathan Banks, Giancarlo Esposito, Tony Dalton, Michael McKean, Patrick Fabian</td></tr>
 <tr><td>Plataforma</td><td>Netflix / AMC</td></tr>
-<tr><td>Duración</td><td>6 temporadas · 63 episodios</td></tr>
-<tr><td>Puntuaciones</td><td>IMDb 9.0 · Rotten Tomatoes 98% · FilmAffinity 8.2</td></tr>
-<tr><td>Nota Zaska</td><td><span class="nota-grande">9,0</span> / 10</td></tr>
+<tr><td>Duración</td><td>63 episodios · 6 temporadas (2015–2022)</td></tr>
+<tr><td>Nota</td><td><span class="nota-grande">9,0</span> / 10</td></tr>
 </table></div>
-
 <div class="critica-bloque">
-<h3>🎭 Lo que dicen los críticos</h3>
-<p>Better Call Saul llegó con la mochila más pesada que una serie puede cargar: ser la precuela de Breaking Bad, considerada por muchos la mejor serie de la historia. Y no solo no se hundió bajo ese peso, sino que lo convirtió en combustible. Con un Tomatometer del 98% en Rotten Tomatoes y un IMDb de 9.0 sobre más de 600.000 votos, la prensa especializada la sitúa como una de las grandes obras de la televisión del siglo XXI, y un número creciente de críticos no tiene reparos en afirmar que supera a su predecesora. El consenso es unánime en dos cosas: la dirección y la cinematografía son de un nivel que raramente se ha visto en televisión, con planos pensados como cuadros y un uso del color con una precisión que habla de personajes sin necesidad de diálogo; y Bob Odenkirk entrega el papel de su vida. El crítico de Espinof lo resumió al valorar el final: "El broche de oro para una serie que no ha dejado de crecer temporada a temporada hasta el punto de acabar superando a Breaking Bad, algo que en su momento parecía simplemente imposible." La temporada 1 fue recibida con cautela. La temporada 6, con reverencia.</p>
+<h3>Sinopsis</h3>
+<p>La precuela de Breaking Bad. Jimmy McGill, un abogado de pacotilla que vive en la trastienda de una manicura coreana, lucha por salir adelante a la sombra de su hermano, el mejor jurista de Nuevo México. Cada atajo, cada trampa y cada decisión le acerca un poco más a convertirse en Saul Goodman. Una tragedia griega con traje amarillo.</p>
 </div>
-
-<div class="critica-bloque critica-usuarios">
-<h3>👥 Lo que dice la gente</h3>
-<p>El público se parte en dos bandos con una claridad casi quirúrgica. Los que la defienden hablan con la pasión de quien ha encontrado algo que no esperaban: "Es tan buena como su predecesora, incluso posiblemente esté sobre ella", "llegas a identificarte con Jimmy, el personaje más humano de la televisión", "una redención únicamente moral, el justo final que merece Saul Goodman". Hay gente en SensaCine que la pone por encima de Los Soprano y The Wire. Pero el otro bando no tiene piedad: "Soporífera, cansina, muermo, aburrida, muy aburrida... Saúl tiene el mismo interés que el manual de instrucciones de una lavadora." La queja más repetida es el ritmo: las primeras temporadas son deliberadamente lentas, casi de un minimalismo provocador, y quien llega buscando la adrenalina de Heisenberg se pega el chasco de su vida. Lo que casi nadie discute: Lalo Salamanca es el mejor villano que ha parido este universo. La queja más curiosa del fandom español: el cambio de voz del doblaje de Jimmy. Todavía hay gente que no lo ha superado.</p>
-</div>
-
 <div class="critica-bloque">
-<h3>🎬 Crítica seria</h3>
-<p>Vince Gilligan y Peter Gould construyeron algo que debería ser imposible: una precuela que no vive a la sombra de su predecesora sino que la ilumina desde abajo. Better Call Saul no es la historia de cómo Saul Goodman se convirtió en el abogado más corrupto de Albuquerque — es la tragedia de por qué Jimmy McGill nunca pudo ser otra cosa. La diferencia es enorme y lo cambia todo. El ritmo es deliberado, casi bressoniano en sus primeras temporadas, y esa apuesta radical por la construcción lenta de personajes es precisamente lo que convierte la serie en algo de otro nivel cuando todo explota en las últimas. Bob Odenkirk hace el viaje de su vida, pero es Rhea Seehorn la que se lleva la serie: Kim Wexler es un personaje que no existía en Breaking Bad y sin el cual Better Call Saul no tendría alma. La cinematografía — los planos fijos, el blanco y negro del timeline de Gene, el uso del color como lenguaje emocional — es televisión pensada como cine de autor. El final es perfecto. No el más espectacular. El más honesto.</p>
+<h3>📰 Qué dice la prensa</h3>
+<p>Una precuela que ilumina su predecesora desde abajo. IMDb: 9,0 · Rotten Tomatoes: 98% · Metacritic: 99/100 en la última temporada. Rhea Seehorn estuvo nominada al Emmy cuatro años seguidos. La temporada 6 está considerada por muchos críticos a la altura del final de Breaking Bad.</p>
 </div>
-
+<div class="critica-bloque">
+<h3>🎭 Crítica seria</h3>
+<p>Vince Gilligan y Peter Gould construyeron algo que debería ser imposible: una precuela que no vive a la sombra de su predecesora sino que la ilumina desde abajo. Better Call Saul no es la historia de cómo Saul Goodman se convirtió en el abogado más corrupto de Albuquerque — es la tragedia de por qué Jimmy McGill nunca pudo ser otra cosa.</p>
+<p>El ritmo es deliberado, casi bressoniano en sus primeras temporadas, y esa apuesta radical por la construcción lenta de personajes es precisamente lo que convierte la serie en algo de otro nivel cuando todo explota en las últimas. Bob Odenkirk hace el viaje de su vida, pero es Rhea Seehorn la que se lleva la serie. Kim Wexler es un personaje que no existía en Breaking Bad y sin el cual Better Call Saul no tendría alma.</p>
+<p>La cinematografía — los planos fijos, el blanco y negro del timeline de Gene, el uso del color como lenguaje emocional — es televisión pensada como cine de autor. El final es perfecto. No el más espectacular. El más honesto.</p>
+<p>IMDb: 9,0 · Rotten Tomatoes: 98% · Metacritic: 99/100 en la última temporada.</p>
+</div>
 <div class="critica-bloque critica-canalla">
 <h3>🤘 La canalla (estilo 80/90)</h3>
-<p>Tío, esto es lo que pasa cuando le dices a los de Breaking Bad "venga, hacednos la precuela" y en vez de hacer el típico churro de spin-off que se hunde en dos temporadas como el Titanic, los cabrones se ponen y te sacan algo que acaba siendo MEJOR que la serie original. El 98% en Rotten Tomatoes no es una nota, es un puñetazo en la mesa. La prensa sale en bloque: cinematografía de cine en mayúsculas, guion de relojería suiza, y un Bob Odenkirk que llegó siendo el cómico graciosillo de Breaking Bad y salió siendo uno de los mejores actores de la tele de todos los tiempos. Y encima la temporada 6 les salió tan bien que los de Espinof la llaman directamente "perfecta" — sí, lo que has leído. Esto es como cuando alquilabas una peli de serie B en el videoclub esperando palomitas y te encontrabas con El Padrino. Que sí, que es lenta, que tiene sus tramos de "¿cuándo empieza la acción?", pero esa lentitud ES el punto. Cada minuto de Jimmy arrastrándose es una piedra más en el camino. Y cuando llega el final... hostia.</p>
+<p>Escucha. Esto es lo que ocurre cuando le dices a alguien que acaba de hacer la mejor serie de la historia que haga la precuela del personaje secundario más gracioso. Lo normal, lo que pasó con prácticamente todos los spin-offs desde que existen, es que salga una cagada monumental. Como las secuelas de los ochenta sin el director original que alquilabas en el videoclub porque la portada del VHS molaba y luego te quedabas mirando la pantalla pensando que te habían robado la tarde del sábado.</p>
+<p>Better Call Saul no hizo eso. Llegó con la mochila más pesada que una serie puede cargar y en lugar de hundirse lo convirtió en combustible. Como Rocky II. Como El Imperio Contraataca. Las pocas secuelas que no solo no destruyen el original sino que lo expanden y lo hacen más grande en retrospectiva.</p>
+<p>Jimmy McGill. Bob Odenkirk. El mismo que en Breaking Bad era el alivio cómico, el tipo de los chistes. Aquí es el protagonista de una tragedia. De abogado de pacotilla que vive en la trastienda de una manicura coreana hasta Saul Goodman — con una precisión que te parte el alma porque entiendes cada paso. No lo justificas. Lo entiendes. Que es peor.</p>
+<p>Kim Wexler. Rhea Seehorn. No existía en Breaking Bad. La inventaron para esta historia y salió siendo el personaje más importante de la serie. Cuando en la temporada 4 pasa lo que pasa hay gente que tuvo que parar el episodio, levantarse del sofá, dar una vuelta por el piso y volver.</p>
+<p>Lalo Salamanca. Tony Dalton. El mejor villano de este universo, y eso incluye a Gus Fring. Gus da miedo porque es calculado. Lalo da miedo porque disfruta. Porque sonríe. Como el Joker de Nicholson que baila con Prince mientras destroza el museo — ese terror que viene de alguien que lo está pasando pipa haciendo el mal.</p>
+<p>La temporada 6 es perfecta. No espectacular — perfecta. Hay una diferencia. Y el final de Gene Takavic en blanco y negro en Omaha es el final más honesto que ha tenido un personaje en la televisión americana desde Los Soprano. <strong>La precuela que nadie esperaba. El final que nadie olvidará.</strong></p>
 </div>
-
-<div class="critica-bloque pachi-bloque">
-<h3>🎖️ Opinión de Pachi</h3>
-<p>El listón no podía estar más alto después de Breaking Bad. Y aun así, Better Call Saul lo iguala. Los protagonistas se salen, pero lo que de verdad sorprende es que los secundarios a veces los superan — y eso en pocas series ocurre de verdad. El guion es casi inmejorable, cada temporada mejor que la anterior, y Kim Wexler se come la serie entera. ¿Supera a Breaking Bad? Para mí no. Pero que se le acerque tanto ya dice mucho.</p>
+<div class="pachi-bloque">
+<h3>🎙️ Opinión Pachi — Seria</h3>
+<p>El listón no podía estar más alto después de Breaking Bad. Y aun así, Better Call Saul lo iguala. Los protagonistas se salen, pero lo que de verdad sorprende es que los secundarios a veces los superan — y eso en pocas series ocurre de verdad. El guion es casi inmejorable, cada temporada mejor que la anterior, y Kim Wexler se come la serie entera. ¿Supera a Breaking Bad? Para mí no. Pero que se le acerque tanto ya dice mucho. <strong>9,0 / 10.</strong></p>
 </div>
-
-<div class="critica-bloque pachi-canalla-bloque">
-<h3>💥 Pachi (versión sin filtros)</h3>
+<div class="pachi-canalla-bloque">
+<h3>💥 Opinión Pachi — Macarra</h3>
 <p>Mira, cuando Breaking Bad termina así, te quedas pensando que eso no lo iguala nadie. Y tienen la cara dura de sacar una precuela. Lo más normal sería una cagada monumental. Pues no, joder. Todo el mundo actúa de puta madre, los secundarios dejan en el banquillo a los protagonistas en más de una escena, el guion no da una puntada sin hilo y encima cada temporada está mejor que la anterior. ¿Lo mejor de todo? Kim Wexler. Se come la serie con cuchillo y tenedor y pide postre. ¿Supera a Breaking Bad? No. Pero que se le acerque tanto ya es de locos.</p>
 </div>
-
+<div class="critica-bloque" style="margin-top:44px">
+<h3>👥 Qué dice la gente</h3>
+<p>Consenso casi unánime: la mejor precuela jamás hecha. IMDb: 9,0/10. La gente destaca el arranque lento que recompensa con creces, el ascenso de Rhea Seehorn como Kim Wexler y un final que cierra el universo Breaking Bad con honestidad emocional. Lalo Salamanca, el villano sorpresa más querido.</p>
 </div>
+</div></section>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="cover-badge">📺 STORYBOOK Nº016 — SERIE</div>
+  <h1 class="cover-title">EL ABOGADO<br>DEL DIABLO</h1>
+  <p class="cover-subtitle">Better Call Saul visto por Rulo y Toni</p>
+  <p class="cover-meta">NETFLIX / AMC · 2015–2022 · 63 episodios · 6 temporadas</p>
+  <p class="cover-scroll">↓ desplázate ↓</p>
+</header>
+
+<!-- COMIC STRIP -->
+<main class="strip">
+
+  <!-- PANEL 1 -->
+  <div class="scene-label">Escena 1 — Mejor llama a Saul</div>
+  <div class="panel">
+    <img src="image1.png" alt="Parking de strip mall en Albuquerque, Rulo y Toni mirando el letrero de una manicura coreana, un Suzuki destartalado al fondo">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Rulo. ¿Esto es la precuela de Breaking Bad? ¿El abogado de los trajes de colores tiene su propia serie?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Better Call Saul. Seis temporadas. Y vas a acabar queriendo a Jimmy McGill más de lo que jamás quisiste a Walter White. — Imposible. — Ya."
+    </div>
+    <div class="cap">Albuquerque. El parking de un strip mall.</div>
+  </div>
+
+  <!-- PANEL 2 -->
+  <div class="scene-label">Escena 2 — Jimmy McGill</div>
+  <div class="panel">
+    <img src="image2.png" alt="Juzgados de Albuquerque, Jimmy McGill con maletín de pacotilla ante un juez, Rulo y Toni entre el público">
+    <div class="sb toni tl tail-br" style="max-width:50%;">
+      <span class="tag">TONI</span>
+      "¿Este es el protagonista? ¿El del traje de los domingos que no llega a lunes?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Jimmy McGill. Hermano del mejor jurista de Nuevo México. Que no le quiere, porque Jimmy siempre busca el atajo. ¿Tiene razón? Esa es la pregunta de toda la serie."
+    </div>
+  </div>
+
+  <!-- PANEL 3 -->
+  <div class="scene-label">Escena 3 — La trastienda</div>
+  <div class="panel">
+    <img src="image3.png" alt="Despacho cutre de Jimmy dentro de una manicura coreana, cuatro metros cuadrados, Rulo y Toni asomando por la puerta">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Vive en la trastienda de una manicura."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Y va a salir de ahí. Cada decisión que toma para salir le aleja un poco más de quien podría haber sido. — Como Walter White. — Mejor escrito que Walter White."
+    </div>
+  </div>
+
+  <!-- FX 1 -->
+  <div class="fx">
+    <span class="fx-text">MEJOR LLAMA A SAUL</span>
+    <p class="fx-sub">505-503-4455</p>
+  </div>
+
+  <!-- PANEL 4 -->
+  <div class="scene-label">Escena 4 — Mike Ehrmantraut</div>
+  <div class="panel">
+    <img src="image4.png" alt="Cabina de peaje en un aparcamiento, Mike Ehrmantraut solo mirando el horizonte, Rulo y Toni a su lado">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Mike. El mismo de Breaking Bad."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Aquí te cuentan de dónde viene. Jonathan Banks tiene un monólogo en la temporada 2 que te deja sin respiración cinco minutos. Sin música. Solo él hablando. — Madre mía."
+    </div>
+  </div>
+
+  <!-- PANEL 5 -->
+  <div class="scene-label">Escena 5 — Gus y el imperio</div>
+  <div class="panel">
+    <img src="image5.png" alt="Restaurante elegante, Gus Fring en su mesa perfecto, Rulo y Toni en una mesa de fondo mirándole con recelo">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Gus Fring. También el mismo. ¿Y Lalo? ¿Quién es Lalo Salamanca?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Aquí Gus es más peligroso: construye el imperio antes de que exista, con la paciencia de quien puede esperar años. Y Lalo... el mejor villano de este universo. Y eso incluye a Gus."
+    </div>
+  </div>
+
+  <!-- PANEL 6 -->
+  <div class="scene-label">Escena 6 — Kim Wexler</div>
+  <div class="panel">
+    <img src="image6.png" alt="Despacho impecable de Kim Wexler, Kim de pie con un expediente, Rulo señalándola a Toni">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Rhea Seehorn. Kim Wexler. ¿Por qué todo el mundo habla de ella?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Es el personaje más inesperado. No estaba en Breaking Bad. La inventaron para esta historia y se quedó con todo. Cuando llegues a la temporada 4 vas a entender por qué todo el mundo la llora."
+    </div>
+  </div>
+
+  <!-- PANEL 7 -->
+  <div class="scene-label">Escena 7 — Lalo Salamanca</div>
+  <div class="panel">
+    <img src="image7.png" alt="Piscina de hotel de lujo de noche, Lalo Salamanca sonriendo en el agua, Rulo y Toni tensos en las tumbonas">
+    <div class="sb toni tl tail-br" style="max-width:46%;">
+      <span class="tag">TONI</span>
+      "Lalo me da más miedo que Gus."
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Gus da miedo porque es frío, sabes lo que va a hacer. Lalo disfruta. Eso es infinitamente peor. No puedes predecir a alguien que disfruta. Tony Dalton. El gran descubrimiento."
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-box">
+    <p class="quote-text">"No es una precuela.<br>Es una tragedia griega<br>con traje amarillo."</p>
+    <p class="quote-attr">— Rulo · sobre Better Call Saul</p>
+  </div>
+
+  <!-- PANEL 8 -->
+  <div class="scene-label">Escena 8 — Gene, en blanco y negro</div>
+  <div class="panel">
+    <img src="image8.png" alt="Blanco y negro, un Cinnabon en Omaha, Gene Takavic detrás del mostrador, Rulo y Toni comprando canela">
+    <div class="cap-top">Omaha, Nebraska. El futuro. En blanco y negro.</div>
+    <div class="sb toni tl tail-br" style="max-width:46%; top:18%;">
+      <span class="tag">TONI</span>
+      "Espera. ¿Esto es en blanco y negro? ¿O sea que ya sabemos cómo acaba?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "Sabemos dónde está. No cómo llegó. Ni si sale de ahí. — Eso es muy cruel. — Eso es muy bueno."
+    </div>
+  </div>
+
+  <!-- PANEL 9 -->
+  <div class="scene-label">Escena 9 — La temporada 6</div>
+  <div class="panel">
+    <img src="image9.png" alt="Carretera del desierto, Kim conduciendo, Rulo y Toni en el asiento de atrás mirando el horizonte">
+    <div class="sb toni tl tail-br" style="max-width:50%;">
+      <span class="tag">TONI</span>
+      "Llevo cuatro temporadas. ¿Cuándo se pone buena de verdad?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Ya está buena desde la primera. La 5 y la 6 son de otro planeta. El final de la temporada 6 es mejor que el de Breaking Bad. — Eso no puede ser. — Míralo y me cuentas."
+    </div>
+  </div>
+
+  <!-- FX 2 -->
+  <div class="fx">
+    <span class="fx-text">S'ALL GOOD, MAN</span>
+    <p class="fx-sub">Saul Goodman</p>
+  </div>
+
+  <!-- PANEL 10 -->
+  <div class="scene-label">Escena 10 — Adiós Jimmy</div>
+  <div class="panel">
+    <img src="image10.png" alt="El despacho cutre de la manicura vacío, sin Jimmy, Rulo y Toni mirando las marcas en la pared">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "¿Cuándo se convierte en Saul Goodman de verdad?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:48%;">
+      <span class="tag">RULO</span>
+      "Hay una decisión. Y después de esa decisión Jimmy McGill desaparece. — ¿Y se puede volver? — Esa es la pregunta del final. Y la respuesta es perfecta."
+    </div>
+  </div>
+
+  <!-- PANEL 11 -->
+  <div class="scene-label">Escena 11 — ¿Supera a Breaking Bad?</div>
+  <div class="panel">
+    <img src="image11.png" alt="Parking del strip mall de noche, el Suzuki ya no está, Rulo y Toni solos">
+    <div class="sb toni tl tail-br" style="max-width:44%;">
+      <span class="tag">TONI</span>
+      "¿Supera a Breaking Bad? ¿Se acerca?"
+    </div>
+    <div class="sb rulo br tail-tl" style="max-width:50%;">
+      <span class="tag">RULO</span>
+      "No. La temporada 6 la iguala. Y en honestidad emocional la supera. — ¿Cómo es posible que una precuela sea tan buena? — Porque no es una precuela. Es una tragedia griega con traje amarillo."
+    </div>
+  </div>
+
+  <!-- PANEL 12 -->
+  <div class="scene-label">Escena 12 — El remate</div>
+  <div class="panel">
+    <img src="image12.png" alt="Parking de noche, el letrero de la manicura parpadeando, Rulo y Toni solos en silencio">
+    <div class="sb toni tl tail-br" style="max-width:48%;">
+      <span class="tag">TONI</span>
+      "Jimmy McGill o Saul Goodman."
+    </div>
+    <div class="sb rulo tr tail-bl" style="max-width:46%;">
+      <span class="tag">RULO</span>
+      "Jimmy McGill. Siempre. Eso es lo que hace tan triste todo esto."
+    </div>
+    <div class="sb toni bl tail-tr" style="max-width:40%;">
+      <span class="tag">TONI</span>
+      "¿Y Kim?"
+    </div>
+    <div class="cap">Rulo no contestó. La precuela que nadie esperaba. El final que nadie olvidará. 9,0.</div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <p class="verdict-label">⭐ Veredicto de Rulo y Toni ⭐</p>
+    <div class="verdict-score">9.0</div>
+    <h2 class="verdict-title">TRAGEDIA EN TRAJE AMARILLO</h2>
+    <p class="verdict-body">
+      Debería haber sido un spin-off de relleno. Salió siendo una de las mejores series de la historia. La tragedia de Jimmy McGill es más honesta que la de Walter White porque Jimmy sabe exactamente lo que pierde con cada decisión. Y las toma igual. Kim Wexler es el mejor personaje nuevo de la televisión de la última década. Me dijeron precuela del abogado gracioso. Me encontré con una tragedia griega con traje amarillo.
+    </p>
+    <div class="verdict-tags">
+      <span>📺 Netflix / AMC</span>
+      <span>2015–2022</span>
+      <span>63 episodios</span>
+      <span>6 temporadas</span>
+      <span>Bob Odenkirk</span>
+      <span>Rhea Seehorn</span>
+      <span>Tony Dalton</span>
+      <span>Kim Wexler</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- CURVA DE TEMPORADAS -->
+<section class="curva-section">
+  <h3>📈 Curva de temporadas</h3>
+  <table class="curva-table">
+    <tr><th>Temp.</th><th>Tema</th><th>Nota</th></tr>
+    <tr><td>T1</td><td>Jimmy chapuceando. El origen.</td><td>7,5</td></tr>
+    <tr><td>T2</td><td>Las trampas empiezan a costar.</td><td>8,0</td></tr>
+    <tr><td>T3</td><td>Chuck. La familia. El precio.</td><td>8,5</td></tr>
+    <tr><td>T4</td><td>Kim. La decisión. El punto sin retorno.</td><td>9,0</td></tr>
+    <tr><td>T5</td><td>Lalo. El cartel. Todo explota.</td><td>9,5</td></tr>
+    <tr><td>T6</td><td>El final perfecto.</td><td>10</td></tr>
+  </table>
 </section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Storybook Nº016 — <strong>Better Call Saul</strong> · <a href="../../index.html">Zaska y Acción</a></p>
+  <p style="margin-top:.5rem">Rulo y Toni siempre vuelven con otra serie. La próxima te la contamos pronto.</p>
+</footer>
 
 </body>
 </html>
