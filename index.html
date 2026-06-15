@@ -148,8 +148,11 @@
   margin-left: auto;
   transform: rotate(2deg);
 }
-.hero-poster .ph {
+.hero-poster .ph,
+.hero-poster img {
   width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
   border: 3px solid var(--ink);
   box-shadow:
     -10px 10px 0 0 var(--magenta),
@@ -233,6 +236,8 @@
   overflow: hidden;
 }
 .card .img .ph { width: 100%; height: 100%; }
+.card .img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+.card:hover .img img { transform: scale(1.04); }
 .card .chip-pos {
   position: absolute;
   top: 14px; left: 14px;
@@ -294,6 +299,7 @@
 }
 .hcard .img { position: relative; min-height: 220px; }
 .hcard .img .ph { width: 100%; height: 100%; position: absolute; inset: 0; }
+.hcard .img img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; display: block; }
 .hcard .body {
   padding: 24px;
   display: flex; flex-direction: column;
@@ -509,7 +515,7 @@
     </div>
 
     <div class="hero-poster">
-      <div class="ph" data-tone="blue" data-label="THE WIRE · Nº001"></div>
+      <img src="Posters/the-wire.png" alt="Póster The Wire" loading="lazy">
       <div class="badge"><span class="big">9.5</span><span>SOBRE 10</span></div>
       <div class="corner">HBO Max · 5 temporadas · 60 ep.</div>
       <div class="zaska-sticker">¡ZASKA!</div>
@@ -555,7 +561,7 @@
         <a class="card-link" href="series/a-dos-metros-bajo-tierra/index.html" aria-label="A dos metros bajo tierra"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="magenta" data-label="A DOS METROS BAJO TIERRA"></div>
+          <img src="Posters/a-dos-metros-bajo-tierra.png" alt="Póster A Dos Metros Bajo Tierra" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/a-dos-metros-bajo-tierra/index.html">A dos metros bajo tierra</a></h3>
@@ -577,7 +583,7 @@
         <a class="card-link" href="series/breaking-bad/index.html" aria-label="Breaking Bad"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="blue" data-label="BREAKING BAD"></div>
+          <img src="Posters/breaking-bad.png" alt="Póster Breaking Bad" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/breaking-bad/index.html">Breaking Bad</a></h3>
@@ -599,7 +605,7 @@
         <a class="card-link" href="series/juego-de-tronos/index.html" aria-label="Juego de Tronos"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="magenta" data-label="JUEGO DE TRONOS"></div>
+          <img src="Posters/juego-de-tronos.png" alt="Póster Juego De Tronos" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/juego-de-tronos/index.html">Juego de Tronos</a></h3>
@@ -621,7 +627,7 @@
         <a class="card-link" href="series/hijos-de-la-anarquia/index.html" aria-label="Hijos de la Anarquía"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="red" data-label="HIJOS DE LA ANARQUÍA"></div>
+          <img src="Posters/hijos-de-la-anarquia.png" alt="Póster Hijos De La Anarquía" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/hijos-de-la-anarquia/index.html">Hijos de la Anarquía</a></h3>
@@ -643,7 +649,7 @@
         <a class="card-link" href="series/prison-break/index.html" aria-label="Prison Break"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="red" data-label="PRISON BREAK"></div>
+          <img src="Posters/prison-break.png" alt="Póster Prison Break" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/prison-break/index.html">Prison Break</a></h3>
@@ -698,7 +704,7 @@
     </div>
     <div class="cards-2">
       <article class="hcard" style="cursor:pointer" onclick="location.href='series/the-wire/index.html'">
-        <div class="img"><div class="ph" data-tone="blue" data-label="THE WIRE"></div></div>
+        <div class="img"><img src="Posters/the-wire.png" alt="Póster The Wire" loading="lazy"></div>
         <div class="body">
           <span class="ep">5 TEMPORADAS · 60 EPISODIOS · HBO MAX</span>
           <h3>The Wire</h3>
@@ -716,7 +722,7 @@
         </div>
       </article>
       <article class="hcard" style="cursor:pointer" onclick="location.href='series/los-soprano/index.html'">
-        <div class="img"><div class="ph" data-tone="magenta" data-label="LOS SOPRANO"></div></div>
+        <div class="img"><img src="Posters/los-soprano.png" alt="Póster Los Soprano" loading="lazy"></div>
         <div class="body">
           <span class="ep">6 TEMPORADAS · 86 EPISODIOS · HBO MAX</span>
           <h3>Los Soprano</h3>
@@ -829,7 +835,7 @@
         <a class="card-link" href="series/a-dos-metros-bajo-tierra/index.html" aria-label="A dos metros bajo tierra"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="magenta" data-label="A DOS METROS BAJO TIERRA"></div>
+          <img src="Posters/a-dos-metros-bajo-tierra.png" alt="Póster A Dos Metros Bajo Tierra" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/a-dos-metros-bajo-tierra/index.html">A dos metros bajo tierra</a></h3>
@@ -851,7 +857,7 @@
         <a class="card-link" href="series/breaking-bad/index.html" aria-label="Breaking Bad"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="blue" data-label="BREAKING BAD"></div>
+          <img src="Posters/breaking-bad.png" alt="Póster Breaking Bad" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/breaking-bad/index.html">Breaking Bad</a></h3>
@@ -873,7 +879,7 @@
         <a class="card-link" href="series/juego-de-tronos/index.html" aria-label="Juego de Tronos"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="magenta" data-label="JUEGO DE TRONOS"></div>
+          <img src="Posters/juego-de-tronos.png" alt="Póster Juego De Tronos" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/juego-de-tronos/index.html">Juego de Tronos</a></h3>
@@ -895,7 +901,7 @@
         <a class="card-link" href="series/hijos-de-la-anarquia/index.html" aria-label="Hijos de la Anarquía"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="red" data-label="HIJOS DE LA ANARQUÍA"></div>
+          <img src="Posters/hijos-de-la-anarquia.png" alt="Póster Hijos De La Anarquía" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/hijos-de-la-anarquia/index.html">Hijos de la Anarquía</a></h3>
@@ -917,7 +923,7 @@
         <a class="card-link" href="series/prison-break/index.html" aria-label="Prison Break"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="red" data-label="PRISON BREAK"></div>
+          <img src="Posters/prison-break.png" alt="Póster Prison Break" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/prison-break/index.html">Prison Break</a></h3>
@@ -961,7 +967,7 @@
         <a class="card-link" href="series/the-wire/index.html" aria-label="The Wire"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="blue" data-label="THE WIRE"></div>
+          <img src="Posters/the-wire.png" alt="Póster The Wire" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/the-wire/index.html">The Wire</a></h3>
@@ -983,7 +989,7 @@
         <a class="card-link" href="series/los-soprano/index.html" aria-label="Los Soprano"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="magenta" data-label="LOS SOPRANO"></div>
+          <img src="Posters/los-soprano.png" alt="Póster Los Soprano" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/los-soprano/index.html">Los Soprano</a></h3>
@@ -1005,7 +1011,7 @@
         <a class="card-link" href="series/perdidos/index.html" aria-label="Perdidos"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="blue" data-label="PERDIDOS"></div>
+          <img src="Posters/perdidos.png" alt="Póster Perdidos" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/perdidos/index.html">Perdidos (Lost)</a></h3>
@@ -1027,7 +1033,7 @@
         <a class="card-link" href="series/chernobyl/index.html" aria-label="Chernobyl"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="red" data-label="CHERNOBYL"></div>
+          <img src="Posters/chernobyl.png" alt="Póster Chernobyl" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/chernobyl/index.html">Chernobyl</a></h3>
@@ -1093,7 +1099,7 @@
         <a class="card-link" href="series/ozark/index.html" aria-label="Ozark"></a>
         <div class="img">
           <span class="chip chip-serie chip-pos">SERIE</span>
-          <div class="ph" data-tone="blue" data-label="OZARK"></div>
+          <img src="Posters/ozark.png" alt="Póster Ozark" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="card-title"><a href="series/ozark/index.html">Ozark</a></h3>
