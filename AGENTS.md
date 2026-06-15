@@ -39,6 +39,18 @@ Hay dos tareas principales:
 ### 1. CREAR STORYBOOKS (ver PROYECTO.md)
 Cuando Pachi pegue contenido de una peli/serie o diga solo el título.
 
+### MANDAMIENTO VISUAL ABSOLUTO — THE WIRE ES LA REFERENCIA
+
+- **THE WIRE es la referencia canónica de Rulo y Toni.**
+- Para cualquier storybook nuevo, Rulo y Toni se sacan de `series/the-wire/` como referencia/base visual.
+- **Rulo y Toni no se generan desde cero nunca.**
+- Rulo debe seguir siendo Rulo: pelo largo oscuro, camiseta negra, tatuajes, físico y cara reconocibles.
+- Toni debe seguir siendo Toni: polo azul, pantalón caqui, físico y cara reconocibles.
+- Si el universo exige vestuario (armadura, abrigo, bata, etc.), se añade encima o se adapta mínimamente, pero **la identidad visual no cambia**.
+- Para personajes oficiales de la obra, buscar referencias reales en internet de los actores/personajes y usarlas antes de generar o componer.
+- Si una imagen devuelve “dos tipos parecidos” en lugar de Rulo y Toni, se descarta. No se sube, no se da por buena.
+- En pósters Zaska, Rulo y Toni deben verse claramente y ser protagonistas del cartel. No valen máscaras que tapen la cara ni secundarios ocupando su sitio.
+
 ### 2. SUBIR AL BLOG (instrucciones aquí abajo)
 Cuando Pachi diga "sube los nuevos títulos", "despliega", "mete esto en la web", etc.
 

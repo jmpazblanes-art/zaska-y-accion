@@ -3,607 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Storybook Nº003 — Perdidos | Zaska y Acción</title>
+<title>Storybook Nº003 - Perdidos | Zaska y Acción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:     #0a0f1a;
-    --white:  #F0F0F0;
-    --teal:   #00B4A6;
-    --teal2:  #6eeee6;
-    --ocean:  #005fa3;
-    --sand:   #E8A045;
-    --red:    #FF1A1A;
-    --panel-border: #0a2030;
+  :root{
+    --bg:#07100d;
+    --paper:#f2e3be;
+    --ink:#17120d;
+    --border:#020403;
+    --jungle:#1f6f45;
+    --hatch:#f0b13a;
+    --smoke:#111820;
+    --ocean:#1c8aa0;
+    --rulo:#f0b13a;
+    --toni:#fff7df;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; min-height: 100vh; }
-
-  /* ── NAV ── */
-  .nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 2rem;
-    border-bottom: 2px solid #1c2533;
-    background: rgba(10,15,26,.95);
-    position: sticky; top: 0; z-index: 100;
-  }
-  .nav-logo { font-family:'Bangers',cursive; font-size:1.6rem; color:var(--red); letter-spacing:2px; text-decoration:none; }
-  .nav-back { font-size:.85rem; color:var(--teal); text-decoration:none; border:1px solid var(--teal); padding:.3rem .9rem; border-radius:4px; }
-  .nav-back:hover { background:var(--teal); color:#000; }
-
-  /* ── COVER ── */
-  .cover {
-    position: relative;
-    text-align: center;
-    padding: 5rem 2rem 4rem;
-    background: linear-gradient(180deg, #001a2e 0%, var(--bg) 100%);
-    border-bottom: 4px solid var(--teal);
-    overflow: hidden;
-  }
-  .cover::before { content:'✈️'; position:absolute; top:20px; right:40px; font-size:5rem; opacity:.07; }
-  .cover::after  { content:'🌴'; position:absolute; bottom:20px; left:30px; font-size:4rem; opacity:.07; }
-  .cover-badge {
-    display: inline-block;
-    background: var(--teal);
-    color: #001a2e;
-    font-family: 'Bangers', cursive;
-    font-size: 1rem; letter-spacing: 3px;
-    padding: .4rem 1.2rem; border-radius: 4px; margin-bottom: 1.2rem;
-  }
-  .cover-title {
-    font-family: 'Bangers', cursive;
-    font-size: clamp(2.8rem, 8vw, 5.5rem);
-    line-height: .95; letter-spacing: 3px;
-    color: var(--teal2);
-    text-shadow: 4px 4px 0 #003344, 8px 8px 0 rgba(0,0,0,.5);
-    margin-bottom: .5rem;
-  }
-  .cover-numbers {
-    font-family: 'Bangers', cursive;
-    font-size: clamp(1.1rem, 3vw, 1.8rem);
-    color: var(--sand);
-    letter-spacing: 8px;
-    margin-bottom: .8rem;
-  }
-  .cover-subtitle {
-    font-family: 'Bangers', cursive;
-    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-    color: var(--white); letter-spacing: 2px; margin-bottom: 1.5rem;
-  }
-  .cover-meta { font-size:.85rem; color:#888; letter-spacing:1px; text-transform:uppercase; }
-  .cover-scroll {
-    margin-top: 2.5rem; font-size:.8rem; color:var(--teal);
-    letter-spacing:2px; text-transform:uppercase; animation:bounce 1.5s infinite;
-  }
-  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
-
-  /* ── STRIP ── */
-  .strip { max-width:820px; margin:0 auto; padding:2.5rem 1rem 4rem; display:flex; flex-direction:column; gap:0; }
-
-  /* ── PANEL ── */
-  .panel {
-    position: relative; border: 3px solid var(--panel-border);
-    overflow: visible; background: #0a1520; margin-bottom: 6px;
-  }
-  .panel img { width:100%; height:auto; display:block; object-fit:contain; }
-
-  /* ── SPEECH BUBBLES ── */
-  .sb {
-    position: absolute; z-index: 20;
-    background: #fff; border: 3px solid #111; border-radius: 18px;
-    padding: 10px 14px; font-family:'Comic Neue',cursive; font-weight:700;
-    color: #111; font-size: clamp(.95rem,2.2vw,1.15rem); line-height:1.35;
-    max-width: 46%; filter: drop-shadow(2px 2px 6px rgba(0,0,0,.8));
-  }
-  .sb .tag {
-    display:block; font-size:.65rem; font-family:'Inter',sans-serif;
-    font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; opacity:.7;
-  }
-  /* Rulo — teal */
-  .sb.rulo { background:#e6fffe; border-color:var(--teal); }
-  .sb.rulo .tag { color:#005a54; }
-  /* Toni — blanco */
-  .sb.toni { background:#fff; border-color:#333; }
-  .sb.toni .tag { color:#333; }
-
-  /* Posiciones */
-  .tl { top:5%; left:3%; } .tr { top:5%; right:3%; }
-  .cl { top:38%; left:3%; } .cr { top:38%; right:3%; }
-  .bl { bottom:8%; left:3%; } .br { bottom:8%; right:3%; }
-
-  /* Tails */
-  .tail-br::before { content:''; position:absolute; bottom:-16px; right:22px; border:9px solid transparent; border-top-color:#111; }
-  .tail-br::after  { content:''; position:absolute; bottom:-12px; right:24px; border:7px solid transparent; }
-  .rulo.tail-br::after { border-top-color:#e6fffe; } .toni.tail-br::after { border-top-color:#fff; }
-
-  .tail-bl::before { content:''; position:absolute; bottom:-16px; left:22px; border:9px solid transparent; border-top-color:#111; }
-  .tail-bl::after  { content:''; position:absolute; bottom:-12px; left:24px; border:7px solid transparent; }
-  .rulo.tail-bl::after { border-top-color:#e6fffe; } .toni.tail-bl::after { border-top-color:#fff; }
-
-  .tail-tr::before { content:''; position:absolute; top:-16px; right:22px; border:9px solid transparent; border-bottom-color:#111; }
-  .tail-tr::after  { content:''; position:absolute; top:-12px; right:24px; border:7px solid transparent; }
-  .rulo.tail-tr::after { border-bottom-color:#e6fffe; } .toni.tail-tr::after { border-bottom-color:#fff; }
-
-  .tail-tl::before { content:''; position:absolute; top:-16px; left:22px; border:9px solid transparent; border-bottom-color:#111; }
-  .tail-tl::after  { content:''; position:absolute; top:-12px; left:24px; border:7px solid transparent; }
-  .rulo.tail-tl::after { border-bottom-color:#e6fffe; } .toni.tail-tl::after { border-bottom-color:#fff; }
-
-  /* Captions */
-  .cap {
-    position:absolute; z-index:20; bottom:0; left:0; right:0;
-    background:rgba(0,0,0,.82); color:var(--teal2);
-    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
-    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
-    border-top:2px solid var(--teal);
-  }
-  .cap-top {
-    position:absolute; z-index:20; top:0; left:0; right:0;
-    background:rgba(0,0,0,.82); color:var(--teal2);
-    font-family:'Comic Neue',cursive; font-style:italic; font-weight:700;
-    font-size:clamp(.8rem,1.7vw,.95rem); padding:7px 14px; text-align:center;
-    border-bottom:2px solid var(--teal);
-  }
-
-  /* ── FX ── */
-  .fx { background:var(--bg); border:3px solid var(--teal); text-align:center; padding:2rem 1rem; margin:2px 0; }
-  .fx-text {
-    font-family:'Bangers',cursive; font-size:clamp(3.5rem,12vw,7rem);
-    letter-spacing:4px; color:var(--teal2);
-    text-shadow:4px 4px 0 #003344, 8px 8px 0 rgba(0,0,0,.5);
-    line-height:1; display:block;
-  }
-  .fx-sub { font-family:'Inter',sans-serif; font-size:.75rem; color:#666; letter-spacing:3px; text-transform:uppercase; margin-top:.4rem; }
-
-  /* ── NUMBERS BOX ── */
-  .numbers-box {
-    background: linear-gradient(135deg, #001a2e, #0a0f1a);
-    border: 3px solid var(--teal);
-    padding: 2rem; text-align:center; margin:4px 0;
-  }
-  .numbers-big {
-    font-family:'Bangers',cursive; font-size:clamp(2rem,6vw,4rem);
-    color:var(--sand); letter-spacing:10px;
-    text-shadow:3px 3px 0 #5a3000; line-height:1;
-  }
-  .numbers-sub { font-size:.8rem; color:#555; margin-top:.6rem; letter-spacing:2px; text-transform:uppercase; }
-
-  /* ── QUOTE ── */
-  .quote-box { border-left:6px solid var(--teal); background:rgba(0,180,166,.08); padding:1.8rem 2rem; margin:4px 0; text-align:center; }
-  .quote-text { font-family:'Bangers',cursive; font-size:clamp(1.6rem,4vw,2.4rem); color:var(--teal2); letter-spacing:2px; line-height:1.2; }
-  .quote-attr { font-size:.8rem; color:#777; margin-top:.6rem; font-style:italic; letter-spacing:1px; }
-
-  /* ── SCENE LABEL ── */
-  .scene-label {
-    background:var(--teal); color:#001a2e; font-family:'Bangers',cursive;
-    font-size:.9rem; letter-spacing:3px; padding:.4rem 1rem;
-    text-align:center; text-transform:uppercase; margin-bottom:2px;
-  }
-
-  /* ── VERDICT ── */
-  .verdict {
-    background: linear-gradient(135deg, #001a2e, #0a0f1a);
-    border:4px solid var(--teal); padding:3rem 2rem; text-align:center; margin-top:6px;
-  }
-  .verdict-label { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:5px; color:var(--teal); text-transform:uppercase; margin-bottom:1rem; }
-  .verdict-score { font-family:'Bangers',cursive; font-size:clamp(5rem,18vw,9rem); color:var(--teal2); line-height:.9; text-shadow:5px 5px 0 #003344; letter-spacing:-2px; }
-  .verdict-title { font-family:'Bangers',cursive; font-size:clamp(1.8rem,5vw,3rem); color:var(--white); letter-spacing:3px; margin-top:.8rem; }
-  .verdict-body { max-width:520px; margin:1.2rem auto 0; font-size:.9rem; color:#aaa; line-height:1.6; }
-  .verdict-tags { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin-top:1.5rem; }
-  .verdict-tags span { background:rgba(0,180,166,.15); border:1px solid var(--teal); color:var(--teal2); padding:.3rem .9rem; border-radius:999px; font-size:.75rem; font-weight:600; letter-spacing:1px; }
-
-  /* ── FOOTER ── */
-  footer { text-align:center; padding:3rem 2rem; border-top:2px solid #1c2533; color:#444; font-size:.8rem; }
-  footer a { color:var(--teal); text-decoration:none; }
-
-  @media (max-width:600px) {
-    .sb { max-width:50%; font-size:.82rem; padding:7px 10px; }
-    .cover-title { font-size:clamp(2.2rem,10vw,3.5rem); }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(circle at top,#153c31 0,#07100d 42%,#020302 100%);color:var(--paper);font-family:Inter,Arial,sans-serif}
+  header{padding:24px 16px 10px;text-align:center}
+  .back{display:inline-block;margin-bottom:18px;color:var(--hatch);font-weight:900;text-decoration:none;text-transform:uppercase;letter-spacing:1px}
+  h1{margin:0;font-family:Bangers,cursive;font-size:clamp(3.4rem,9vw,8rem);line-height:.86;letter-spacing:3px;text-shadow:5px 5px 0 #000;color:#fff0c7}
+  .subtitle{max-width:860px;margin:14px auto 0;font-size:1.05rem;line-height:1.6;color:#d8c59d}
+  .meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px auto 0}
+  .meta span{border:2px solid #000;background:var(--hatch);color:#160f07;padding:7px 10px;font-weight:900;text-transform:uppercase;box-shadow:3px 3px 0 #000}
+  .wrap{width:min(1060px,94vw);margin:0 auto 44px}
+  .cover{margin:24px auto 34px;border:5px solid #000;box-shadow:10px 10px 0 #000;background:#000}
+  .cover img{display:block;width:100%;height:auto}
+  .intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-bottom:30px}
+  .critique,.ficha,.verdict,.curva-section{border:4px solid #000;background:var(--paper);color:var(--ink);box-shadow:7px 7px 0 #000;padding:18px}
+  .critique h2,.ficha h2,.curva-section h3{margin:0 0 10px;font-family:Bangers,cursive;font-size:2rem;letter-spacing:2px;color:#153c31}
+  .critique p,.ficha p{line-height:1.55;margin:0 0 12px}
+  .ficha ul{padding-left:18px;margin:0;line-height:1.7}
+  .scene-label{margin:22px 0 2px;padding:.45rem 1rem;text-align:center;background:var(--jungle);color:#fff;font-family:Bangers,cursive;letter-spacing:3px;text-transform:uppercase;border:3px solid #000;border-bottom:0;text-shadow:2px 2px 0 #000}
+  .scene-label.gold{background:var(--hatch);color:#120d06;text-shadow:none}
+  .panel{position:relative;overflow:visible;margin-bottom:8px;border:4px solid #000;background:#000;box-shadow:7px 7px 0 #000}
+  .panel img{display:block;width:100%;height:auto}
+  .sb{position:absolute;max-width:38%;padding:10px 13px;border:3px solid #000;border-radius:4px;font-family:"Comic Neue",cursive;font-weight:700;font-size:clamp(.86rem,1.65vw,1.22rem);line-height:1.15;color:#111;box-shadow:4px 4px 0 rgba(0,0,0,.78)}
+  .sb .tag{display:block;margin-bottom:3px;font-family:Inter,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+  .rulo{background:var(--rulo)}
+  .toni{background:var(--toni)}
+  .ben{background:#c8e8cf}
+  .tl{top:4%;left:3%}.tr{top:4%;right:3%}.bl{bottom:4%;left:3%}.br{bottom:4%;right:3%}.tc{top:4%;left:50%;transform:translateX(-50%)}.bc{bottom:4%;left:50%;transform:translateX(-50%)}
+  .cap-top{position:absolute;top:3%;left:50%;transform:translateX(-50%);max-width:60%;padding:8px 14px;border:3px solid #000;background:#101820;color:#fff;font-family:Bangers,cursive;letter-spacing:2px;text-align:center;text-transform:uppercase;box-shadow:4px 4px 0 #000}
+  .fx{margin:28px 0;border:5px solid #000;background:#050706;color:var(--hatch);box-shadow:8px 8px 0 #000;padding:22px;text-align:center;font-family:Bangers,cursive;font-size:clamp(2.4rem,8vw,6rem);letter-spacing:4px;text-shadow:5px 5px 0 #000}
+  .quote-box{margin:28px 0;border:5px solid #000;background:linear-gradient(135deg,#102d24,#07100d);box-shadow:8px 8px 0 #000;padding:24px;text-align:center}
+  .quote-text{margin:0;font-family:Bangers,cursive;font-size:clamp(2rem,6vw,4.6rem);letter-spacing:3px;color:#fff0c7;text-shadow:4px 4px 0 #000}
+  .verdict{margin-top:36px;text-align:center}
+  .verdict-label{margin:0;color:#153c31;font-weight:900;text-transform:uppercase}
+  .verdict-score{margin:4px 0;font-family:Bangers,cursive;font-size:6rem;color:#b72d25;text-shadow:3px 3px 0 #000}
+  .verdict-title{margin:0 0 12px;font-family:Bangers,cursive;font-size:2.5rem;color:#153c31;letter-spacing:2px}
+  .verdict-body{max-width:760px;margin:0 auto 14px;line-height:1.55}
+  .verdict-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .verdict-tags span{background:#153c31;color:#fff;padding:7px 10px;font-weight:900;text-transform:uppercase;border:2px solid #000}
+  .curva-section{width:min(1060px,94vw);margin:34px auto}
+  .curva-table{width:100%;border-collapse:collapse;background:#fff8e6;color:#15110d}
+  .curva-table th,.curva-table td{border:2px solid #000;padding:10px;text-align:left;vertical-align:top}
+  .curva-table th{background:#153c31;color:#fff;text-transform:uppercase}
+  footer{padding:32px 16px;text-align:center;color:#bda97d}
+  footer a{color:var(--hatch);font-weight:900}
+  @media(max-width:760px){
+    .intro-grid{grid-template-columns:1fr}
+    .sb{position:relative;max-width:none;left:auto;right:auto;top:auto;bottom:auto;transform:none;margin:8px;border-radius:4px}
+    .cap-top{position:relative;left:auto;top:auto;transform:none;max-width:none;margin:8px}
   }
 </style>
 </head>
 <body>
-
-<nav class="nav">
-  <a class="nav-logo" href="../../index.html">ZASKA Y ACCIÓN</a>
-  <a class="nav-back" href="../../index.html">← Volver</a>
-</nav>
-
-
-<style id="criticas-css">
-.criticas-section {
-  background: #0a0a0a;
-  color: #e8e8e8;
-  padding: 60px 20px 80px;
-  font-family: 'Inter', -apple-system, sans-serif;
-}
-.criticas-inner {
-  max-width: 820px;
-  margin: 0 auto;
-}
-.criticas-section h2.criticas-titulo {
-  font-family: 'Bangers', cursive;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  letter-spacing: 2px;
-  color: #fff;
-  margin: 0 0 40px;
-  border-bottom: 3px solid #e63946;
-  padding-bottom: 16px;
-}
-.ficha-tecnica {
-  background: #111;
-  border: 1px solid #222;
-  border-radius: 8px;
-  padding: 24px 28px;
-  margin-bottom: 40px;
-}
-.ficha-tecnica table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.ficha-tecnica td {
-  padding: 6px 0;
-  vertical-align: top;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.ficha-tecnica td:first-child {
-  color: #888;
-  width: 130px;
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-right: 16px;
-}
-.ficha-tecnica .nota-grande {
-  font-family: 'Bangers', cursive;
-  font-size: 2.2rem;
-  color: #e63946;
-  letter-spacing: 2px;
-  line-height: 1;
-}
-.critica-bloque {
-  margin-bottom: 44px;
-}
-.critica-bloque h3 {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #e63946;
-  margin: 0 0 14px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-}
-.critica-bloque p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #ccc;
-  margin: 0 0 1em;
-}
-.critica-bloque p:last-child { margin-bottom: 0; }
-.critica-canalla {
-  background: #111;
-  border-left: 4px solid #f4a261;
-  padding: 24px 28px;
-  border-radius: 0 8px 8px 0;
-}
-.critica-canalla h3 { color: #f4a261; }
-.critica-canalla p { color: #ddd; }
-.pachi-bloque {
-  background: #0d1117;
-  border: 1px solid #1a2540;
-  border-radius: 8px;
-  padding: 24px 28px;
-}
-.pachi-bloque h3 { color: #4fc3f7; }
-.pachi-canalla-bloque {
-  background: #110d0d;
-  border: 1px solid #2a1515;
-  border-radius: 8px;
-  padding: 24px 28px;
-}
-.pachi-canalla-bloque h3 { color: #ff6b6b; }
-</style>
-<section class="criticas-section">
-<div class="criticas-inner">
-<h2 class="criticas-titulo">Perdidos (Lost)</h2>
-<div class="ficha-tecnica"><table>
-<tr><td>Tipo</td><td>Serie</td></tr>
-<tr><td>Año</td><td>2004</td></tr>
-<tr><td>Director</td><td>J.J. Abrams, Damon Lindelof, Jeffrey Lieber</td></tr>
-<tr><td>Reparto</td><td>Matthew Fox, Evangeline Lilly, Josh Holloway, Terry O'Quinn, Jorge García, Naveen Andrews, Michael Emerson, Dominic Monaghan, Daniel Dae Kim, Yunjin Kim</td></tr>
-<tr><td>Plataforma</td><td>Disney+</td></tr>
-<tr><td>Duración</td><td>121 episodios · 6 temporadas (2004–2010)</td></tr>
-<tr><td>Nota</td><td><span class="nota-grande">8,0</span> / 10</td></tr>
-</table></div>
-<div class="critica-bloque">
-<h3>Sinopsis</h3>
-<p>Un grupo de supervivientes de un accidente de avión queda varado en una misteriosa isla del Pacífico llena de enigmas sobrenaturales. La lucha por sobrevivir saca lo mejor y lo peor de cada uno mientras descubren que la isla guarda secretos que desafían toda lógica.</p>
-</div>
-<div class="critica-bloque">
-<h3>📰 Qué dice la prensa</h3>
-<p>Las primeras tres temporadas son magníficas: una montaña rusa emocional llena de suspense e innovación narrativa. El desarrollo de Jack, Locke y Sawyer es sobresaliente. A partir de la cuarta temporada el ritmo se resiente y el exceso de misterios sin resolver empieza a pesar. El final ha dividido a la crítica: para algunos es una estafa; para otros, la serie merece ser recordada por su ambición y originalidad pese a su polémico desenlace.</p>
-</div>
-<div class="critica-bloque">
-<h3>🎭 Crítica</h3>
-<p>Perdidos redefinió la televisión de misterio y aventuras entre 2004 y 2010. Sus seis temporadas presentan a un grupo de supervivientes de un accidente aéreo en una isla del Pacífico llena de enigmas, donde la lucha por sobrevivir saca lo mejor y lo peor de cada personaje.</p>
-<p>Las primeras tres temporadas son brillantes. Una narrativa adictiva que combina drama de supervivencia, misterio sobrenatural y un desarrollo de personajes de profundidad inusual para la televisión de la época. El uso de flashbacks y flashforwards para construir la psicología de los supervivientes es uno de los recursos narrativos más inteligentes de la historia de la televisión americana. Jack Shephard, John Locke y James Sawyer representan tres arquetipos de masculinidad en conflicto que funcionan como el núcleo emocional de la serie.</p>
-<p>A partir de la cuarta temporada, la ambición supera la capacidad de ejecución. Las tramas se multiplican sin cohesión, los misterios se acumulan sin respuesta y la sensación de pérdida de control del universo creado se hace evidente. El desenlace divide: quienes lo leen como metáfora emocional colectiva lo defienden; quienes esperaban respuestas concretas se sintieron estafados.</p>
-<p>Perdidos sigue siendo un hito: la primera serie en generar comunidad masiva en tiempo real, innovadora en estructura narrativa y productora de personajes que siguen siendo recordados veinte años después.</p>
-</div>
-<div class="critica-bloque critica-canalla">
-<h3>🤘 La canalla (estilo 80/90)</h3>
-<p>Dicen que sobrevivir en una isla desierta te cambia la vida, pero estos tíos tienen la misma suerte que aquel colega al que le toca el asiento del medio en el avión. Solo que en vez de quejarse por el café frío tienen osos polares en el Pacífico, columnas de humo asesinas con mala leche y una francesa que lleva décadas enfadada con la vida.</p>
-<p>Si crees que has visto historias raras, espérate a los números: 4, 8, 15, 16, 23, 42. No sirven ni para la lotería del barrio porque aquí o ganas millones o te caen maldiciones. Cada temporada es como el menú del día en un restaurante de carretera: lo empiezas con ganas y acabas diciendo ¿qué me han puesto en el plato?</p>
-<p>El final provocó a más de uno dejar de confiar en cualquier historia que dure más de una temporada. Si te molan los cliffhangers, aquí tienes para coleccionar. Y cuando te canses de misterios que no terminan ni con superpegamento, recuerda: lo importante es la amistad, el amor… y esquivar columnas de humo. Al menos aprenderás a no confiar en guionistas con acceso a café gratis.</p>
-</div>
-<div class="critica-bloque">
-<h3>👥 Qué dice la gente</h3>
-<p>La primera serie en generar popularidad masiva con la gente esperando cada episodio para comentarlo al día siguiente. IMDb: 8.4/10. Las primeras temporadas son increíbles en personajes, tramas, diálogos y misterios. A partir de la cuarta empiezan a no cerrar tramas y quedan misterios sin resolver con demasiados frentes abiertos. El final resultó demasiado extraño, como si los guionistas no hubieran sabido cerrar todo lo que tenían abierto.</p>
-</div>
-<div class="critica-bloque pachi-bloque">
-<h3>🎖️ Opinión de Pachi</h3>
-<p>Resulta innegable que Perdidos fue la primera serie en alcanzar ese nivel de popularidad masivo, consiguiendo que millones esperaran cada episodio con ansias para debatirlo al día siguiente. Sus primeras temporadas son simplemente brillantes: personajes inolvidables, tramas adictivas, diálogos afilados y misterios que enganchan desde el primer minuto. Sin embargo, a partir de la cuarta temporada la historia parece perder el rumbo: abundan los arcos abiertos, misterios sin cerrar y líneas argumentales que se amontonan. Mención especial merece su desenlace: un final excesivamente extraño, con la sensación de que los guionistas no supieron cómo cerrar todos los frentes que habían abierto.</p>
-</div>
-<div class="critica-bloque pachi-canalla-bloque">
-<h3>💥 Pachi (versión sin filtros)</h3>
-<p>Esta serie fue como el juego de moda en el recreo: todo el mundo hablando, comentando y especulando sobre la isla… y tú ahí, esperando el próximo episodio como si se repartiera pizza gratis. Las primeras temporadas una pasada; personajes que molan, frases para el recuerdo y misterios que daban más vueltas que el ventilador del baño. Pero a partir de la cuarta, empiezan a sacar hilos sueltos como si decoraran el árbol de Navidad… ¡y acaban dejando más cabos sueltos que en un curso de nudos exprés! ¿Y el final? Digno de quedarse pensando: ¿Esto era una broma o estaban probando café raro en la sala de guionistas? Vamos, que ni la isla se enteró de lo que pasó.</p>
-</div>
-</div></section>
-
-<header class="cover">
-  <div class="cover-badge">📺 STORYBOOK Nº003 — SERIE</div>
-  <h1 class="cover-title">CUATRO OCHO QUINCE<br>DIECISÉIS VEINTITRÉS<br>CUARENTA Y DOS</h1>
-  <p class="cover-numbers">4 · 8 · 15 · 16 · 23 · 42</p>
-  <p class="cover-subtitle">Perdidos visto por Rulo y Toni</p>
-  <p class="cover-meta">ABC · 2004–2010 · 121 episodios · 6 temporadas</p>
-  <p class="cover-scroll">↓ desplázate ↓</p>
+<header>
+  <a class="back" href="../../index.html">← Volver a Zaska y Acción</a>
+  <h1>Perdidos</h1>
+  <p class="subtitle">Un avión se estrella, una isla empieza a hacer cosas raras y media humanidad descubre que puede vivir seis años diciendo: “una teoría, espera, esta sí”.</p>
+  <div class="meta">
+    <span>Storybook Nº003</span>
+    <span>Serie</span>
+    <span>Disney+</span>
+    <span>8,0/10</span>
+  </div>
 </header>
 
-<main class="strip">
+<main class="wrap">
+  <section class="cover">
+    <img src="poster.png" alt="Póster Zaska y Acción de Perdidos con Rulo, Toni, la isla, humo negro y supervivientes">
+  </section>
 
-  <!-- PANEL 1: El pitch -->
-  <div class="scene-label">Escena 1 — El pitch</div>
-  <div class="panel" style="min-height:360px;">
-    <img src="image1.png" alt="Rulo y Toni en el sofá">
-    <div class="cap-top">Un sofá de siempre. Una serie que va a destrozarles.</div>
-    <div class="sb rulo tl tail-br" style="max-width:44%; top:12%;">
-      <span class="tag">RULO</span>
-      "Toni, se estrella un avión en una isla misteriosa del Pacífico. Y hay un oso polar."
-    </div>
-    <div class="sb toni tr tail-bl" style="max-width:44%; top:45%;">
-      <span class="tag">TONI</span>
-      "¿Un oso polar? ¿En el Pacífico? Rulo, los osos polares son del Ártico."
-    </div>
-    <div class="sb rulo bl tail-br" style="max-width:44%;">
-      <span class="tag">RULO</span>
-      "Ya. Eso es exactamente lo que te quiero decir."
-    </div>
+  <section class="intro-grid">
+    <article class="critique">
+      <h2>Crítica seria</h2>
+      <p><strong>Perdidos</strong> fue una sacudida televisiva porque convirtió una premisa de supervivencia en una máquina de misterio, fe, ciencia, trauma y adicción semanal. Su mayor virtud está en el arranque: personajes memorables, cliffhangers salvajes y una isla que parecía esconder una respuesta enorme detrás de cada árbol.</p>
+      <p>La serie no siempre paga todo lo que promete y su tramo final sigue siendo discutible, pero sería injusto reducirla a su final. Durante años cambió la conversación televisiva, hizo comunidad antes de que la palabra se gastara y dejó episodios que todavía tienen una fuerza brutal.</p>
+    </article>
+    <aside class="ficha">
+      <h2>Ficha rápida</h2>
+      <ul>
+        <li><strong>Año:</strong> 2004-2010</li>
+        <li><strong>Temporadas:</strong> 6</li>
+        <li><strong>Plataforma:</strong> Disney+</li>
+        <li><strong>Nota Zaska:</strong> 8,0</li>
+        <li><strong>Clave:</strong> misterio, personajes y final de pelea familiar</li>
+      </ul>
+    </aside>
+  </section>
+
+  <div class="scene-label">Escena 1 - El accidente</div>
+  <div class="panel">
+    <img src="image1.png" alt="Playa tras el accidente del vuelo Oceanic 815 con Rulo y Toni entre restos del avión">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Esto empieza con un accidente de avión y en diez minutos ya parece que la isla ha leído el guion."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Yo venía preparado para cocos y heridas. No para que el bosque suene como una fotocopiadora demoníaca."</div>
   </div>
 
-  <!-- PANEL 2: El gancho -->
-  <div class="scene-label">Escena 2 — El gancho</div>
-  <div class="panel" style="min-height:380px;">
-    <img src="image2.png" alt="Rulo explicando a Toni">
-    <div class="sb rulo tl tail-br" style="max-width:47%; top:6%;">
-      <span class="tag">RULO</span>
-      "Hay un cirujano que no sabe liderar pero no puede dejar de hacerlo. Un convicto que en realidad tiene corazón. Y un tío en silla de ruedas que la isla cura."
-    </div>
-    <div class="sb toni tr tail-bl" style="max-width:44%; top:50%;">
-      <span class="tag">TONI</span>
-      "Para. ¿La isla CURA a la gente?"
-    </div>
-    <div class="sb rulo bl tail-br" style="max-width:44%;">
-      <span class="tag">RULO</span>
-      "La isla hace cosas, Toni. La isla HACE cosas."
-    </div>
+  <div class="scene-label">Escena 2 - La jungla mira</div>
+  <div class="panel">
+    <img src="image2.png" alt="Rulo y Toni en la jungla nocturna con Locke al fondo">
+    <div class="sb toni bl"><span class="tag">TONI</span>"Ese señor calvo está demasiado contento para estar perdido en una jungla mortal."</div>
+    <div class="sb rulo tr"><span class="tag">RULO</span>"Locke no está perdido. Locke ha encontrado una religión con mosquitos."</div>
   </div>
 
-  <!-- PANEL 3: T1 enganchados -->
-  <div class="scene-label">Escena 3 — Primera temporada</div>
-  <div class="panel" style="min-height:360px;">
-    <img src="image3.png" alt="Toni enganchado señalando la tele">
-    <div class="sb toni tl tail-br" style="max-width:50%; top:5%;">
-      <span class="tag">TONI</span>
-      "¡RULO! ¡El episodio de Locke! ¡El tío iba en silla de ruedas, Rulo! ¡EN SILLA DE RUEDAS!"
-    </div>
-    <div class="sb rulo tr tail-bl" style="max-width:44%; top:52%;">
-      <span class="tag">RULO</span>
-      "Episodio cuatro. Walkabout. El mejor piloto de la historia de la televisión y el cuarto episodio ya es eso."
-    </div>
-    <div class="cap">La primera temporada. Irrecuperable desde el episodio uno.</div>
+  <div class="scene-label gold">Escena 3 - Humo negro</div>
+  <div class="panel">
+    <img src="image3.png" alt="Monstruo de humo negro en la jungla con Rulo y Toni huyendo">
+    <div class="cap-top">¡EL HUMO!</div>
+    <div class="sb rulo bl"><span class="tag">RULO</span>"Aquí la serie te enseña que no estás viendo supervivencia. Estás viendo una pregunta con efectos especiales."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Pues la pregunta corre mucho, socio."</div>
   </div>
 
-  <!-- FX 1 -->
-  <div class="fx">
-    <span class="fx-text">¡FLASH!</span>
-    <p class="fx-sub">— Back. Forward. Sideways. —</p>
+  <div class="scene-label">Escena 4 - Fe contra ciencia</div>
+  <div class="panel">
+    <img src="image4.png" alt="Jack y Locke discuten con Rulo y Toni junto a un mapa en la jungla">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Jack quiere arreglar la isla como si fuera una guardia de urgencias."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Y Locke quiere casarse con ella por poderes."</div>
   </div>
 
-  <!-- NÚMEROS -->
-  <div class="numbers-box">
-    <p class="numbers-big">4 · 8 · 15 · 16 · 23 · 42</p>
-    <p class="numbers-sub">No juegues a la lotería con estos números. En serio.</p>
+  <div class="scene-label">Escena 5 - La escotilla</div>
+  <div class="panel">
+    <img src="image5.png" alt="Rulo y Toni descubren la escotilla en la jungla">
+    <div class="sb toni tr"><span class="tag">TONI</span>"Dime que no vamos a abrir una puerta metálica enterrada en medio de una isla maldita."</div>
+    <div class="sb rulo bl"><span class="tag">RULO</span>"Claro que vamos. Es televisión de 2004: si hay una escotilla, se abre y se hipotecan tres temporadas."</div>
   </div>
 
-  <!-- PANEL 4: Los números -->
-  <div class="scene-label">Escena 4 — Los números</div>
-  <div class="panel" style="min-height:360px;">
-    <img src="image4.png" alt="Rulo de pie apasionado">
-    <div class="sb rulo tl tail-br" style="max-width:48%; top:6%;">
-      <span class="tag">RULO</span>
-      "Cuatro, ocho, quince, dieciséis, veintitrés, cuarenta y dos. Aparecen en el billete de lotería de Hurley. En la escotilla. En el barco. EN TODAS PARTES, Toni."
-    </div>
-    <div class="sb toni tr tail-tl" style="max-width:44%; top:52%;">
-      <span class="tag">TONI</span>
-      "Rulo, llevas tres horas apuntando números en una libreta."
-    </div>
-    <div class="sb rulo bl tail-br" style="max-width:44%;">
-      <span class="tag">RULO</span>
-      "Son SIGNIFICATIVOS, Toni."
-    </div>
+  <div class="fx">¡PULSA EL BOTÓN!</div>
+
+  <div class="scene-label gold">Escena 6 - El búnker</div>
+  <div class="panel">
+    <img src="image6.png" alt="Búnker subterráneo con ordenador viejo y cuenta atrás">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"De pronto entra Desmond, suena la música, hay un ordenador viejo y tú ya estás dentro de la secta."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Si me dicen que tengo que meter números cada 108 minutos, pido traslado a la jungla asesina."</div>
   </div>
 
-  <!-- PANEL 5: La columna de humo -->
-  <div class="scene-label">Escena 5 — El Monstruo de Humo</div>
-  <div class="panel" style="min-height:340px;">
-    <img src="image5.png" alt="Toni alucinado manos arriba">
-    <div class="sb toni tl tail-br" style="max-width:50%; top:7%;">
-      <span class="tag">TONI</span>
-      "¿QUÉ ES ESO? ¿QUÉ ES ESA COSA NEGRA? ¿ES HUMO? ¿ES UN MONSTRUO? ¿ES LOS DOS?"
-    </div>
-    <div class="sb rulo tr tail-tl" style="max-width:44%; top:55%;">
-      <span class="tag">RULO</span>
-      "Es el Monstruo. No te preocupes, lo explican en... bueno, más o menos lo explican."
-    </div>
-    <div class="cap">El Monstruo de Humo. Seis temporadas. Pocas respuestas.</div>
+  <div class="scene-label">Escena 7 - Los Otros</div>
+  <div class="panel">
+    <img src="image7.png" alt="Rulo y Toni entran en el poblado de Los Otros con Ben al fondo">
+    <div class="sb toni bl"><span class="tag">TONI</span>"¿Por qué hay casitas de urbanización en una isla que te persigue con humo?"</div>
+    <div class="sb rulo tr"><span class="tag">RULO</span>"Porque Lost no da respuestas. Te cambia la pregunta y encima te cobra comunidad."</div>
   </div>
 
-  <!-- PANEL 6: The Constant -->
-  <div class="scene-label">Escena 6 — The Constant</div>
-  <div class="panel" style="min-height:340px;">
-    <img src="image6.png" alt="Rulo y Toni muy serios">
-    <div class="sb rulo tl tail-br" style="max-width:46%; top:7%;">
-      <span class="tag">RULO</span>
-      "Temporada 4, episodio 5. The Constant. Desmond y Penny. Tienes que verlo."
-    </div>
-    <div class="sb toni tr tail-bl" style="max-width:46%; top:50%;">
-      <span class="tag">TONI</span>
-      "...Rulo. Rulo me ha entrado algo en el ojo."
-    </div>
-    <div class="cap">El mejor episodio de la serie. El mejor episodio de muchas series.</div>
+  <div class="scene-label">Escena 8 - Ben Linus</div>
+  <div class="panel">
+    <img src="image8.png" alt="Ben Linus en una sala de interrogatorio con Rulo y Toni">
+    <div class="sb ben br"><span class="tag">BEN</span>"Yo no miento. Solo administro la verdad con presupuesto de villano."</div>
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Ben Linus es el tipo que te vende una trampa y te hace sentir culpable por no agradecerla."</div>
   </div>
 
-  <!-- QUOTE -->
+  <div class="scene-label gold">Escena 9 - Números y destino</div>
+  <div class="panel">
+    <img src="image9.png" alt="Rulo y Toni junto a Hurley y Sawyer en una escena surrealista de la isla">
+    <div class="cap-top">¡4 8 15 16 23 42!</div>
+    <div class="sb toni bl"><span class="tag">TONI</span>"Estos números los oye mi madre y los echa en la Primitiva."</div>
+    <div class="sb rulo tr"><span class="tag">RULO</span>"Y si gana, te digo yo que la isla aparece en Benidorm."</div>
+  </div>
+
+  <div class="scene-label">Escena 10 - El final</div>
+  <div class="panel">
+    <img src="image10.png" alt="Rulo y Toni en una sala cálida de final ambiguo tipo aeropuerto e iglesia">
+    <div class="sb toni br"><span class="tag">TONI</span>"Estoy emocionado y cabreado a la vez. ¿Eso cuenta como entender el final?"</div>
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Cuenta como haber visto Lost correctamente."</div>
+  </div>
+
   <div class="quote-box">
-    <p class="quote-text">"No importa lo que hagas.<br>Importa lo que eres."</p>
-    <p class="quote-attr">— John Locke · Perdidos (2004)</p>
+    <p class="quote-text">NO ESTABAN MUERTOS TODO EL TIEMPO. PERO CASI NOS MATAN EXPLICÁNDOLO.</p>
   </div>
 
-  <!-- PANEL 7: A partir de T4 -->
-  <div class="scene-label">Escena 7 — A partir de la cuarta</div>
-  <div class="panel" style="min-height:360px;">
-    <img src="image7.png" alt="Toni cabreado señalando a Rulo">
-    <div class="sb toni tl tail-br" style="max-width:50%; top:5%;">
-      <span class="tag">TONI</span>
-      "¡Rulo! ¡Ahora hay viajes en el tiempo! ¡Están en los años setenta! ¡DHARMA! ¡Jacob! ¿Qué está pasando?!"
-    </div>
-    <div class="sb rulo tr tail-bl" style="max-width:44%; top:52%;">
-      <span class="tag">RULO</span>
-      "La isla es... compleja."
-    </div>
-    <div class="cap">Temporada 4 en adelante. Los guionistas también se perdieron.</div>
+  <div class="scene-label">Escena 11 - La pizarra imposible</div>
+  <div class="panel">
+    <img src="image11.png" alt="Rulo intenta explicar Perdidos con una pizarra llena de líneas mientras Toni se desespera">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"A ver: la isla es lugar, símbolo, purgatorio emocional, imán raro, tablero de dioses y excusa para flashbacks."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Me has explicado menos que el capítulo."</div>
   </div>
 
-  <!-- FX 2 -->
-  <div class="fx">
-    <span class="fx-text">¡EXECUTE!</span>
-    <p class="fx-sub">— Pulsa el botón. 108 minutos. —</p>
+  <div class="scene-label gold">Escena 12 - Veredicto en la playa</div>
+  <div class="panel">
+    <img src="image12.png" alt="Rulo y Toni sentados al amanecer en la playa de la isla">
+    <div class="sb toni tl"><span class="tag">TONI</span>"¿Nota?"</div>
+    <div class="sb rulo br"><span class="tag">RULO</span>"8,0. Cinco temporadas perfectas preguntando qué es la isla. Una respondiendo con un abrazo en el aeropuerto."</div>
   </div>
 
-  <!-- PANEL 8: El maratón -->
-  <div class="scene-label">Escena 8 — El maratón</div>
-  <div class="panel" style="min-height:340px;">
-    <img src="image8.png" alt="Rulo y Toni agotados con botellas">
-    <div class="sb toni tl tail-br" style="max-width:46%; top:7%;">
-      <span class="tag">TONI</span>
-      "¿Cuántos misterios hay abiertos ahora mismo?"
-    </div>
-    <div class="sb rulo tr tail-bl" style="max-width:44%; top:7%;">
-      <span class="tag">RULO</span>
-      "Cuarenta y siete."
-    </div>
-    <div class="sb toni cl tail-br" style="max-width:46%; top:52%;">
-      <span class="tag">TONI</span>
-      "¿Cuántos van a cerrar?"
-    </div>
-    <div class="sb rulo" style="top:68%; right:3%; max-width:44%;">
-      <span class="tag">RULO</span>
-      "...Algunos."
-    </div>
-    <div class="cap">Temporada 5. La fe ciega del fan de Perdidos.</div>
-  </div>
-
-  <!-- PANEL 9: Filosofía -->
-  <div class="scene-label">Escena 9 — La pregunta del millón</div>
-  <div class="panel" style="min-height:340px;">
-    <img src="image9.png" alt="Rulo pensativo solo">
-    <div class="sb rulo tl tail-br" style="max-width:50%; top:7%;">
-      <span class="tag">RULO</span>
-      "¿Sabes qué es lo más increíble de Perdidos? Que la primera vez que salió en antena, la gente se quedó al día siguiente en la oficina hablando de ello. Eso no había pasado nunca."
-    </div>
-    <div class="sb toni tr tail-tl" style="max-width:44%; top:55%;">
-      <span class="tag">TONI</span>
-      "Tenías doce años, Rulo."
-    </div>
-    <div class="cap">La primera serie de la era del spoiler. El antes y el después.</div>
-  </div>
-
-  <!-- PANEL 10: El final -->
-  <div class="scene-label">Escena 10 — El maldito final</div>
-  <div class="panel" style="min-height:380px;">
-    <img src="image10.png" alt="Rulo hundido y devastado">
-    <div class="cap-top">Temporada 6. Episodio 17. The End.</div>
-    <div class="sb toni tl tail-br" style="max-width:47%; top:16%;">
-      <span class="tag">TONI</span>
-      "Rulo. ¿Estaban muertos desde el principio?"
-    </div>
-    <div class="sb rulo tr tail-bl" style="max-width:46%; top:42%;">
-      <span class="tag">RULO</span>
-      "No. O sea... algunos sí. Pero los de la isla no. Pero el sideway timeline sí. Pero los que sobrevivieron... mira, es una metáfora del viaje colectivo hacia la—"
-    </div>
-    <div class="sb toni bl tail-br" style="max-width:46%;">
-      <span class="tag">TONI</span>
-      "Los números. ¿Qué significaban los números?"
-    </div>
-    <div class="cap">El final más debatido de la historia de la televisión. Sin respuesta oficial.</div>
-  </div>
-
-  <!-- FX 3 -->
-  <div class="fx">
-    <span class="fx-text">¡NAMASTE!</span>
-    <p class="fx-sub">— DHARMA Initiative —</p>
-  </div>
-
-  <!-- PANEL 11: El veredicto -->
-  <div class="scene-label">Escena 11 — El veredicto</div>
-  <div class="panel" style="min-height:360px;">
-    <img src="image11.png" alt="Rulo y Toni bajo el foco, serios">
-    <div class="sb rulo tl tail-br" style="max-width:48%; top:8%;">
-      <span class="tag">RULO</span>
-      "Ocho sobre diez, Toni. Tres temporadas perfectas y la primera serie en hacer que el mundo entero esperara un capítulo de tele. Eso no se le quita."
-    </div>
-    <div class="sb toni tr tail-bl" style="max-width:48%; top:48%;">
-      <span class="tag">TONI</span>
-      "Ocho. Pero bajo al siete si algún día alguien me explica qué eran los números de verdad."
-    </div>
-    <div class="cap">Nadie te va a explicar los números, Toni.</div>
-  </div>
-
-  <!-- VERDICT -->
   <div class="verdict">
-    <p class="verdict-label">⭐ Veredicto de Rulo y Toni ⭐</p>
-    <div class="verdict-score">8.0</div>
-    <h2 class="verdict-title">TRES TEMPORADAS PERFECTAS,<br>UN FINAL QUE EXISTE</h2>
-    <p class="verdict-body">
-      Perdidos fue la primera serie en crear comunidad masiva en tiempo real. Nadie había visto nunca al día siguiente de un episodio a millones de personas discutiendo lo que acababa de pasar. Las tres primeras temporadas son brillantes: personajes, misterio, estructura narrativa revolucionaria. A partir de la cuarta, los guionistas se pierden junto con los supervivientes. El final divide, como tenía que hacer. Imprescindible.
-    </p>
+    <p class="verdict-label">Veredicto de Rulo y Toni</p>
+    <p class="verdict-score">8,0</p>
+    <p class="verdict-title">LA ISLA NO EXPLICA NADA</p>
+    <p class="verdict-body">Perdidos es enorme incluso cuando tropieza. Inventó una forma moderna de enganchar al espectador, creó personajes que importaban y convirtió cada semana en una teoría de bar. El final no está a la altura de todo el misterio que acumuló, pero el viaje fue tan potente que todavía seguimos discutiéndolo.</p>
     <div class="verdict-tags">
-      <span>📺 Disney+</span>
-      <span>2004–2010</span>
-      <span>121 episodios</span>
-      <span>6 temporadas</span>
-      <span>J.J. Abrams</span>
-      <span>4 · 8 · 15 · 16 · 23 · 42</span>
+      <span>Misterio</span>
+      <span>Aventura</span>
+      <span>Disney+</span>
+      <span>2004-2010</span>
+      <span>Ben Linus MVP</span>
     </div>
   </div>
-
 </main>
 
-<footer>
-  <p>Storybook Nº003 — <strong>Perdidos</strong> · <a href="../../index.html">Zaska y Acción</a></p>
-  <p style="margin-top:.5rem">Los números siguen sin tener sentido. Rulo y Toni vuelven pronto.</p>
-</footer>
+<section class="curva-section">
+  <h3>Curva de temporadas</h3>
+  <table class="curva-table">
+    <tr><th>Temporada</th><th>Idea</th><th>Nota</th></tr>
+    <tr><td>1</td><td>El accidente, la isla y el misterio como droga semanal</td><td>9,0</td></tr>
+    <tr><td>2</td><td>La escotilla, Desmond y la serie cambiando de género</td><td>8,5</td></tr>
+    <tr><td>3</td><td>Los Otros, Ben Linus y la maquinaria ya a pleno rendimiento</td><td>8,5</td></tr>
+    <tr><td>4</td><td>Flashforwards, ritmo fuerte y sensación de plan</td><td>8,0</td></tr>
+    <tr><td>5</td><td>Viajes temporales, mitología y placer de fan entregado</td><td>8,0</td></tr>
+    <tr><td>6</td><td>Cierre emocional potente, respuestas discutibles</td><td>7,0</td></tr>
+  </table>
 
+  <h3>Personajes principales</h3>
+  <table class="curva-table">
+    <tr><th>Personaje</th><th>Función</th><th>Actor</th></tr>
+    <tr><td>Jack Shephard</td><td>El líder que intenta curar una isla que no se deja operar</td><td>Matthew Fox</td></tr>
+    <tr><td>John Locke</td><td>La fe con cuchillo, sonrisa y destino en la mochila</td><td>Terry O'Quinn</td></tr>
+    <tr><td>Sawyer</td><td>Carisma, trauma y mote ofensivo por minuto</td><td>Josh Holloway</td></tr>
+    <tr><td>Hurley</td><td>El corazón de la serie cuando todos se ponen intensos</td><td>Jorge Garcia</td></tr>
+    <tr><td>Ben Linus</td><td>El villano que convierte una mentira en arquitectura</td><td>Michael Emerson</td></tr>
+  </table>
+</section>
+
+<footer>
+  <p>© 2025 <a href="../../index.html">Zaska y Acción</a> - Crítica de cine y series sin filtros ni condescendencia.</p>
+</footer>
 </body>
 </html>
