@@ -12,15 +12,20 @@ blog cine/
   series/
     [slug]/
       index.html   ← el storybook completo (cómic + críticas)
-      image1.png … image11.png
+      poster.png            ← póster del storybook
+      image1.png … image12.png  ← las 12 viñetas
   peliculas/
     [slug]/
       index.html
-      image1.png … image11.png
+      poster.png
+      image1.png … image12.png
   documentales/
     [slug]/
       index.html
-      image1.png … image11.png
+      poster.png
+      image1.png … image12.png
+  Posters/
+    [slug].png    ← COPIA del póster, la que sale en la card del index raíz
   index.html
   styles.css
   AGENTS.md
@@ -29,6 +34,9 @@ blog cine/
 
 - Cada título = una carpeta dentro de su categoría
 - Nada suelto en la raíz salvo los archivos de proyecto
+- **OBLIGATORIO por cada título:** además del `poster.png` dentro de su carpeta,
+  dejar una copia en `Posters/[slug].png`. Esa es la imagen que la portada (index raíz)
+  muestra en la card. Sin ella, la card sale con placeholder de texto en vez de póster.
 
 ---
 
@@ -44,7 +52,7 @@ Flujo de 8 pasos. **Cada eslabón tiene un responsable. No los mezcles.**
 | 4 | Claude.ai pregunta 3 cosas (qué gustó / qué no / frase que la define) | Claude.ai |
 | 5 | Claude.ai genera la crítica (seria + canalla + opinión Pachi) | Claude.ai |
 | 6 | Se guarda la ficha en Notion → BD **"Pipeline Zaska"** (estado `Pendiente storybook`) | Claude.ai |
-| 7 | **CODEX crea el storybook**: 12 imágenes + póster + `index.html` en su carpeta | **Codex** |
+| 7 | **CODEX crea el storybook**: 12 imágenes + `poster.png` + `index.html` en su carpeta **+ copia el póster en `Posters/[slug].png`** | **Codex** |
 | 8 | **Claude Code revisa y SUBE a Zaska** (card en index + commit + push + verifica deploy) | **Claude Code** |
 
 - **Codex CREA. Claude Code SUBE.** Codex no hace commit/push; Claude Code no genera imágenes ni críticas.

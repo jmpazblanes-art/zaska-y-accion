@@ -95,13 +95,14 @@ Antes de subir, meter los nuevos storybooks en la sección `<!-- ===== STORYBOOK
 Cada card sigue este patrón (adaptar slug, categoría, título, nota, plataforma, tipo SERIE/PELÍCULA):
 
 ```html
-<article class="card">
+<article class="card" data-cat="serie">
+  <a class="card-link" href="series/[slug]/index.html" aria-label="[Título]"></a>
   <div class="img">
     <span class="chip chip-serie chip-pos">SERIE</span>
-    <div class="ph" data-tone="blue" data-label="TÍTULO EN MAYÚSCULAS"></div>
+    <img src="Posters/[slug].png" alt="Póster [Título]" loading="lazy">
   </div>
   <div class="card-body">
-    <h3 class="card-title"><a href="series/[slug]/">[Título]</a></h3>
+    <h3 class="card-title"><a href="series/[slug]/index.html">[Título]</a></h3>
     <p class="card-excerpt">[Descripción corta, 1-2 frases del tono del blog]</p>
     <div class="card-foot">
       [estrellas CSS según nota — ver ejemplos existentes]
@@ -110,6 +111,14 @@ Cada card sigue este patrón (adaptar slug, categoría, título, nota, plataform
   </div>
 </article>
 ```
+
+**La imagen de la card SIEMPRE es el póster real:** `<img src="Posters/[slug].png" ...>`.
+El CSS (`.card .img img { object-fit: cover }`) ya está puesto, encaja solo.
+- Solo si ese título **no tiene** `Posters/[slug].png` todavía, usar el placeholder de texto
+  `<div class="ph" data-tone="blue|red|magenta" data-label="TÍTULO EN MAYÚSCULAS"></div>`
+  y dejar nota para cambiarlo a `<img>` cuando Codex genere el póster.
+- Antes de subir, comprobar que `Posters/[slug].png` existe (`ls Posters/`). Si Codex no dejó
+  la copia, copiarla desde `series/[slug]/poster.png`.
 
 `data-tone` según el color del storybook: `red`, `blue`, `magenta` según qué encaje mejor.
 Para películas: `href="peliculas/[slug]/"`. Para documentales: `href="documentales/[slug]/"`.
