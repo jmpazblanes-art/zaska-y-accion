@@ -32,11 +32,38 @@ blog cine/
 
 ---
 
-## TU TRABAJO AQUÍ
+## PIPELINE COMPLETO ZASKA (recomendación → publicación)
+
+Flujo de 8 pasos. **Cada eslabón tiene un responsable. No los mezcles.**
+
+| # | Paso | Responsable |
+|---|------|-------------|
+| 1 | Pachi pide recomendación | Claude.ai (chat) |
+| 2 | Pachi ve la peli/serie | Pachi |
+| 3 | Pachi vuelve: "vi [título], un X/10" | Pachi → Claude.ai |
+| 4 | Claude.ai pregunta 3 cosas (qué gustó / qué no / frase que la define) | Claude.ai |
+| 5 | Claude.ai genera la crítica (seria + canalla + opinión Pachi) | Claude.ai |
+| 6 | Se guarda la ficha en Notion → BD **"Pipeline Zaska"** (estado `Pendiente storybook`) | Claude.ai |
+| 7 | **CODEX crea el storybook**: 12 imágenes + póster + `index.html` en su carpeta | **Codex** |
+| 8 | **Claude Code revisa y SUBE a Zaska** (card en index + commit + push + verifica deploy) | **Claude Code** |
+
+- **Codex CREA. Claude Code SUBE.** Codex no hace commit/push; Claude Code no genera imágenes ni críticas.
+- El handoff Codex → Claude Code es la carpeta lista en disco (igual que Chernobyl / Ozark / Perdidos el 2026-06-15).
+- La BD de Notion **"Pipeline Zaska"** es la fuente de la cola:
+  https://app.notion.com/p/d4d4702f6d6d4cb39aa496782ac59393
+  (dentro del proyecto "🎬 Zaska y Acción"). Estados: `Recomendado` → `Visto` →
+  `Pendiente storybook` → `Storybook creado` → `Publicado`.
+- **Codex** monta el storybook cuando una ficha está en `Pendiente storybook`, y al terminar
+  la marca `Storybook creado`. **Claude Code** procesa las `Storybook creado` cuando Pachi dice
+  "sube las pendientes", y al publicar las marca `Publicado`.
+
+---
+
+## TU TRABAJO AQUÍ (Codex)
 
 Hay dos tareas principales:
 
-### 1. CREAR STORYBOOKS (ver PROYECTO.md)
+### 1. CREAR STORYBOOKS (ver PROYECTO.md) — PASO 7 del pipeline
 Cuando Pachi pegue contenido de una peli/serie o diga solo el título.
 
 ### MANDAMIENTO VISUAL ABSOLUTO — THE WIRE ES LA REFERENCIA

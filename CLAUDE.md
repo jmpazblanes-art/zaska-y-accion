@@ -32,15 +32,40 @@ blog cine/
 
 ---
 
+## PIPELINE COMPLETO ZASKA (recomendación → publicación)
+
+Flujo de 8 pasos con responsable por eslabón:
+
+| # | Paso | Responsable |
+|---|------|-------------|
+| 1 | Pachi pide recomendación | Claude.ai (chat) |
+| 2 | Pachi ve la peli/serie | Pachi |
+| 3 | Pachi vuelve: "vi [título], un X/10" | Pachi → Claude.ai |
+| 4 | Claude.ai pregunta 3 cosas (qué gustó / qué no / frase) | Claude.ai |
+| 5 | Claude.ai genera la crítica (seria + canalla + opinión Pachi) | Claude.ai |
+| 6 | Ficha en Notion → BD **"Pipeline Zaska"** (estado `Pendiente storybook`) | Claude.ai |
+| 7 | **Codex** crea el storybook: 12 imágenes + póster + `index.html` | Codex |
+| 8 | **Claude Code (YO) reviso y SUBO a Zaska** | **Claude Code** |
+
+**MI ESLABÓN ES EL PASO 8.** Codex CREA, yo SUBO. Yo no genero imágenes ni críticas:
+reviso la carpeta que deja Codex (Rulo/Toni desde the-wire, 12 imágenes + póster, enlaces),
+añado la card al `index.html`, hago commit + push y verifico el deploy en Vercel.
+
+Cola en Notion → BD **"Pipeline Zaska"**:
+https://app.notion.com/p/d4d4702f6d6d4cb39aa496782ac59393
+Proceso las fichas en estado `Storybook creado` y, al publicar, las marco `Publicado`
+(rellenando "URL publicada" y "Nº").
+
+---
+
 ## TU TRABAJO AQUÍ
 
-Hay dos tareas principales:
+### SUBIR AL BLOG — PASO 8 del pipeline (lo principal)
+Cuando Pachi diga "sube los nuevos títulos", "monta/sube las pendientes", "despliega",
+"mete esto en la web", etc. → seguir "CÓMO SUBIR NUEVOS STORYBOOKS" aquí abajo.
 
-### 1. CREAR STORYBOOKS (ver PROYECTO.md)
-Cuando Pachi pegue contenido de una peli/serie o diga solo el título.
-
-### 2. SUBIR AL BLOG (instrucciones aquí abajo)
-Cuando Pachi diga "sube los nuevos títulos", "despliega", "mete esto en la web", etc.
+> La CREACIÓN del storybook (imágenes, póster, HTML) la hace **Codex** (paso 7), no Claude Code.
+> PROYECTO.md describe ese proceso de creación como referencia.
 
 ---
 
