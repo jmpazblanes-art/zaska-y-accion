@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mis valoraciones — Zaska y Acción</title>
+<meta name="description" content="Todas las películas y series que he visto y puntuado. Mi historial de notas, filtrable y buscable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ===== Página de valoraciones — estilos propios sobre los tokens globales ===== */
+  .val-hero { padding: 56px 0 24px; }
+  .val-hero .lead {
+    font-family: var(--f-mono); font-size: 12px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--ink-dim); margin: 0 0 10px;
+  }
+  .val-hero h1 {
+    margin: 0; font-family: var(--f-display); font-style: italic;
+    font-size: clamp(44px, 8vw, 92px); line-height: .88; letter-spacing: .02em;
+    color: var(--red); text-shadow: var(--glow-red);
+  }
+  .val-hero p.sub { color: var(--ink-dim); max-width: 640px; margin: 14px 0 0; font-size: 15px; }
+
+  /* Barra de stats */
+  .val-stats { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 8px; }
+  .stat {
+    border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+    border-radius: var(--radius); padding: 12px 18px; min-width: 110px;
+    background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+  }
+  .stat .n { font-family: var(--f-display); font-style: italic; font-size: 30px; line-height: 1; color: var(--ink); }
+  .stat .l { font-family: var(--f-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-dim); margin-top: 6px; }
+  .stat.red .n { color: var(--red); text-shadow: var(--glow-red); }
+  .stat.blue .n { color: var(--blue); text-shadow: var(--glow-blue); }
+  .stat.mag .n { color: var(--magenta); text-shadow: var(--glow-magenta); }
+
+  /* Controles / filtros (sticky bajo el header) */
+  .val-controls {
+    position: sticky; top: 76px; z-index: 40;
+    backdrop-filter: blur(14px) saturate(140%);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    padding: 14px 0; margin-bottom: 8px;
+  }
+  .controls-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .search-wrap { position: relative; flex: 1 1 280px; min-width: 220px; }
+  .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--ink-faint); }
+  #q {
+    width: 100%; padding: 11px 14px 11px 40px;
+    background: var(--bg-2); color: var(--ink);
+    border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    border-radius: var(--radius); font-family: var(--f-body); font-size: 14px;
+  }
+  #q:focus { outline: none; border-color: var(--blue); box-shadow: var(--glow-blue); }
+  .sel {
+    font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+    padding: 11px 14px; background: var(--bg-2); color: var(--ink-dim);
+    border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    border-radius: var(--radius); cursor: pointer;
+  }
+  .sel:focus { outline: none; border-color: var(--magenta); color: var(--ink); }
+  #count { font-family: var(--f-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); margin-left: auto; }
+
+  /* Grid de tarjetas */
+  .val-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px; padding: 24px 0 40px;
+  }
+  .vcard {
+    display: flex; gap: 14px; align-items: stretch;
+    border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    border-radius: var(--radius); background: color-mix(in srgb, var(--bg-2) 60%, transparent);
+    padding: 14px; transition: border-color .15s, transform .15s;
+  }
+  .vcard:hover { border-color: color-mix(in srgb, var(--magenta) 60%, transparent); transform: translateY(-2px); }
+  .vcard .score {
+    flex-shrink: 0; width: 56px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border-right: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); padding-right: 12px;
+  }
+  .vcard .score .big { font-family: var(--f-display); font-style: italic; font-size: 34px; line-height: 1; }
+  .vcard .score .of { font-family: var(--f-mono); font-size: 9px; letter-spacing: .12em; color: var(--ink-faint); margin-top: 2px; }
+  .vcard.s-hi .big { color: var(--green); filter: drop-shadow(0 0 6px rgba(57,255,139,.5)); }
+  .vcard.s-mid .big { color: var(--yellow); filter: drop-shadow(0 0 6px rgba(255,210,63,.5)); }
+  .vcard.s-lo .big { color: var(--ink-dim); }
+  .vcard .meta { flex: 1; min-width: 0; }
+  .vcard .vtitle { font-weight: 700; font-size: 15px; line-height: 1.25; margin: 0 0 2px; }
+  .vcard .vtitle a { color: var(--ink); }
+  .vcard .vtitle a:hover { color: var(--blue); }
+  .vcard .vorig { font-size: 12px; color: var(--ink-faint); font-style: italic; margin: 0 0 8px; }
+  .vcard .vline { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-family: var(--f-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-dim); }
+  .vtag { border: 1px solid currentColor; border-radius: 3px; padding: 2px 7px; }
+  .vtag.k-pelicula { color: var(--red); }
+  .vtag.k-serie { color: var(--blue); }
+  .vtag.k-miniserie { color: var(--magenta); }
+  .vtag.k-otro { color: var(--ink-dim); }
+  .vcard .vgen { color: var(--ink-faint); }
+  .vcard .vimdb { color: var(--yellow); }
+
+  #empty { display: none; text-align: center; padding: 60px 0; color: var(--ink-dim); font-family: var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+  #more-wrap { text-align: center; padding: 8px 0 60px; }
+  #loadMore { font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; padding: 12px 26px; background: transparent; color: var(--ink); border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); border-radius: var(--radius); cursor: pointer; }
+  #loadMore:hover { border-color: var(--blue); color: var(--blue); box-shadow: var(--glow-blue); }
+
+  @media (max-width: 640px) {
+    .val-controls { top: 64px; }
+    #count { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><img src="assets/logo.png" alt="Zaska y Acción"></span>
+      <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="series.html">Series</a>
+      <a href="peliculas.html">Películas</a>
+      <a href="especiales.html">Especiales</a>
+      <a href="listas.html">Listas</a>
+      <a href="valoraciones.html" class="active">Valoraciones</a>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="val-hero">
+  <div class="wrap">
+    <p class="lead">El historial completo</p>
+    <h1>Mis valoraciones</h1>
+    <p class="sub">Todo lo que he visto y puntuado, sacado directo de mi IMDb. Sin storybook ni florituras: solo el título, mi nota y la cruda verdad. Busca, filtra y juzga mis juicios.</p>
+    <div class="val-stats" id="stats"></div>
+  </div>
+</section>
+
+<!-- ===== CONTROLES ===== -->
+<div class="val-controls">
+  <div class="wrap controls-row">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Buscar título, director…" autocomplete="off">
+    </div>
+    <select class="sel" id="fType">
+      <option value="">Todos los tipos</option>
+      <option value="Película">Películas</option>
+      <option value="Serie">Series</option>
+      <option value="Miniserie">Miniseries</option>
+      <option value="__otro">Otros</option>
+    </select>
+    <select class="sel" id="fGenre"><option value="">Todos los géneros</option></select>
+    <select class="sel" id="fRating">
+      <option value="">Mi nota: todas</option>
+      <option value="10">Solo 10</option>
+      <option value="9">9 o más</option>
+      <option value="8">8 o más</option>
+      <option value="7">7 o más</option>
+      <option value="6">6 o más</option>
+    </select>
+    <select class="sel" id="fSort">
+      <option value="dr">Orden: lo último que vi</option>
+      <option value="r">Mi nota (alta→baja)</option>
+      <option value="i">Nota IMDb (alta→baja)</option>
+      <option value="y">Año (nuevo→viejo)</option>
+      <option value="t">Título (A→Z)</option>
+    </select>
+    <span id="count">…</span>
+  </div>
+</div>
+
+<!-- ===== GRID ===== -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="val-grid" id="grid"></div>
+    <div id="empty">Nada coincide con eso. Prueba otra cosa.</div>
+    <div id="more-wrap"><button id="loadMore" hidden>Cargar más</button></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <span class="brand-mark"><img src="assets/logo.png" alt=""></span>
+          <span class="brand-name">Zaska<span class="y">y</span>Acción</span>
+        </a>
+        <p class="tagline">Crítica de cine y series con cara, mala leche y mucho cariño. Hecho en pijama desde 2024.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="peliculas.html">Películas</a></li>
+          <li><a href="series.html">Series</a></li>
+          <li><a href="especiales.html">Especiales</a></li>
+          <li><a href="valoraciones.html">Valoraciones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Zaska y Acción</span>
+      <span>Datos: mi IMDb</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ----- Theme toggle (mismo localStorage que el resto del sitio) -----
+  (function(){
+    const html = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const stored = localStorage.getItem('zaska-theme');
+    if (stored) html.setAttribute('data-theme', stored);
+    toggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('zaska-theme', next);
+    });
+  })();
+
+  // ----- Datos + render -----
+  const PAGE = 60;
+  let DATA = [], view = [], shown = 0;
+
+  const $ = s => document.querySelector(s);
+  const grid = $('#grid'), empty = $('#empty'), countEl = $('#count'), loadMore = $('#loadMore');
+
+  const kindClass = k => k === 'Película' ? 'k-pelicula' : k === 'Serie' ? 'k-serie' : k === 'Miniserie' ? 'k-miniserie' : 'k-otro';
+  const scoreClass = r => r >= 9 ? 's-hi' : r >= 7 ? 's-mid' : 's-lo';
+  const esc = s => (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  function cardHTML(d){
+    const orig = d.ot && d.ot !== d.t ? `<p class="vorig">${esc(d.ot)}</p>` : '';
+    const gen = d.g && d.g.length ? `<span class="vgen">${esc(d.g.slice(0,2).join(' · '))}</span>` : '';
+    const imdb = d.i != null ? `<span class="vimdb">IMDb ${d.i.toFixed(1)}</span>` : '';
+    const dir = d.d ? `<span>${esc(d.d.split(',')[0])}</span>` : '';
+    const title = d.u ? `<a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a>` : esc(d.t);
+    return `<article class="vcard ${scoreClass(d.r)}">
+      <div class="score"><span class="big">${d.r ?? '–'}</span><span class="of">/10 mío</span></div>
+      <div class="meta">
+        <h3 class="vtitle">${title}</h3>
+        ${orig}
+        <div class="vline">
+          <span class="vtag ${kindClass(d.k)}">${esc(d.k)}</span>
+          <span>${d.y ?? ''}</span>
+          ${gen}${imdb}${dir}
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function applyFilters(){
+    const q = $('#q').value.trim().toLowerCase();
+    const ty = $('#fType').value;
+    const ge = $('#fGenre').value;
+    const rt = parseInt($('#fRating').value, 10);
+    const sort = $('#fSort').value;
+
+    view = DATA.filter(d => {
+      if (q){
+        const hay = (d.t + ' ' + d.ot + ' ' + d.d).toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      if (ty){
+        if (ty === '__otro'){ if (['Película','Serie','Miniserie'].includes(d.k)) return false; }
+        else if (d.k !== ty) return false;
+      }
+      if (ge && !(d.g||[]).includes(ge)) return false;
+      if (!isNaN(rt) && (d.r == null || d.r < rt)) return false;
+      return true;
+    });
+
+    if (sort === 't'){
+      // Título: ascendente A→Z (con locale español)
+      view.sort((a,b) => a.t.toLowerCase().localeCompare(b.t.toLowerCase(), 'es'));
+    } else {
+      // Resto: descendente. 'dr' compara fechas ISO como string; el resto, numérico.
+      const get = x => sort === 'dr' ? (x.dr || '') : (x[sort] == null ? -Infinity : x[sort]);
+      view.sort((a,b) => { const av=get(a), bv=get(b); return av < bv ? 1 : av > bv ? -1 : 0; });
+    }
+
+    shown = 0;
+    grid.innerHTML = '';
+    render();
+    countEl.textContent = view.length + ' título' + (view.length===1?'':'s');
+    empty.style.display = view.length ? 'none' : 'block';
+  }
+
+  function render(){
+    const slice = view.slice(shown, shown + PAGE);
+    grid.insertAdjacentHTML('beforeend', slice.map(cardHTML).join(''));
+    shown += slice.length;
+    loadMore.hidden = shown >= view.length;
+  }
+  loadMore.addEventListener('click', render);
+
+  function buildStats(){
+    const total = DATA.length;
+    const pelis = DATA.filter(d=>d.k==='Película').length;
+    const series = DATA.filter(d=>d.k==='Serie'||d.k==='Miniserie').length;
+    const dieces = DATA.filter(d=>d.r===10).length;
+    const avg = (DATA.reduce((s,d)=>s+(d.r||0),0)/total).toFixed(1);
+    $('#stats').innerHTML = `
+      <div class="stat"><div class="n">${total}</div><div class="l">Títulos vistos</div></div>
+      <div class="stat red"><div class="n">${pelis}</div><div class="l">Películas</div></div>
+      <div class="stat blue"><div class="n">${series}</div><div class="l">Series y minis</div></div>
+      <div class="stat mag"><div class="n">${dieces}</div><div class="l">Dieces redondos</div></div>
+      <div class="stat"><div class="n">${avg}</div><div class="l">Mi nota media</div></div>`;
+  }
+
+  function buildGenreOptions(){
+    const set = new Set();
+    DATA.forEach(d => (d.g||[]).forEach(g => set.add(g)));
+    const opts = [...set].sort((a,b)=>a.localeCompare(b,'es'));
+    const sel = $('#fGenre');
+    opts.forEach(g => { const o=document.createElement('option'); o.value=g; o.textContent=g; sel.appendChild(o); });
+  }
+
+  ['#q','#fType','#fGenre','#fRating','#fSort'].forEach(s => {
+    const el = $(s);
+    el.addEventListener(s==='#q'?'input':'change', applyFilters);
+  });
+
+  fetch('valoraciones.json')
+    .then(r => r.json())
+    .then(json => {
+      DATA = json;
+      buildStats();
+      buildGenreOptions();
+      applyFilters();
+    })
+    .catch(() => {
+      empty.textContent = 'No pude cargar los datos.';
+      empty.style.display = 'block';
+      countEl.textContent = '';
+    });
+</script>
+</body>
+</html>
