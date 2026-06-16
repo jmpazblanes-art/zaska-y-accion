@@ -5,6 +5,18 @@
 
 ---
 
+## 🔴 REGLA DURA Nº1 — JAMÁS RESUMIR NI CORTAR UNA CRÍTICA (por encima de todo)
+
+**Incidente 2026-06-16: las críticas serias y canallas del HTML salieron RESUMIDAS / RECORTADAS respecto al texto largo que está en Notion. Pachi se cabreó con razón. NO SE REPITE NUNCA.**
+
+1. **PROHIBIDO meter una crítica resumida, recortada o "a ojo".** La crítica seria debe ser LARGA y profesional (mínimo ~350-450 palabras, varios párrafos). La crítica canalla debe ser LARGA y macarra (referencia: Michael y The Wire, ~1000+ palabras). Nada de versiones cortas.
+2. **El texto largo de Notion MANDA.** Si Notion tiene la versión larga, se vuelca ÍNTEGRA al HTML, palabra por palabra, sin resumir ni una línea.
+3. **Si hay que elaborar:** se parte de la opinión real de Pachi (en Notion: "Opinión Pachi", "Qué le gustó", "Qué no le gustó", "Frase que la define") y se ALARGA hasta sonar profesional. Luego se escribe la CANALLA larga con la voz de Rulo/Pachi. Nunca inventar datos de la obra (reparto, notas) sin verificar.
+4. **Estructura mínima por storybook (Biblia 2.0):** póster + 12 viñetas + Veredicto Rulo + Veredicto Toni + Crítica seria LARGA + Crítica canalla LARGA + Opinión Pachi (seria + macarra, conservar las de la web) + Personajes + curva de temporadas (si es serie).
+5. **Antes de subir:** verificar con conteo de palabras que ninguna crítica seria baja de ~350 y ninguna canalla de ~800. Si baja, NO subir: está recortada.
+
+---
+
 ## ESTRUCTURA DE CARPETAS
 
 ```
