@@ -173,8 +173,9 @@ Vercel despliega automáticamente en ~1 minuto tras el push.
 | 014 | series | breaking-bad | Breaking Bad | 9.5 | Netflix |
 | 015 | series | a-dos-metros-bajo-tierra | A dos metros bajo tierra | 9.5 | HBO Max |
 | 016 | series | better-call-saul | Better Call Saul | 9.0 | Netflix |
+| 017 | peliculas | michael | Michael | 8.0 | Cines |
 
-El siguiente es **Nº017**.
+El siguiente es **Nº018**.
 
 ---
 

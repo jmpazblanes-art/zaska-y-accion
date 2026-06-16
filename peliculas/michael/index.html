@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storybook Nº017 - Michael | Zaska y Acción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#07050a;--paper:#f8e8c1;--ink:#15100d;--pink:#e33f86;--gold:#f5c95b;--blue:#1b3f70;--rulo:#f5c95b;--toni:#fff7df;--stage:#130918}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(circle at top,#3a1235 0,#130918 34%,#050307 100%);color:var(--paper);font-family:Inter,Arial,sans-serif}
+  header{padding:24px 16px 10px;text-align:center}
+  .back{display:inline-block;margin-bottom:18px;color:var(--gold);font-weight:900;text-decoration:none;text-transform:uppercase;letter-spacing:1px}
+  h1{margin:0;font-family:Bangers,cursive;font-size:clamp(3.8rem,10vw,8.5rem);line-height:.84;letter-spacing:3px;color:#f14991;text-shadow:5px 5px 0 #000,0 0 22px rgba(245,201,91,.45)}
+  .subtitle{max-width:900px;margin:14px auto 0;font-size:1.06rem;line-height:1.6;color:#ead7b0}
+  .meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px auto 0}
+  .meta span{border:2px solid #000;background:var(--gold);color:#120b08;padding:7px 10px;font-weight:900;text-transform:uppercase;box-shadow:3px 3px 0 #000}
+  .wrap{width:min(1060px,94vw);margin:0 auto 44px}
+  .cover{margin:24px auto 34px;border:5px solid #000;box-shadow:10px 10px 0 #000;background:#000}
+  .cover img{display:block;width:100%;height:auto}
+  .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-bottom:30px}
+  .box,.verdict,.extra-section{border:4px solid #000;background:var(--paper);color:var(--ink);box-shadow:7px 7px 0 #000;padding:18px}
+  .box h2,.extra-section h3{margin:0 0 10px;font-family:Bangers,cursive;font-size:2rem;letter-spacing:2px;color:#5f123e}
+  .box p{line-height:1.58;margin:0 0 12px}
+  .box ul{padding-left:18px;margin:0;line-height:1.75}
+  .scene-label{margin:22px 0 2px;padding:.45rem 1rem;text-align:center;background:var(--pink);color:#fff;font-family:Bangers,cursive;letter-spacing:3px;text-transform:uppercase;border:3px solid #000;border-bottom:0;text-shadow:2px 2px 0 #000}
+  .scene-label.gold{background:var(--gold);color:#150d08;text-shadow:none}
+  .panel{position:relative;overflow:visible;margin-bottom:8px;border:4px solid #000;background:#000;box-shadow:7px 7px 0 #000}
+  .panel img{display:block;width:100%;height:auto}
+  .sb{position:absolute;max-width:39%;padding:10px 13px;border:3px solid #000;border-radius:4px;font-family:"Comic Neue",cursive;font-weight:700;font-size:clamp(.86rem,1.65vw,1.18rem);line-height:1.15;color:#111;box-shadow:4px 4px 0 rgba(0,0,0,.78)}
+  .sb .tag{display:block;margin-bottom:3px;font-family:Inter,sans-serif;font-size:.66rem;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+  .rulo{background:var(--rulo)} .toni{background:var(--toni)}
+  .tl{top:4%;left:3%}.tr{top:4%;right:3%}.bl{bottom:4%;left:3%}.br{bottom:4%;right:3%}.tc{top:4%;left:50%;transform:translateX(-50%)}.bc{bottom:4%;left:50%;transform:translateX(-50%)}
+  .cap-top{position:absolute;top:3%;left:50%;transform:translateX(-50%);max-width:68%;padding:8px 14px;border:3px solid #000;background:#120815;color:#fff;font-family:Bangers,cursive;letter-spacing:2px;text-align:center;text-transform:uppercase;box-shadow:4px 4px 0 #000}
+  .fx,.quote-box{margin:28px 0;border:5px solid #000;background:#070307;box-shadow:8px 8px 0 #000;padding:22px;text-align:center}
+  .fx{color:var(--gold);font-family:Bangers,cursive;font-size:clamp(2.4rem,8vw,6rem);letter-spacing:4px;text-shadow:5px 5px 0 #000}
+  .quote-text{margin:0;font-family:Bangers,cursive;font-size:clamp(2rem,6vw,4.6rem);letter-spacing:3px;color:#fff0c7;text-shadow:4px 4px 0 #000}
+  .verdict{margin-top:36px;text-align:center}
+  .verdict-label{margin:0;color:#5f123e;font-weight:900;text-transform:uppercase}
+  .verdict-score{margin:4px 0;font-family:Bangers,cursive;font-size:6rem;color:#e33f86;text-shadow:3px 3px 0 #000}
+  .verdict-title{margin:0 0 12px;font-family:Bangers,cursive;font-size:2.4rem;color:#5f123e;letter-spacing:2px}
+  .verdict-body{max-width:780px;margin:0 auto 14px;line-height:1.55}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .tags span{background:#5f123e;color:#fff;padding:7px 10px;font-weight:900;text-transform:uppercase;border:2px solid #000}
+  .extra-section{width:min(1060px,94vw);margin:34px auto}
+  .extra-section p{line-height:1.62}
+  table{width:100%;border-collapse:collapse;background:#fff8e6;color:#15110d}
+  th,td{border:2px solid #000;padding:10px;text-align:left;vertical-align:top}
+  th{background:#5f123e;color:#fff;text-transform:uppercase}
+  footer{padding:32px 16px;text-align:center;color:#cdb582}
+  footer a{color:var(--gold);font-weight:900}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}.sb{position:relative;max-width:none;left:auto;right:auto;top:auto;bottom:auto;transform:none;margin:8px}.cap-top{position:relative;left:auto;top:auto;transform:none;max-width:none;margin:8px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="../../index.html">← Volver a Zaska y Acción</a>
+  <h1>Michael</h1>
+  <p class="subtitle">El guante brilla. El hombre se esconde. Un biopic espectacular en la forma, valiente a medias en el fondo.</p>
+  <div class="meta">
+    <span>Storybook Nº017</span>
+    <span>Película</span>
+    <span>Cines</span>
+    <span>2026</span>
+    <span>8,0/10</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="cover">
+    <img src="poster.png" alt="Póster Zaska y Acción de Michael con Rulo, Toni y una figura pop en escenario">
+  </section>
+
+  <section class="grid">
+    <article class="box">
+      <h2>Crítica seria</h2>
+      <p>Antoine Fuqua se enfrenta al biopic imposible: contar a la figura más idolatrada y más cuestionada de la música pop del siglo XX sin que el resultado sea ni hagiografía ni linchamiento. 'Michael' acierta de pleno en lo formal — Jaafar Jackson, sobrino del propio Michael, no imita: encarna. El cuerpo, el gesto, la voz, el magnetismo imposible sobre el escenario. Las recreaciones de los videoclips de Thriller y Beat It están reconstruidas plano a plano con una devoción de archivo que pone la piel de gallina. Y Colman Domingo, como Joe Jackson, sostiene la única herida verdadera de la película: la fábrica de talento montada sobre el miedo de un niño. Donde la película tiembla es en el fondo: se detiene justo cuando la historia se vuelve incómoda, esquiva al Michael adulto y oscuro, y prefiere el homenaje al retrato. Espectacular en la superficie, valiente solo a medias por debajo. Una primera parte magnífica de una historia que aún no se ha atrevido a contarse entera.</p>
+    </article>
+    <aside class="box">
+      <h2>Ficha rápida</h2>
+      <ul>
+        <li><strong>Tipo:</strong> Película</li>
+        <li><strong>Año:</strong> 2026</li>
+        <li><strong>Plataforma:</strong> Cines</li>
+        <li><strong>Nota Pachi:</strong> 8,0</li>
+        <li><strong>Frase:</strong> El Rey del Pop merece una segunda parte que tenga los huevos que esta no tuvo.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <div class="scene-label">Escena 1 - La entrada</div>
+  <div class="panel">
+    <img src="image1.png" alt="Rulo y Toni en la cola de un estreno nocturno de cine musical">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Toni. El biopic de Michael Jackson. Vamos a ver si tienen huevos a contarlo TODO."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"¿Todo todo? ¿O todo menos lo que tú y yo estamos pensando?"</div>
+    <div class="sb rulo bl"><span class="tag">RULO</span>"Esa, amigo mío, es la pregunta de los dos mil millones de dólares."</div>
+  </div>
+
+  <div class="scene-label">Escena 2 - Gary, Indiana</div>
+  <div class="panel">
+    <img src="image2.png" alt="Casa humilde de infancia con Rulo y Toni mirando una escena de ensayo familiar">
+    <div class="sb toni bl"><span class="tag">TONI</span>"El niño canta como los ángeles y el padre tiene cara de cobrador del frac."</div>
+    <div class="sb rulo tr"><span class="tag">RULO</span>"Joe Jackson. La fábrica de talento montada sobre el miedo. Aquí empieza todo lo bueno y todo lo roto."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Yo a ese padre ya le tengo manía y llevamos diez minutos."</div>
+  </div>
+
+  <div class="scene-label gold">Escena 3 - El padre-fábrica</div>
+  <div class="panel">
+    <img src="image3.png" alt="Ensayo familiar tenso con una figura de padre-manager y Rulo y Toni serios">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Colman Domingo. Fíjate. No hace de villano de dibujos. Hace de padre que cree que el miedo es amor. Eso da más miedo."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Es el típico que te diría 'esto me duele más a mí que a ti'."</div>
+    <div class="sb rulo bl"><span class="tag">RULO</span>"Y se lo creía. Eso es lo peor."</div>
+  </div>
+
+  <div class="scene-label">Escena 4 - Motown</div>
+  <div class="panel">
+    <img src="image4.png" alt="Estudio de grabación vintage con Rulo y Toni observando a un niño cantar">
+    <div class="sb toni br"><span class="tag">TONI</span>"Vale, el crío con cinco años canta mejor que yo con cuarenta y dos."</div>
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Jaafar Jackson. El sobrino. No imita a Michael... ES Michael. Mira cómo se mueve. Da escalofríos."</div>
+    <div class="sb toni bl"><span class="tag">TONI</span>"Acojona y emociona a la vez, como las pelis buenas."</div>
+  </div>
+
+  <div class="scene-label">Escena 5 - El videoclip</div>
+  <div class="panel">
+    <img src="image5.png" alt="Set de videoclip ochentero con Rulo y Toni como extras de baile">
+    <div class="sb toni bl"><span class="tag">TONI</span>"Rulo, estamos de zombis en Thriller. ¡ESTO es una peli!"</div>
+    <div class="sb rulo tr"><span class="tag">RULO</span>"Recreado plano a plano. Devoción de arqueólogo. Cuando suena, se te pone la piel de gallina."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"¡Que no me sale el paso, joder!"</div>
+  </div>
+
+  <div class="fx">¡EL GUANTE BRILLA!</div>
+
+  <div class="scene-label gold">Escena 6 - El mito sobre el escenario</div>
+  <div class="panel">
+    <img src="image6.png" alt="Gran escenario musical con Rulo y Toni entre el público">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"El moonwalk en el Motown 25. El momento en que un hombre se convierte en leyenda en directo."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"La música no se escucha, Rulo. Te EMPUJA. Te arrastra físicamente."</div>
+    <div class="sb rulo bl"><span class="tag">RULO</span>"Eso es lo que la película clava: el dios sobre el escenario."</div>
+  </div>
+
+  <div class="scene-label">Escena 7 - La puerta que no se abre</div>
+  <div class="panel">
+    <img src="image7.png" alt="Camerino tras el concierto con figura de espaldas y Rulo y Toni en la puerta">
+    <div class="sb toni bl"><span class="tag">TONI</span>"Y aquí... ¿aquí qué? ¿Quién es el tío cuando se apagan los focos?"</div>
+    <div class="sb rulo tr"><span class="tag">RULO</span>"Ahí está el problema, Toni. La película llama a esa puerta..."</div>
+    <div class="sb rulo br"><span class="tag">RULO</span>"...y se da la vuelta sin abrirla."</div>
+  </div>
+
+  <div class="scene-label">Escena 8 - El agujero en el centro</div>
+  <div class="panel">
+    <img src="image8.png" alt="Despacho de discográfica con contratos, ejecutivos y una silla vacía">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Aquí podían haber contado al hombre real. El raro, el genio, el incomprendido, el de los titulares."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"¿Y qué hacen?"</div>
+    <div class="sb rulo bl"><span class="tag">RULO</span>"Poner otra canción buenísima y mirar para otro lado."</div>
+  </div>
+
+  <div class="scene-label gold">Escena 9 - Matrícula de honor</div>
+  <div class="panel">
+    <img src="image9.png" alt="Sala de montaje con pantallas de conciertos y Toni bailando fatal">
+    <div class="sb toni br"><span class="tag">TONI</span>"Vale, me rindo. Como espectáculo es de matrícula de honor."</div>
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Como espectáculo, diez. Como retrato... un notable raspado que no se atreve."</div>
+    <div class="sb toni bl"><span class="tag">TONI</span>"O sea, lo de siempre con Michael: brillante por fuera."</div>
+  </div>
+
+  <div class="scene-label">Escena 10 - Continuará</div>
+  <div class="panel">
+    <img src="image10.png" alt="Sala de cine con pantalla de final abierto y Rulo y Toni levantándose">
+    <div class="sb toni br"><span class="tag">TONI</span>"¿CONTINUARÁ? ¡¿Me dejas a medias como las pelis de acción ochenteras del videoclub?!"</div>
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Bienvenido al truco más viejo: te dan el baile, te quitan el final."</div>
+    <div class="sb toni bl"><span class="tag">TONI</span>"Pues como me hagan pagar otra entrada para ver LO OTRO, me da algo."</div>
+  </div>
+
+  <div class="quote-box">
+    <p class="quote-text">EL GUANTE BRILLA. EL HOMBRE SE ESCONDE.</p>
+  </div>
+
+  <div class="scene-label">Escena 11 - Salida del cine</div>
+  <div class="panel">
+    <img src="image11.png" alt="Rulo y Toni salen del cine de noche bajo luces de neón">
+    <div class="sb rulo tl"><span class="tag">RULO</span>"Jaafar es de otro planeta. El padre, brutal. Thriller, escalofriante. Todo eso es verdad."</div>
+    <div class="sb toni br"><span class="tag">TONI</span>"Pero te han traído al Rey del Pop bailando como los ángeles..."</div>
+    <div class="sb rulo bl"><span class="tag">RULO</span>"...y no te han traído al hombre. Eso lo dejaron para la segunda parte."</div>
+  </div>
+
+  <div class="scene-label gold">Escena 12 - El remate</div>
+  <div class="panel">
+    <img src="image12.png" alt="Calle vacía al final de la noche con Rulo y Toni alejándose">
+    <div class="sb toni tl"><span class="tag">TONI</span>"Entonces, ¿la vemos? ¿La recomendamos?"</div>
+    <div class="sb rulo br"><span class="tag">RULO</span>"La ves por Jaafar y por la música. Y sales con la misma sensación que con Michael en vida."</div>
+    <div class="sb toni bl"><span class="tag">TONI</span>"¿Cuál?"</div>
+    <div class="sb rulo tr"><span class="tag">RULO</span>"Que viste al mito de cerca... y al hombre nunca."</div>
+  </div>
+
+  <div class="verdict">
+    <p class="verdict-label">Veredicto de Rulo y Toni</p>
+    <p class="verdict-score">8,0</p>
+    <p class="verdict-title">EL GUANTE BRILLA, EL HOMBRE SE ESCONDE</p>
+    <p class="verdict-body">Jaafar Jackson es Michael en cuerpo y alma, las recreaciones de Thriller te arrastran físicamente y el retrato del padre maltratador duele de verdad. Pero la película se queda corta justo cuando se ponía interesante: mucho homenaje, poco hombre. Espectacular en la forma, valiente a medias en el fondo. El Rey del Pop merece una segunda parte que tenga los huevos que esta no tuvo.</p>
+    <div class="tags">
+      <span>Biopic musical</span><span>Cines</span><span>2026</span><span>Jaafar Jackson</span><span>Colman Domingo</span>
+    </div>
+  </div>
+</main>
+
+<section class="extra-section">
+  <h3>Opinión Pachi</h3>
+  <p>La interpretación del protagonista es de nivel diez, parece Michael en cuerpo y alma. La película recorre la infancia y la relación con el padre maltratador con honestidad, que es donde más duele y donde más acierta. Las recreaciones de los videoclips de Thriller son extraordinarias. La música te arrastra físicamente. El problema es que se queda cortada justo cuando más interesante se iba a poner. Un 8 justo: espectacular en la forma, valiente a medias en el fondo.</p>
+</section>
+
+<section class="extra-section">
+  <h3>Crítica canalla</h3>
+  <p>Hay biopics que te cuentan una vida. Y hay biopics que te venden una entrada al concierto y te echan justo antes de los bises. Michael es de los segundos. Y duele, porque durante hora y media te tiene a huevo de ser la mejor película de música desde Amadeus.</p>
+  <p>Vamos por partes, que esto da para rato.</p>
+  <p>Hacer el biopic de Michael Jackson es como hacer la peli de Maradona o la de Mike Tyson: sabes que vas a llenar el cine, sabes que la mitad de la sala viene por la música y sabes que la OTRA mitad viene a ver si te atreves a contar LO OTRO. Y ahí está la trampa. Porque Antoine Fuqua —el de Training Day, el tío que sabe rodar tensión— sabe perfectamente dónde están las minas. Lo que pasa es que decide pasar de puntillas por encima de todas. Te trae la chaqueta de cuero roja, el guante, el sombrero, el moonwalk clavado al milímetro... y cuando la cosa se va a poner fea, mira para otro lado y sube el volumen.</p>
+  <p>Pero empecemos por lo bueno, que lo hay y es mucho.</p>
+  <p>Jaafar Jackson. Apúntate ese nombre. El sobrino de Michael. Y no te voy a decir que lo imita, porque imitar lo hace cualquier humorista de after en Las Vegas. Este chaval no imita: lo resucita. El cuerpo, los hombros, esa forma de quedarse quieto un segundo antes de explotar en movimiento. Cuando se desliza por el plató haciendo el Billie Jean, a mí se me puso la piel como cuando tenía quince años y metía la cinta de Thriller en el vídeo a las tantas de la noche, con la casa a oscuras, y me daba un poco de cosa pero no podía parar. Eso. Esa sensación. La peli te la devuelve entera.</p>
+  <p>—Espera, Rulo —que me dice Toni—, ¿pero el crío vale o no vale?</p>
+  <p>Vale tanto que te olvidas de que estás viendo a un actor. Y eso, en un biopic de alguien con la cara más famosa del planeta, es un milagro. Punto para Fuqua. El casting del año.</p>
+  <p>Y luego está el otro. Colman Domingo haciendo de Joe Jackson. Madre mía con Colman Domingo. Porque aquí es donde la película, por un rato, tiene huevos de verdad. Joe Jackson no es el villano de dibujos animados, no es Skeletor con bigote. Es algo mucho peor: es el padre que está convencido de que el miedo es una forma de amor. El tío que monta una fábrica de talento en el salón de su casa de Gary, Indiana, y la alimenta con terror. Colman Domingo lo borda porque no lo juzga: lo entiende. Te hace ver al hombre que de verdad creía que pegar a sus hijos los estaba salvando de la pobreza. Y eso, amigo, da más miedo que cualquier monstruo de la Universal, porque ese monstruo era de tu casa. Como el padre de El Resplandor pero sin hacha, solo con un cinturón y una ambición del tamaño de un estadio.</p>
+  <p>Las recreaciones musicales son de matrícula de honor. Thriller reconstruido plano a plano, con los zombis, la niebla, la chaqueta. Beat It. Smooth Criminal con la inclinación imposible. El Motown 25 donde el moonwalk convierte a un hombre en leyenda EN DIRECTO, delante de millones de personas, en treinta segundos que cambiaron la música para siempre. Cuando suena la música, la película no se escucha: te empuja. Te arrastra físicamente fuera de la butaca. Y ahí Fuqua demuestra que sabe lo que hace.</p>
+  <p>Entonces, ¿cuál es el problema? Que la película es un concierto cojonudo con un agujero en el centro donde debería estar el hombre.</p>
+  <p>Porque aquí viene el truco más viejo del cine, el mismo que te hacían las pelis de acción de los ochenta que alquilabas en el videoclub y que acababan justo en lo mejor con un rótulo de "CONTINUARÁ" que te dejaba con el cabreo metido en el cuerpo todo el fin de semana. Michael te lleva hasta el momento Thriller, hasta la cumbre, hasta el dios sobre el escenario... y baja el telón. Se acabó. ¿Y el Michael adulto? ¿El raro? ¿El de Neverland, el de los titulares, el de las acusaciones, el hombre roto que se medicaba para dormir y que murió a los cincuenta pareciendo un fantasma de sí mismo? Ese no sale. Ese lo dejan para la segunda parte, como si la vida de un tío así se pudiera partir en dos como un VHS y vender por entregas.</p>
+  <p>Hay una escena —la mejor de toda la película— en la que Michael, agotado después de un concierto descomunal, se queda solo en el camerino frente a un espejo lleno de bombillas. De espaldas. Y por un segundo, UN segundo, la cámara duda. Parece que va a entrar ahí, a abrir esa puerta, a enseñarte quién es el tío cuando se apagan los focos y se queda solo con su infancia robada y su cara cambiada.</p>
+  <p>—¿Y qué hace? —pregunta Toni, que ya lo veía venir.</p>
+  <p>Se da la vuelta. Llama a la puerta y no la abre. Pone otra canción buenísima y a correr.</p>
+  <p>Y eso es lo que más rabia da, porque la película DEMUESTRA que sabía dónde estaba la herida. La toca con la infancia y con Joe Jackson. Sabe encontrarla. Pero cuando llega el Michael adulto, el complicado, el incómodo, el que de verdad necesitaba una peli valiente, Fuqua se pone el guante brillante y hace mutis por el foro. Demasiado homenaje. Demasiado respeto. Demasiado miedo a tocar al mito de verdad. Es como si te invitaran a cenar a casa del Padrino y te sacaran solo el antipasto: riquísimo, pero te quedas con hambre de lo gordo.</p>
+  <p>Te han traído al Rey del Pop bailando como los ángeles, con un actor sobrenatural y una banda sonora que es la mejor de la historia de la música popular. Eso no te lo quita nadie y vale la entrada con creces. Pero al hombre, al de carne y hueso, al genio jodido que había detrás del guante, no te lo han traído. Lo han dejado fuera, en el aparcamiento, esperando una segunda parte que ojalá tenga los huevos que a esta le faltaron.</p>
+  <p>Velo. Por Jaafar, por Colman Domingo, por Thriller en pantalla grande. Pero sal preparado para lo mismo que sentías con Michael en vida: que has visto al mito de cerca... y al hombre, nunca. El guante brilla. El hombre se esconde. 8.</p>
+</section>
+
+<section class="extra-section">
+  <h3>Personajes</h3>
+  <table>
+    <tr><th>Actor</th><th>Personaje</th><th>En una línea</th></tr>
+    <tr><td>Jaafar Jackson</td><td>Michael Jackson</td><td>El sobrino que no imita: encarna. La interpretación que sostiene la película.</td></tr>
+    <tr><td>Colman Domingo</td><td>Joe Jackson</td><td>El padre-fábrica. El miedo disfrazado de disciplina. La herida real del biopic.</td></tr>
+    <tr><td>(reparto)</td><td>Familia Jackson</td><td>El coro de Gary, Indiana: talento criado a presión.</td></tr>
+  </table>
+</section>
+
+<footer>
+  <p>© 2025 <a href="../../index.html">Zaska y Acción</a> - Crítica de cine y series sin filtros ni condescendencia.</p>
+</footer>
+</body>
+</html>
