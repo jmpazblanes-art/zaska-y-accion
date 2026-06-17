@@ -7,7 +7,7 @@
 
 ## 🔴 REGLA DURA Nº1 — JAMÁS RESUMIR NI CORTAR UNA CRÍTICA (por encima de todo)
 
-**Incidente 2026-06-16: las críticas serias y canallas del HTML salieron RESUMIDAS / RECORTADAS respecto al texto largo que está en Notion. Pachi se cabreó con razón. NO SE REPITE NUNCA.**
+**Incidente 2026-06-16: las críticas serias y canallas del HTML salieron RESUMIDAS / RECORTADAS respecto al texto largo que está en Notion. Las metió CLAUDE CODE (yo) en sesiones anteriores al montar/subir el HTML — NO fue Codex. El texto largo está en Notion; el fallo fue mío al volcarlo resumido. Pachi se cabreó con razón. NO SE REPITE NUNCA.**
 
 1. **PROHIBIDO meter una crítica resumida, recortada o "a ojo".** La crítica seria debe ser LARGA y profesional (mínimo ~350-450 palabras, varios párrafos). La crítica canalla debe ser LARGA y macarra (referencia: Michael y The Wire, ~1000+ palabras). Nada de versiones cortas.
 2. **El texto largo de Notion MANDA.** Si Notion tiene la versión larga, se vuelca ÍNTEGRA al HTML, palabra por palabra, sin resumir ni una línea.
@@ -67,6 +67,24 @@ Cola en Notion → BD **"Pipeline Zaska"**:
 https://app.notion.com/p/d4d4702f6d6d4cb39aa496782ac59393
 Proceso las fichas en estado `Storybook creado` y, al publicar, las marco `Publicado`
 (rellenando "URL publicada" y "Nº").
+
+### Regla dura de cola en Notion
+
+**Pipeline Zaska manda.** Para saber qué queda por crear o subir, mirar SIEMPRE la BD
+`Pipeline Zaska`, no las páginas sueltas de `01 Series`.
+
+- Las páginas sueltas de `01 Series` son **fichas fuente / material largo**, no cola operativa.
+- Si una ficha fuente no aparece en `Pipeline Zaska`, crear primero una fila allí con `Estado`,
+  `Slug`, `Nº`, `Tipo`, `Categoría carpeta`, `Nota Pachi`, `Plataforma` y enlace a la ficha fuente
+  en `Notas Codex/CC`.
+- Codex trabaja solo filas en `Pendiente storybook`.
+- Claude Code trabaja solo filas en `Storybook creado`.
+- Tras publicar, Claude Code rellena `URL publicada` y marca `Publicado`.
+- Estado normalizado el 2026-06-17:
+  - `Pendiente storybook`: `godless`, `the-americans`, `westworld`, `prison-break`,
+    `hijos-de-la-anarquia`.
+  - `Storybook creado`: `24`.
+  - `Publicado`: `michael`.
 
 ---
 

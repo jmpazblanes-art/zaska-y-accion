@@ -76,6 +76,19 @@ body {
 .c-series { font-family:'Bangers',cursive; font-size:clamp(1.2rem,3vw,2rem); letter-spacing:4px; color:var(--blue); text-shadow:0 0 20px rgba(0,180,204,.5); margin-bottom:52px; }
 .c-by { font-size:.72rem; letter-spacing:2px; color:#555; text-transform:uppercase; margin-bottom:72px; }
 .c-by span { color:var(--amber); }
+.c-poster {
+  width: min(360px, 82vw);
+  margin: -34px auto 42px;
+  border: 4px solid var(--amber);
+  box-shadow: 0 0 34px rgba(200,160,0,.35), 10px 10px 0 rgba(0,0,0,.75);
+  background: #000;
+  transform: rotate(-1deg);
+}
+.c-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .c-scroll { font-family:'Bangers',cursive; font-size:1rem; letter-spacing:3px; color:var(--amber); text-transform:uppercase; animation:bob 1.6s ease-in-out infinite; }
 @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
 
@@ -450,6 +463,9 @@ body {
   <div class="c-sub">24 HORAS · TIEMPO REAL · SIN DESCANSO</div>
   <div class="c-series">THRILLER · ACCIÓN · FOX (2001–2010)</div>
   <div class="c-by">Una crítica de <span>Rulo y Toni</span> — con la opinión de Pachi</div>
+  <div class="c-poster">
+    <img src="poster.png" alt="Póster Zaska y Acción de 24 con Rulo y Toni">
+  </div>
   <div class="c-scroll">↓ Empieza el contador ↓</div>
 </section>
 
@@ -459,7 +475,7 @@ body {
   <!-- PANEL 1 — El pitch -->
   <div class="row r1">
     <div class="panel b-amber" style="min-height:340px;">
-      <img src="image1.png" alt="Rulo y Toni en el sofá">
+      <img src="image1.png" alt="Rulo y Toni en la UAT con el reloj de cuenta atrás">
       <div class="sb rulo tr tail-bl">
         <span class="tag">RULO</span>
         Toni. Imagina que tienes 24 horas para salvar el mundo. Y que esas 24 horas son… literalmente… un episodio por hora.
@@ -475,7 +491,7 @@ body {
   <!-- PANEL 2 — Jack Bauer -->
   <div class="row r46">
     <div class="panel b-red" style="min-height:320px;">
-      <img src="image4.png" alt="Rulo emocionado">
+      <img src="image2.png" alt="Rulo y Toni observan a Jack Bauer en la UAT">
       <div class="sb rulo tc tail-bl">
         <span class="tag">RULO</span>
         Jack Bauer. Agente antiterrorista. El tío no duerme, no come, no va al baño. Solo actúa. Y Kiefer Sutherland lo hace tan suyo que la serie entera se sostiene sobre sus hombros.
@@ -483,7 +499,7 @@ body {
       <div class="cap">Panel 2 — Kiefer Sutherland como Jack Bauer</div>
     </div>
     <div class="panel b-red" style="min-height:320px;">
-      <img src="image8.png" alt="Toni furioso">
+      <img src="image3.png" alt="Rulo y Toni ante una traición en la UAT">
       <div class="sb bauer tc tail-bl">
         <span class="tag">JACK BAUER</span>
         No tengo tiempo para explicaciones. Confía en mí.
@@ -499,7 +515,7 @@ body {
   <!-- PANEL 4 — El formato tiempo real -->
   <div class="row r64">
     <div class="panel b-amber" style="min-height:300px;">
-      <img src="image9.png" alt="Rulo explicando">
+      <img src="image4.png" alt="Rulo explica el formato de tiempo real ante pantallas partidas">
       <div class="sb rulo tl tail-br">
         <span class="tag">RULO</span>
         El formato es único: 24 episodios, 24 horas, tiempo real. El reloj corre. Cada minuto cuenta. Y la pantalla partida te recuerda constantemente que en otro lugar hay otro desastre a punto de explotar.
@@ -536,7 +552,23 @@ body {
     </div>
   </div>
 
-  <!-- FX 1 -->
+  <!-- PANEL 6 — La tensión -->
+  <div class="row r1">
+    <div class="panel b-red" style="min-height:320px;">
+      <img src="image6.png" alt="Rulo y Toni tensos ante una amenaza en la UAT">
+      <div class="sb rulo tr tail-bl">
+        <span class="tag">RULO</span>
+        Aquí cada llamada puede ser una bomba, cada mapa una cuenta atrás y cada silencio una traición esperando turno.
+      </div>
+      <div class="sb toni tl tail-br">
+        <span class="tag">TONI</span>
+        O sea, descanso cero. Perfecto. Justo lo que necesitaba mi tensión arterial.
+      </div>
+      <div class="cap">Panel 6 — La tensión no baja nunca</div>
+    </div>
+  </div>
+
+  <!-- FX 1 — Tick tock -->
   <div class="fx-panel">
     <div class="fx-word">¡TICK TOCK!</div>
   </div>
@@ -544,7 +576,7 @@ body {
   <!-- PANEL 7 — Los giros y traiciones -->
   <div class="row r2">
     <div class="panel b-red" style="min-height:300px;">
-      <img src="image10.png" alt="Ambos cara a cara">
+      <img src="image8.png" alt="Toni reacciona furioso ante una traición">
       <div class="sb toni tl tail-br">
         <span class="tag">TONI</span>
         ¡ERA EL ALIADO DE CONFIANZA! ¡Llevaba cinco episodios siendo mi personaje favorito!
@@ -574,10 +606,26 @@ body {
     <div class="fx-word red-word">¡BAUER!</div>
   </div>
 
+  <!-- PANEL 9 — La trampa adictiva -->
+  <div class="row r1">
+    <div class="panel b-blue" style="min-height:320px;">
+      <img src="image10.png" alt="Rulo y Toni discuten sobre los giros imposibles de 24">
+      <div class="sb rulo tl tail-br">
+        <span class="tag">RULO</span>
+        ¿Que a veces se pasa de rosca? Sí. Pero cuando acelera, te compra el billete y te ata al asiento.
+      </div>
+      <div class="sb toni br tail-ul">
+        <span class="tag">TONI</span>
+        Me estoy quejando y aun así quiero otro episodio. Eso es delito televisivo.
+      </div>
+      <div class="cap">Panel 9 — La trampa: sabes que exagera, pero sigues</div>
+    </div>
+  </div>
+
   <!-- PANEL 10 — Curva de calidad + Pachi -->
   <div class="row r64">
     <div class="panel b-amber" style="min-height:300px;">
-      <img src="image2.png" alt="Rulo pensativo">
+      <img src="image9.png" alt="Rulo explica el balance de 24 ante un mapa táctico">
       <div class="sb rulo tc tail-bl">
         <span class="tag">RULO</span>
         Las dos primeras temporadas son perfectas. La 4ª también es brutal. Algunas flojan. Pero el ritmo endiablado, los giros y la acción desenfrenada siempre te devuelven a la silla.
@@ -613,7 +661,19 @@ body {
     </div>
   </div>
 
-  <!-- FINALE -->
+  <!-- PANEL 12 — Epílogo -->
+  <div class="row r1">
+    <div class="panel b-amber" style="min-height:320px;">
+      <img src="image12.png" alt="Rulo y Toni salen de la UAT al amanecer">
+      <div class="sb narr bc">
+        <span class="tag">NARRADOR</span>
+        Cuando termina un día imposible, el reloj no descansa. Se reinicia. Y tú, si eres listo, tampoco.
+      </div>
+      <div class="cap">Panel 12 — Amanece, pero el contador vuelve a empezar</div>
+    </div>
+  </div>
+
+  <!-- VEREDICTO FINAL -->
   <div class="finale">
     <span class="fin-tag">VEREDICTO FINAL</span>
     <div class="fin-v">24 — EL DÍA MÁS LARGO</div>

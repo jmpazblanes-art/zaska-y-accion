@@ -65,6 +65,25 @@ Flujo de 8 pasos. **Cada eslabón tiene un responsable. No los mezcles.**
   la marca `Storybook creado`. **Claude Code** procesa las `Storybook creado` cuando Pachi dice
   "sube las pendientes", y al publicar las marca `Publicado`.
 
+### Regla dura de cola en Notion
+
+- **Pipeline Zaska manda.** Para saber qué queda, mirar SIEMPRE la BD `Pipeline Zaska`, no las
+  páginas sueltas de `01 Series`.
+- Las páginas sueltas de `01 Series` son **fichas fuente / material largo**, no cola operativa.
+  Si una ficha fuente no está reflejada en `Pipeline Zaska`, antes de trabajar hay que crear una
+  fila en `Pipeline Zaska` con su `Estado`, `Slug`, `Nº`, `Tipo`, `Categoría carpeta`, `Nota Pachi`,
+  `Plataforma` y un enlace a la ficha fuente en `Notas Codex/CC`.
+- Codex solo debe empezar con filas en `Pendiente storybook`.
+- Al terminar Codex: verificar `poster.png`, `image1.png`…`image12.png`, copia en `Posters/[slug].png`
+  e `index.html`; después marcar la fila `Storybook creado`.
+- Claude Code solo debe subir filas en `Storybook creado`; al publicar, rellena `URL publicada` y marca
+  `Publicado`.
+- Estado normalizado el 2026-06-17:
+  - `Pendiente storybook`: `godless`, `the-americans`, `westworld`, `prison-break`,
+    `hijos-de-la-anarquia`.
+  - `Storybook creado`: `24`.
+  - `Publicado`: `michael`.
+
 ---
 
 ## TU TRABAJO AQUÍ (Codex)
@@ -186,8 +205,9 @@ Vercel despliega automáticamente en ~1 minuto tras el push.
 | 014 | series | breaking-bad | Breaking Bad | 9.5 | Netflix |
 | 015 | series | a-dos-metros-bajo-tierra | A dos metros bajo tierra | 9.5 | HBO Max |
 | 016 | series | better-call-saul | Better Call Saul | 9.0 | Netflix |
+| 017 | peliculas | michael | Michael | 8.0 | Cines |
 
-El siguiente es **Nº017**.
+El siguiente es **Nº018**.
 
 ---
 
