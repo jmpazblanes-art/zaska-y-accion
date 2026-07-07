@@ -326,6 +326,20 @@ h2.criticas-titulo {
 .pachi-canalla-bloque p { color:#ddd; }
 </style>
 
+<style id="zaska-mobile-rescue">
+/* Rescate responsive — añadido 2026-07-07 */
+img,video,iframe,svg{max-width:100%!important;height:auto!important}
+table,pre{max-width:100%;overflow-x:auto;display:block}
+html,body{max-width:100%;overflow-x:hidden}
+*{min-width:0}
+/* Viñetas .panel con imagen de ancho fijo: apilar en móvil (imagen arriba, texto debajo) */
+@media (max-width:640px){
+  .panel{flex-direction:column!important}
+  .panel-img{flex:0 0 auto!important;width:100%!important;min-height:150px!important;border-right:none!important;border-bottom:3px solid #1e1710!important}
+  .panel-txt{width:100%!important;flex:1 1 auto!important}
+}
+</style>
+
 <section class="criticas-section">
 <div class="criticas-inner">
 <h2 class="criticas-titulo">Hijos de la Anarquía</h2>
