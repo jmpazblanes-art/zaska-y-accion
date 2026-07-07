@@ -496,3 +496,141 @@ img { max-width: 100%; display: block; }
   white-space: nowrap;
   overflow: hidden;
 }
+
+/* ============================================================
+   MOBILE / RESPONSIVE  — menú hamburguesa + apilado global
+   Añadido 2026-07-07. El botón .nav-toggle lo inyecta
+   mobile-nav.js en cada página (o puede ir en el HTML).
+   ============================================================ */
+
+/* Botón hamburguesa: oculto en escritorio */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: transparent;
+  border-radius: 8px;
+  color: var(--ink);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+}
+.nav-toggle svg { width: 22px; height: 22px; }
+
+/* Bloqueo de scroll de fondo cuando el menú móvil está abierto */
+body.nav-open { overflow: hidden; }
+
+@media (max-width: 860px) {
+  /* Header: logo a la izquierda, botones + hamburguesa a la derecha */
+  .header-row {
+    gap: 12px;
+    height: 62px;
+  }
+  .header-right { gap: 8px; margin-left: auto; }
+  .nav-toggle { display: inline-flex; }
+
+  /* Nav pasa a panel deslizante a pantalla completa */
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: min(78vw, 320px);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 4px;
+    margin: 0;
+    padding: 84px 28px 40px;
+    background: var(--bg-2);
+    border-left: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    box-shadow: -18px 0 50px rgba(0,0,0,.5);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+    z-index: 60;
+    overflow-y: auto;
+    transform: translateX(100%);
+  }
+  /* Cerrado: display:none saca el panel del cálculo de ancho por
+     completo (position:fixed NO lo contiene overflow-x:hidden, así
+     que hay que quitarlo del layout de verdad). */
+  body:not(.nav-open) .nav { display: none; }
+  body.nav-open .nav { display: flex; transform: translateX(0); animation: navIn .28s cubic-bezier(.4,0,.2,1); }
+  @keyframes navIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+  .nav a {
+    font-size: 15px;
+    letter-spacing: .08em;
+    padding: 14px 0;
+    width: 100%;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  }
+  .nav a.active::after,
+  .nav a:hover::after { bottom: 8px; }
+
+  /* Backdrop oscuro tras el panel */
+  .nav::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    left: -100vw;
+    width: 100vw;
+    background: rgba(0,0,0,.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .28s;
+    z-index: -1;
+  }
+
+  .brand-name { font-size: 22px; }
+  .brand-name .y { font-size: 15px; }
+  .brand-mark { width: 40px; height: 40px; }
+
+  /* Botones de header algo más compactos */
+  .search-btn, .theme-toggle { width: 38px; height: 38px; }
+}
+
+/* Ajustes finos para pantallas pequeñas (teléfonos estándar) */
+@media (max-width: 560px) {
+  :root { --gutter: 18px; }
+
+  body { font-size: 15px; }
+
+  /* Section headers: apilar título y "más" */
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .section-head h2 { font-size: clamp(30px, 9vw, 44px); }
+
+  /* Footer a una sola columna */
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  .site-footer { margin-top: 64px; padding: 48px 0 32px; }
+
+  /* Botones a ancho completo, legibles */
+  .btn { padding: 13px 18px; font-size: 11px; }
+
+  .scanline { margin: 40px 0; }
+}
+
+/* Seguro anti-overflow global: nada debe empujar el ancho */
+img, video, iframe, table, pre { max-width: 100%; }
+.wrap { width: 100%; }
+
+/* Marquesinas / tickers: recortar su ancho interno al viewport.
+   El .ticker-track es intencionadamente ancho (animación), pero
+   el contenedor NO debe ensanchar la página. */
+.ticker, .marquee, [class*="ticker"] { max-width: 100vw; overflow: hidden; }
+
+/* Cinturón final: el html/body nunca hacen scroll horizontal */
+html, body { max-width: 100%; overflow-x: hidden; }
