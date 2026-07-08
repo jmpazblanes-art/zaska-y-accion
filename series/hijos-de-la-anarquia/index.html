@@ -143,9 +143,24 @@ body {
   border-right:3px solid #1e1710;
   position:relative; overflow:hidden;
 }
+.panel-img img {
+  width:100%; height:100%;
+  object-fit:cover; display:block;
+  position:absolute; inset:0;
+}
 .panel-img::after {
   content:''; position:absolute; inset:0;
   background:repeating-linear-gradient(135deg,transparent,transparent 6px,rgba(224,88,0,.03) 7px);
+}
+.story-img {
+  width:100%; display:block;
+  border-bottom:3px solid #1e1710;
+}
+.panel-char .story-img {
+  width:220px; align-self:stretch;
+  object-fit:cover; border:0;
+  border-right:3px solid rgba(224,88,0,.45);
+  margin:-24px 0 -24px -28px;
 }
 
 .panel-txt {
@@ -412,7 +427,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <!-- PANEL 1: PITCH -->
 <div class="panel">
-  <div class="panel-img">CHARMING,<br>CALIFORNIA</div>
+  <div class="panel-img"><img src="image1.png" alt="Rulo y Toni llegan a Charming, California"></div>
   <div class="panel-txt">
     <div class="speaker">RULO</div>
     <div class="bubble">
@@ -441,11 +456,12 @@ html,body{max-width:100%;overflow-x:hidden}
       Es glorioso, Toni. Glorioso.
     </div>
   </div>
-  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;">SAMCRO<br>1%</div>
+  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;"><img src="image2.png" alt="Rulo y Toni frente al club SAMCRO"></div>
 </div>
 
 <!-- PANEL 3: JAX + GEMMA -->
 <div class="panel-char">
+  <img class="story-img" src="image3.png" alt="Jax Teller en el taller con el diario de su padre">
   <div class="char-icon">J</div>
   <div class="char-info">
     <h4>Jackson "Jax" Teller</h4>
@@ -460,7 +476,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <!-- PANEL 4: GEMMA + CLAY -->
 <div class="panel">
-  <div class="panel-img">GEMMA<br>&<br>CLAY</div>
+  <div class="panel-img"><img src="image4.png" alt="Gemma y Clay dominan el club desde la sombra"></div>
   <div class="panel-txt">
     <div class="speaker">TONI</div>
     <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
@@ -497,12 +513,12 @@ html,body{max-width:100%;overflow-x:hidden}
       Exactamente. Kurt Sutter lo diseñó así. Hamlet en cuero negro. Te lo juro.
     </div>
   </div>
-  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;">JAX<br>VS<br>MUNDO</div>
+  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;"><img src="image5.png" alt="Jax contra el mundo en una carretera oscura"></div>
 </div>
 
 <!-- PANEL 6: RITMO -->
 <div class="panel">
-  <div class="panel-img">92<br>EP.</div>
+  <div class="panel-img"><img src="image6.png" alt="El ritmo vertiginoso de SAMCRO en carretera"></div>
   <div class="panel-txt">
     <div class="speaker">RULO</div>
     <div class="bubble">
@@ -526,6 +542,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <!-- PANEL 7: CURVA CALIDAD -->
 <div class="quality-curve">
+  <img class="story-img" src="image7.png" alt="La curva de calidad de las siete temporadas como carretera">
   <h3>📈 Curva de calidad · 7 temporadas</h3>
   <div class="q-bars">
     <div class="q-bar-wrap">
@@ -568,7 +585,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <!-- PANEL 8: FINAL -->
 <div class="panel">
-  <div class="panel-img">THE<br>END?</div>
+  <div class="panel-img"><img src="image8.png" alt="Final de Hijos de la Anarquía en una autopista al amanecer"></div>
   <div class="panel-txt">
     <div class="speaker">TONI</div>
     <div class="bubble right" style="border-color:var(--chrome); background:#100e0c;">
@@ -605,11 +622,12 @@ html,body{max-width:100%;overflow-x:hidden}
       Sin dudarlo. Abróchate el casco.
     </div>
   </div>
-  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;">VERDICT:<br>SAMCRO<br>APPROVED</div>
+  <div class="panel-img" style="border-left:3px solid #1e1710; border-right:none;"><img src="image9.png" alt="Rulo recomienda ponerse el casco y entrar en SAMCRO"></div>
 </div>
 
 <!-- PANEL 10: PERSONAJES -->
 <div class="panel wide">
+  <img class="story-img" src="image10.png" alt="Rulo y Toni presentan al club de personajes de SAMCRO">
   <div class="panel-txt" style="padding:20px 24px;">
     <div class="speaker" style="font-size:.9rem; margin-bottom:10px;">CLUB DE PERSONAJES — SAMCRO</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
@@ -643,6 +661,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <!-- PANEL 11: VEREDICTO FINAL -->
 <div class="veredicto">
+  <img class="story-img" src="image11.png" alt="Veredicto final 8.5 sobre el depósito de una moto">
   <h2>⚡ VEREDICTO FINAL</h2>
   <div class="nota-final">8.5</div>
   <div class="nota-texto">sobre 10 · FX / Amazon Prime · 7 temporadas</div>
@@ -652,6 +671,12 @@ html,body{max-width:100%;overflow-x:hidden}
 </div>
 
 </div><!-- /book -->
+
+<div class="book" style="padding-top:0;">
+  <div class="panel wide">
+    <img class="story-img" src="image12.png" alt="Rulo y Toni dejan Charming al atardecer">
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer style="background:#040305; border-top:2px solid #1a1410; padding:28px; text-align:center;">
